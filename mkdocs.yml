@@ -1,6 +1,6 @@
-site_name: 2023_CO
-site_url: https://guahao31.github.io/2023_CO
-site_author: GNG not Gua
+site_name: 2024_CO
+site_url: https://guahao31.github.io/2024_CO
+site_author: GNG not Gua & QJJ
 
 theme:
   name: material
@@ -26,10 +26,10 @@ theme:
     
 plugins:
   - search
-  - heti:
-      disable_serve: false
-repo_url: https://github.com/guahao31/2023_CO
-repo_name: 2023_CO
+  # - heti:
+  #     disable_serve: false
+repo_url: https://github.com/guahao31/2024_CO
+repo_name: 2024_CO
 
 markdown_extensions:
   - admonition
