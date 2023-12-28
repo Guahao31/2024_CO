@@ -1,0 +1,7 @@
+.md-typeset code:not(pre code) {
+  font-size: inherit;
+}
+
+.md-typeset .admonition, .md-typeset details {
+  font-size: 0.7rem;
+}

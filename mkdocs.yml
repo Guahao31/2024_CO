@@ -1,0 +1,85 @@
+site_name: 2023_CO
+site_url: https://guahao31.github.io/2023_CO
+site_author: GNG not Gua
+
+theme:
+  name: material
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night
+        name: 暗色模式
+    - media: "(prefers-color-scheme: dark)"
+      primary: teal
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: 亮色模式
+  language: zh
+  features:
+    - content.code.copy
+    - navigation.tabs
+    - navigation.sections
+  icon:
+    repo: fontawesome/brands/git-alt
+    
+plugins:
+  - search
+  - heti:
+      disable_serve: false
+repo_url: https://github.com/guahao31/2023_CO
+repo_name: 2023_CO
+
+markdown_extensions:
+  - admonition
+  - md_in_html
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - tables
+
+extra_css:
+  - _css/style.css
+
+nav:
+  - Home: index.md
+  - Warm Up:
+    - Vivado 安装: warmup/Vivado_installation.md
+    - Lab0: warmup/Lab0.md
+  - Lab1: 
+    - Lab1/Lab1.md
+    - ALU: Lab1/ALU_RegFile/ALU.md
+    - RegFile: Lab1/ALU_RegFile/RegFile.md
+    - FSM: Lab1/FSM/FSM.md
+  - Lab2: 
+    - Lab2/Lab2.md
+  - Lab3:
+    - Lab3/Lab3.md
+    - Multiplier: Lab3/multiplier.md
+    - Divider: Lab3/divider.md
+    - Floating Point Adder: Lab3/floating_point_adder.md
+  - Lab4:
+    - Lab4/Lab4.md
+    - DataPath & CtrlUnit: Lab4/DataPath_CtrlUnit.md
+    - Instruction Extension: Lab4/instr_extension.md
+    - Exception & Interruption: Lab4/exception_interruption.md
+
+  - Lab5:
+    - Lab5/Lab5.md
+    - 基础流水线: Lab5/pipeline_basic.md
+    - 解决冲突: Lab5/pipeline_hazard.md
+
+  - Other:
+    - Git 基础: Other/about_git.md
+    - 在Linux/macOS 上仿真: Other/Verilog_Simulation.md
+    - RISC-V 32I: Other/RISC_V.md
+    - RISC-V Decoder 与 CPU Testbench: Other/Decoder_and_Testbench.md
+
