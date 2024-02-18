@@ -3,7 +3,7 @@
 ???+ tips "开始之前"
     * 实验工程的路径不应有中文和空格。
     * 默认掌握了 Verilog 基础并知道如何进行测试。
-    * 如果你的数逻一路摸鱼，可以参考：[菜鸟Verilog教程](https://www.runoob.com/w3cnote/verilog-tutorial.html)、[HDLBits](https://hdlbits.01xz.net/wiki/Main_Page)、数逻助教的时候摸出来的[slides](https://github.com/Guahao31/for_Computer_Logic/tree/master/slides)。
+    * 如果你的数逻课程一路摸鱼，可以参考：[菜鸟Verilog教程](https://www.runoob.com/w3cnote/verilog-tutorial.html)、[HDLBits](https://hdlbits.01xz.net/wiki/Main_Page)、数逻助教的时候摸出来的[slides](https://github.com/Guahao31/for_Computer_Logic/tree/master/slides)。
     * Slides 中所有使用 `bd` 文件（类似于数逻画的原理图）的部分，都改为使用 Verilog 完成，避免 Vivado 的奇怪 bug 影响你的实验。
     * 可以调整最多线程数，加快综合，具体设置可参考[ vivado 多线程编译设置](https://blog.csdn.net/yundanfengqing_nuc/article/details/107866015)（之后的文档中，参考博客我会尽量选择墙内可查看的）。
     * 对于使用 Windows 系统的同学。工程和 IP 文件命名尽量简短干练且位于硬盘根目录等浅层目录。否则后续实验会出现路径超出 Windows 系统支持的最大长度，一旦出现就需要将之前所有的 IP一一打开全部重新生成重新归置。
