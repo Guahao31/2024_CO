@@ -1,4 +1,6 @@
-# Vivado安装
+# 配置实验环境
+
+## Vivado 安装
 
 请确保有足够的磁盘容量。（约40GB）
 
@@ -9,7 +11,7 @@
 
     FTP中有相关指导。为了防止传输中断导致的失败，请使用支持断点续传的 FTP 软件，比如 FileZilla。
 
-💡请选择不低于 **2020.2** 的版本
+💡请选择不低于 **2020.2** 的版本（建议选择：**2020.2** 或者 **2022.2**）
 
 * 在官网提供的[下载网页](https://www.xilinx.com/support/download/index.html/content/xilinx/en/downloadNav/vivado-design-tools/archive.html)中找到合适的版本(版本号；Windows/Linux)，选择“...Web Installer”（约300MB的文件）。
 
@@ -22,6 +24,21 @@
 > 习惯使用 Linux 系统的同学可以安装 Linux 版本，WSL2 也可尝试安装。
 >
 > Vivado 安装路径上不要出现中文和空格。
+
+## 环境配置
+
+!!! warning "你可以先跳过“环境配置”部分，相关内容还在设计中"
+
+本学期实验需要使用 git 记录实验过程，助教会根据你的 git log 判断实验完成情况，缺少 log 或 commit 行为异常会影响实验成绩。
+
+这部分不用写在实验报告中。
+
+在开始实验之前，你需要在电脑上配置 `git`, `make`。
+
+* [配置 git](https://www.windows11.pro/5639.html)，如果你之前从未使用过 git，可以查看“其他”中“[git 基础](../../Other/about_git/)”一节。
+* [配置 make](https://tehub.com/a/aCYp1uw0tG)。
+
+配置之后，请新建一个仓库玩耍一下，并建一个“Hello World”工程查看 make 工具是否能够正常使用。
 
 ## FAQ
 

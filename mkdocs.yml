@@ -48,12 +48,15 @@ markdown_extensions:
 
 extra_css:
   - _css/style.css
+  - stylesheets/extra.css
 
 nav:
   - Home: index.md
-  - Warm Up:
-    - Vivado 安装: warmup/Vivado_installation.md
-    - Lab0: warmup/Lab0.md
+  - Lab0:
+    - Lab0/Lab0.md
+    - 实验环境配置: warmup/Vivado_installation.md
+    - 使用 Vivado: warmup/Lab0.md
+    - 实现多路选择器 MUX: Lab0/Mux.md
   - Lab1: 
     - Lab1/Lab1.md
     - ALU: Lab1/ALU_RegFile/ALU.md
