@@ -36,7 +36,7 @@
 * 在 Default Part 界面，搜索并选择 `xc7k160tffg676-2L`。
 * 点击 `Finish` 即可完成工程创建。
 
-![figure](https://cdn.hobbitqia.cc/20240218181821.png)
+![figure](./pic/GUI-menu.jpg)
 
 #### 添加源文件
 
@@ -61,12 +61,12 @@
 * 点击 `Add Sources`，通过上面的过程添加仿真测试文件。
 * 创建完成后在源文件窗口找到 `Simulaion Sources` 下双击刚刚创建的仿真文件，这是一个空文件，我们需要添加代码。
 * 在进行仿真前，请检查仿真文件 `Simulation Sources` 中的顶层模块是否选择正确。一个工程中可以有多个仿真文件，但只有一个仿真顶层模块，如果你需要使用其他的仿真文件，可以通过右键点击要设为顶层模块的文件，并选择 `Set as top` 进行切换。
-    ![](https://guahao31.github.io/2024_DD/warmup/pic/lab4/lab4_tb_top.png)
+    ![](./pic/lab4_tb_top.png)
 
 * 确认无误后，点击左边工作流窗口栏 `SIMULATION -> Run Simulation`，进行仿真。
 
 !!! Info "仿真的相关按钮"
-    ![](https://guahao31.github.io/2024_DD/warmup/pic/lab4/simulation_top.png)
+    ![](./pic/simulation_top.png)
 
     首先认识一下界面，上栏图中按钮从左到右依次为：
 
@@ -76,7 +76,7 @@
     * **Step**：笔者并不清楚此功能，推测是多个断点间步进。
     * **Relaunch Simulation**：如果修改了仿真文件或用于综合的代码，需要重新加载。
 
-    ![](https://guahao31.github.io/2024_DD/warmup/pic/lab4/simulation_mid.png)
+    ![](./pic/simulation_mid.png)
 
     在波形界面栏中也有几个较为实用的按钮：
 
@@ -170,7 +170,7 @@ ROM、RAM 是 FPGA 中常见的存储器，我们可以通过 IP 核生成这两
 * 在工作流窗口选择 `IP Catalog`，将在工作区弹出 `IP Catalog` 的窗口。
 * 点击搜索栏，输入 `memory generator`，选择 `Distributed Memory Generator`（异步访问） 或 `Block Memory Generator`（同步访问）。
 * 双击 `Distributed Memory Generator` 弹出窗口第 1 页，进行核参数设置：
-    ![](https://cdn.hobbitqia.cc/20240218184641.png)
+    ![](./pic/ROM-IP.jpg)
 
     我们填入存储单元数 1024 和字长 32，存储类型选择 ROM（不要点击 `OK`）。
 
