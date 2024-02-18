@@ -17,6 +17,8 @@ theme:
         icon: material/weather-sunny
         name: 亮色模式
   language: zh
+  font:
+    code: JetBrains Mono
   features:
     - content.code.copy
     - navigation.tabs
