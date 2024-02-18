@@ -45,10 +45,18 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - tables
+  - attr_list
+  - pymdownx.arithmatex:
+      generic: true
 
 extra_css:
   - _css/style.css
   - stylesheets/extra.css
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - javascripts/tex-mml-chtml.js
 
 nav:
   - Home: index.md
