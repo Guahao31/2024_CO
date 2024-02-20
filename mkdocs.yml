@@ -64,8 +64,8 @@ nav:
   - Home: index.md
   - Lab0:
     - Lab0/Lab0.md
-    - 实验环境配置: warmup/Vivado_installation.md
-    - 使用 Vivado: warmup/Lab0.md
+    - 实验环境配置: Lab0/Vivado_installation.md
+    - 使用 Vivado: Lab0/vivado_guide.md
     - 实现多路选择器 MUX: Lab0/Mux.md
   - Lab1: 
     - Lab1/Lab1.md
