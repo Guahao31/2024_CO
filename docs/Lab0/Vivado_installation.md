@@ -25,11 +25,13 @@
 >
 > Vivado 安装路径上不要出现中文和空格。
 
-## 环境配置
+## 环境配置（可选）
 
-本学期实验需要使用 git 记录实验过程，助教会根据你的 git log 判断实验完成情况，缺少 log 或 commit 行为异常会影响实验成绩。
+本学期实验可以使用 git 记录实验过程。
 
-在开始实验之前，你需要在电脑上配置 `git`，可以参考[配置 git](https://www.windows11.pro/5639.html)。如果你之前从未使用过 git，可以查看“其他”中“[git 基础](../../Other/about_git/)”一节。配置完成后，可以新建仓库尝试一下简单操作。
+你需要在电脑上配置 `git`，可以参考[配置 git](https://www.windows11.pro/5639.html)。如果你之前从未使用过 git，可以查看“其他”中“[git 基础](../../Other/about_git/)”一节。配置完成后，可以新建仓库尝试一下简单操作。
+
+使用 Vivado GUI 的 project 模式会使得 git 管理混乱，因为在使用 IP 核、仿真、综合等操作时会产生大量的中间文件，且无法简单地通过文件后缀名等方式分别。推荐使用 git 管理工程的同学使用 [batch mode](https://docs.xilinx.com/r/en-US/ug835-vivado-tcl-commands/Tcl-Batch-Mode)，它使用了 Tcl 脚本语言。一个容易上手的学习方式：使用 GUI 打开一个 Vivado 工程并进行若干操作后，工程目录下的 `vivado.jou` 会记录从打开工程到结束的各种操作对应的 Tcl 语句，更详细的内容可以参考[文档](https://docs.xilinx.com/r/en-US/ug835-vivado-tcl-commands/Tcl-Batch-Mode)。
 
 ## FAQ
 
