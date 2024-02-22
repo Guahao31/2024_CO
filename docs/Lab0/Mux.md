@@ -28,14 +28,14 @@
 ??? Note "约束代码"
     ``` verilog
     # LED
-    set_property IOSTANDARD LVCMOS33       [get_ports {_which_signal0}]
-    set_property PACKAGE_PIN _SOME_PIN     [get_ports {_which_signal0}]
-    set_property IOSTANDARD LVCMOS33       [get_ports {_which_signal1}]
-    set_property PACKAGE_PIN _SOME_PIN     [get_ports {_which_signal1}]
-    set_property IOSTANDARD LVCMOS33       [get_ports {_which_signal2}]
-    set_property PACKAGE_PIN _SOME_PIN     [get_ports {_which_signal2}]
-    set_property IOSTANDARD LVCMOS33       [get_ports {_which_signal3}]
-    set_property PACKAGE_PIN _SOME_PIN     [get_ports {_which_signal3}]
+    set_property IOSTANDARD LVCMOS33       [get_ports {_which_signal}]
+    set_property PACKAGE_PIN _SOME_PIN     [get_ports {_which_signal}]
+    set_property IOSTANDARD LVCMOS33       [get_ports {_which_signal}]
+    set_property PACKAGE_PIN _SOME_PIN     [get_ports {_which_signal}]
+    set_property IOSTANDARD LVCMOS33       [get_ports {_which_signal}]
+    set_property PACKAGE_PIN _SOME_PIN     [get_ports {_which_signal}]
+    set_property IOSTANDARD LVCMOS33       [get_ports {_which_signal}]
+    set_property PACKAGE_PIN _SOME_PIN     [get_ports {_which_signal}]
 
     # SW
     set_property IOSTANDARD LVCMOS15 [get_ports {SW[0]}]				

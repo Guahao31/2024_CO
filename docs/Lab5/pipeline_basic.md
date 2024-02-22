@@ -1,21 +1,30 @@
 # 基础流水线
 
-!!!tip "Lab5 内容来自 2022 秋冬学期 TA Tips"
+## 模块实现
 
-## Task
+本实验需要实现一个五阶段流水线 CPU，流水线的五个阶段分别是：取指（IF）、译码（ID）、执行（EX）、访存（MEM）、写回（WB），不需要处理冲突。（假设本实验的仿真和验收代码均不存在数据冲突和控制冲突的情况）
 
-* Implement a 5-stage pipelined CPU (2 weeks), which cannot solve the hazard.
+* 你需要基于 Lab4-3 的代码进行修改。
+* 和 Lab4-3 类似地，验收时，你需要提供自己绘制的 CPU datapath 图。（笔者建议在开始本次实验之前就开始绘制，以便更好地理解流水线 CPU 的数据流）你可以参考理论课 PPT 的 datapath 或者其他人的图，但每个人的实现不尽相同，请务必动手绘制属于自己的 datapath。这里以理论课 PPT 的 datapath 为例：
 
-    * You should directly pipeline your own SCPU (lab4.3) according to the slides 5.2 and 5.3.
-    * The pipedlined CPU in slides is based on Lab4.2, so you may need consider carefully to support the expanded ISA.
+    ![](./pic/datapath.png)
 
-* Use the following code to check your implementation.
+* 流水线的验证较为繁琐，良好的仿真测试可以事半功倍。请做好仿真验证，让仿真代码尽量覆盖所有情况。
 
-    * 💡 You may change value in some instructions, which is related to PC value (AUIPC and JALR etc.) 
+!!! Tip
+    * 你可能需要改变某些指令的数值，这些指令与 PC 值有关（如 `AUIPC` 和 `JALR` 等）。
+    * 流水线寄存器是本次实验的一大重点，在进行实验之前，思考并梳理有哪些值是需要传到下一个阶段的。流水线寄存器部分代码较多，且大部分均为类似代码。为了书写方便，减少出错，笔者建议统一模块、寄存器、变量的命名方式，同时可以利用文本批量替换、Copilot 等工具来加速编写。
 
+## 仿真验证
+
+TODO
+
+## 下板验证
+
+验收时，你需要使用以下验收代码。IMem.coe、DMem.coe 的内容和格式与 Lab4-3 相同。使用验收代码的预期表现与 Lab4-3 的结果基本相同。区别在于在本次实验中，因为我们在每两条指令之间插入了 3 条 `add zero, zero, zero` 指令，因此观察到的现象与之前相比会慢若干倍。
 
 ??? tip "验收代码"
-    ```
+    ``` linenums="1" 
     auipc x26, 0x40
     add zero, zero, zero
     add zero, zero, zero
@@ -616,9 +625,15 @@
     add zero, zero, zero
     ```
 
-* Design your own validate code for your report.
+## 实验要求
 
-## Report
+本次实验你需要完成的内容有：
 
-1. Skip Lab5.1
-2. You can combine Lab5.2 and Lab5.3 as one report or just separate them like what you do in Lab4 to presentate your pipelined CPU without handling hazards.
+* 绘制自己的 CPU datapath 图。
+* 根据自己的 datapath 完成不处理冲突的五阶段流水线 CPU。
+* 对实现的 CPU 进行仿真验证、下板验证、验收。
+* 实验报告里需要包含的内容：
+    * datapath 图。
+    * 流水线 CPU 代码（重点部分结合 datapath 和 Verilog 代码解释）
+    * 仿真代码与波形截图（注意缩放比例、数制选择合适），并分析仿真波形。
+    * 下板图片与现象描述。
