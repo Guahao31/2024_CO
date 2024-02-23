@@ -28,21 +28,10 @@
 ??? Note "约束代码"
     ``` verilog
     # LED
-<<<<<<< HEAD
     set_property -dict { PACKAGE_PIN H17   IOSTANDARD LVCMOS33 } [get_ports { LED[0] }];
     set_property -dict { PACKAGE_PIN _SOME_PIN   IOSTANDARD LVCMOS33 } [get_ports { _some_signal1 }];
     set_property -dict { PACKAGE_PIN _SOME_PIN   IOSTANDARD LVCMOS33 } [get_ports { _some_signal2 }];
     set_property -dict { PACKAGE_PIN _SOME_PIN   IOSTANDARD LVCMOS33 } [get_ports { _some_signal3 }];
-=======
-    set_property IOSTANDARD LVCMOS33       [get_ports {_which_signal}]
-    set_property PACKAGE_PIN _SOME_PIN     [get_ports {_which_signal}]
-    set_property IOSTANDARD LVCMOS33       [get_ports {_which_signal}]
-    set_property PACKAGE_PIN _SOME_PIN     [get_ports {_which_signal}]
-    set_property IOSTANDARD LVCMOS33       [get_ports {_which_signal}]
-    set_property PACKAGE_PIN _SOME_PIN     [get_ports {_which_signal}]
-    set_property IOSTANDARD LVCMOS33       [get_ports {_which_signal}]
-    set_property PACKAGE_PIN _SOME_PIN     [get_ports {_which_signal}]
->>>>>>> e934205b5195e1b1d1fd3a816e8eb62cd04d362b
 
     # SW
     set_property -dict { PACKAGE_PIN J15   IOSTANDARD LVCMOS33 } [get_ports { SW[0] }];
