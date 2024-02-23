@@ -1,0 +1,1125 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="GNG not Gua & QJJ">
+      
+      
+        <link rel="canonical" href="https://guahao31.github.io/2024_CO/Lab0/vivado_guide/">
+      
+      
+        <link rel="prev" href="../Vivado_installation/">
+      
+      
+        <link rel="next" href="../Mux/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.2, mkdocs-material-9.1.21">
+    
+    
+      
+        <title>使用 Vivado - 2024_CO</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.eebd395e.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ecc896b0.min.css">
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetBrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"JetBrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../_css/style.css">
+    
+      <link rel="stylesheet" href="../../_css/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#vivado" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="2024_CO" class="md-header__button md-logo" aria-label="2024_CO" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            2024_CO
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              使用 Vivado
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="暗色模式"  type="radio" name="__palette" id="__palette_1">
+            
+              <label class="md-header__button md-icon" title="暗色模式" for="__palette_2" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+              </label>
+            
+          
+            
+            
+            
+            <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="indigo"  aria-label="亮色模式"  type="radio" name="__palette" id="__palette_2">
+            
+              <label class="md-header__button md-icon" title="亮色模式" for="__palette_1" hidden>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+              </label>
+            
+          
+        </form>
+      
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/guahao31/2024_CO" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    2024_CO
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../.." class="md-tabs__link">
+      Home
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../Lab0/" class="md-tabs__link md-tabs__link--active">
+        Lab0
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../Other/about_git/" class="md-tabs__link">
+        Other
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="2024_CO" class="md-nav__button md-logo" aria-label="2024_CO" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    2024_CO
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/guahao31/2024_CO" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.4.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    2024_CO
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+          Lab0
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          Lab0
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lab0/" class="md-nav__link">
+        Lab0: Warmup
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Vivado_installation/" class="md-nav__link">
+        实验环境配置
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          使用 Vivado
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        使用 Vivado
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vivado_1" class="md-nav__link">
+    使用 Vivado
+  </a>
+  
+    <nav class="md-nav" aria-label="使用 Vivado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    添加板卡文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vivado_2" class="md-nav__link">
+    Vivado 的基本操作
+  </a>
+  
+    <nav class="md-nav" aria-label="Vivado 的基本操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vivado_3" class="md-nav__link">
+    创建 Vivado 工程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    添加源文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    仿真
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitstream" class="md-nav__link">
+    生成 bitstream 并烧录
+  </a>
+  
+    <nav class="md-nav" aria-label="生成 bitstream 并烧录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    约束文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitstream_1" class="md-nav__link">
+    生成 bitstream
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip" class="md-nav__link">
+    IP 核
+  </a>
+  
+    <nav class="md-nav" aria-label="IP 核">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ip_1" class="md-nav__link">
+    含源代码的 IP 核封装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip_2" class="md-nav__link">
+    不含源代码的 IP 核封装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#romram" class="md-nav__link">
+    存储器 ROM、RAM
+  </a>
+  
+    <nav class="md-nav" aria-label="存储器 ROM、RAM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rom" class="md-nav__link">
+    ROM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ram" class="md-nav__link">
+    RAM
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Mux/" class="md-nav__link">
+        实现多路选择器 MUX
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Other
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Other
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Other/about_git/" class="md-nav__link">
+        Git 基础
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Other/Verilog_Simulation/" class="md-nav__link">
+        在Linux/macOS 上仿真
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Other/RISC_V/" class="md-nav__link">
+        RISC-V 32I
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../Other/Decoder_and_Testbench/" class="md-nav__link">
+        RISC-V Decoder 与 CPU Testbench
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vivado_1" class="md-nav__link">
+    使用 Vivado
+  </a>
+  
+    <nav class="md-nav" aria-label="使用 Vivado">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    添加板卡文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vivado_2" class="md-nav__link">
+    Vivado 的基本操作
+  </a>
+  
+    <nav class="md-nav" aria-label="Vivado 的基本操作">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vivado_3" class="md-nav__link">
+    创建 Vivado 工程
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    添加源文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    仿真
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitstream" class="md-nav__link">
+    生成 bitstream 并烧录
+  </a>
+  
+    <nav class="md-nav" aria-label="生成 bitstream 并烧录">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    约束文件
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bitstream_1" class="md-nav__link">
+    生成 bitstream
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip" class="md-nav__link">
+    IP 核
+  </a>
+  
+    <nav class="md-nav" aria-label="IP 核">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ip_1" class="md-nav__link">
+    含源代码的 IP 核封装
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ip_2" class="md-nav__link">
+    不含源代码的 IP 核封装
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#romram" class="md-nav__link">
+    存储器 ROM、RAM
+  </a>
+  
+    <nav class="md-nav" aria-label="存储器 ROM、RAM">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rom" class="md-nav__link">
+    ROM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ram" class="md-nav__link">
+    RAM
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="vivado">使用 Vivado</h1>
+<details class="tips" open="open">
+<summary>开始之前</summary>
+<ul>
+<li>实验工程的路径不应有中文和空格。</li>
+<li>默认掌握了 Verilog 基础并知道如何进行测试。</li>
+<li>如果你的数逻课程一路摸鱼，可以参考：<a href="https://www.runoob.com/w3cnote/verilog-tutorial.html">菜鸟Verilog教程</a>、<a href="https://hdlbits.01xz.net/wiki/Main_Page">HDLBits</a>、数逻助教的时候摸出来的<a href="https://github.com/Guahao31/for_Computer_Logic/tree/master/slides">slides</a>。</li>
+<li>Slides 中所有使用 <code>bd</code> 文件（类似于数逻画的原理图）的部分，都改为使用 Verilog 完成，避免 Vivado 的奇怪 bug 影响你的实验。</li>
+<li>可以调整最多线程数，加快综合，具体设置可参考<a href="https://blog.csdn.net/yundanfengqing_nuc/article/details/107866015"> vivado 多线程编译设置</a>（之后的文档中，参考博客我会尽量选择墙内可查看的）。</li>
+<li>对于使用 Windows 系统的同学。工程和 IP 文件命名尽量简短干练且位于硬盘根目录等浅层目录。否则后续实验会出现路径超出 Windows 系统支持的最大长度，一旦出现就需要将之前所有的 IP一一打开全部重新生成重新归置。</li>
+<li>将整学期实验的所有 IP 核组织到统一的浅目录中，后续所有实验的 IP Catalog 都引用该目录下的 IP。</li>
+<li>在修改某些 IP 时，采用右键 IP，选择 <code>Edit in IP Packager</code> 进入自动生成的子工程中修改，修改完成后 <code>Repackage IP</code>，然后回到父工程中 <code>Upgrade IP</code> 即可。可以避免自认为IP更新了，实际上工程并没识别到。</li>
+<li>在进行 <code>Generate Output Product</code> 时，尽量从头到尾均选择 <code>Out of Context</code> 模式。可以便于仿真。</li>
+<li>Slides 中存在一定的错误，请认真阅读，结合理论课程知识分析，只要理论课认真学习，完全可以辨识和解决。</li>
+<li><code>Tools → Setting</code> 中可以开启一些设置方便实验。<ul>
+<li><code>Source File → File Saving</code> 中可以开启自动保存源文件，减少弹窗询问是否保存。</li>
+<li><code>Dispaly → Spacing → Density</code> 调整为 <code>Compact</code> 可以在小屏幕上显示更多内容。</li>
+<li><code>Text Editor</code> 中可以调整编辑器为其他第三方编辑器 如 VS Code。</li>
+<li><code>Text Editor → Fonts and Colors</code> 可以调整 Fonts family 和 size，原始的太费眼睛了。</li>
+</ul>
+</li>
+</ul>
+</details>
+<p>⬆️<strong>开始实验之前，请认真阅读以上建议。</strong></p>
+<h2 id="vivado_1">使用 Vivado</h2>
+<p>这一节你将尝试使用 Vivado 完成小项目，体验 Vivado 的工作流程。</p>
+<p>这里我们将列出 Vivado 常见的用法，其中部分内容并不需要实际操作，也不用在报告中给出。写出来的目的是用作参考，以便你在实际操作时能够快速找到对应的步骤。<strong>不要求在报告给出的部分可以跳过，之后实验用到时会用即可。</strong></p>
+<h3 id="_1">添加板卡文件</h3>
+<p>从 2023-2024 春夏学期开始，《计算机组成与设计》实验在 <a href="https://digilent.com/reference/programmable-logic/nexys-a7/start">Digilent Nexys A7</a> 开发板上进行，<a href="https://digilent.com/reference/_media/reference/programmable-logic/nexys-a7/nexys-a7_rm.pdf">参考文档</a>。</p>
+<p>我们需要添加板卡文件，官方<a href="https://digilent.com/reference/programmable-logic/guides/installing-vivado-and-vitis#install_digilent_s_board_files">安装板卡参考</a>。</p>
+<p>请将附件 <a href="../attachment/nexys-a7-100t.zip">nexys-a7-100t.zip</a> 解压，将文件放置在 Vivado 安装路径 <code>your_path_to_vivado/&lt;version&gt;/data/boards/board_files</code> 下，如果 <code>data</code> 文件夹中没有 <code>borads</code> 请自行新建。</p>
+<p>举个例子，若将 2022.2 版本 Vivado 安装在 D 盘符中，应该能在 <code>D:\Xilinx\Vivado\2022.2\data\boards\board_files\nexys-a7-100t</code> 路径下，找到解压缩得到的 <code>D.0</code> 文件夹。</p>
+<p><img alt="" src="../pic/board-file.png" /></p>
+<h3 id="vivado_2">Vivado 的基本操作</h3>
+<h4 id="vivado_3">创建 Vivado 工程</h4>
+<ul>
+<li>启动 Vivado 之后，选择顶部快捷栏中的 <code>File -&gt; Project -&gt; New</code>。</li>
+<li>在 Project Name 界面中修改工程名称及路径，请注意，<strong>路径和名称中不要有中文</strong>，以避免一些问题。</li>
+<li>在 Project Type 界面，选择 <code>RTL Project</code>，子选项保持默认即可（把 <code>Do not specify at this time</code> 勾上，表示在新建工程时不去指定源文件）。</li>
+<li>在 Default Part 界面，进入 <code>Boards</code> 并在其中找到并选择 <code>Nexys A7-100T</code>。</li>
+<li>点击 <code>Finish</code> 即可完成工程创建。<ul>
+<li>在创建结束前的总结页，请保证以下内容对应正确：<ul>
+<li>Default Board: Nexys A7-100T（请注意不是 Arty A7-100）</li>
+<li>Default Part: xc7a100tcsg324-1</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p><img alt="figure" src="../pic/GUI-menu.jpg" /></p>
+<h4 id="_2">添加源文件</h4>
+<ul>
+<li>
+<p>工程创建后，可以在 <code>Flow Navigator</code> 界面（工作流窗口）下点击 <code>Add Sources</code>，选择 <code>Add or create design sources</code> 添加源文件。</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<ul>
+<li>选择 <code>Add or create constrains</code>，添加约束文件，主要有引脚约束、时序约束和物理约束等。</li>
+<li>选择 <code>Add or create design sources</code>，添加 Verilog 源文件，用于综合。</li>
+<li>选择 <code>Add or create simulation sources</code>，添加仿真测试文件，用于仿真。</li>
+</ul>
+</div>
+</li>
+<li>
+<p>点击 <code>Next</code> 后，可以通过新建源文件或者从其他地方导入源文件。</p>
+<ul>
+<li><code>Create File</code> 创建文件，并选择文件类型为 <code>Verilog</code>，输入文件名，文件保存路径选择 <code>&lt;Local to Project&gt;</code>，点击 OK。</li>
+<li>选择 <code>Add Files</code>，在弹出的对话框中找到想要添加的源文件，并点击 <code>OK</code>。当前对话框左下角有一个选项是 <code>Copy sources into project</code>，可选择是否将源文件复制到工程目录下。本节实验中，是否勾选 <code>Copy sources into project</code> 选项对实验过程影响不大。 如果勾选，它会将你添加的文件拷贝到工程目录下 <code>xxx.srcs/</code> (<code>xxx</code> 是工程名) 对应的目录下。</li>
+<li>选择 <code>Add Directories</code>，与 <code>Add Files</code> 类似，区别在于它会将目录下的所有文件添加到工程中。</li>
+</ul>
+</li>
+<li>
+<p>添加源文件后点击 <code>Finish</code>，继续弹出的对话空中，可以设置一些端口，但是我们现在直接单击 <code>OK</code>。</p>
+</li>
+<li>创建完成后可以在 <code>Sources -&gt; Design Sources</code>（源文件窗口）中看到刚刚创建的文件，这个文件就是我们可以编写 verilog 程序的文件。双击后即可显示文件代码，我们可以在里面书写代码。</li>
+<li>添加用于仿真的代码、添加约束文件的步骤与添加源文件类似，这里不再重复。</li>
+</ul>
+<h4 id="_3">仿真</h4>
+<ul>
+<li>点击 <code>Add Sources</code>，通过上面的过程添加仿真测试文件。</li>
+<li>创建完成后在源文件窗口找到 <code>Simulaion Sources</code> 下双击刚刚创建的仿真文件，这是一个空文件，我们需要添加代码。</li>
+<li>
+<p>在进行仿真前，请检查仿真文件 <code>Simulation Sources</code> 中的顶层模块是否选择正确。一个工程中可以有多个仿真文件，但只有一个仿真顶层模块，如果你需要使用其他的仿真文件，可以通过右键点击要设为顶层模块的文件，并选择 <code>Set as top</code> 进行切换。
+    <img alt="" src="../pic/lab4_tb_top.png" /></p>
+</li>
+<li>
+<p>确认无误后，点击左边工作流窗口栏 <code>SIMULATION -&gt; Run Simulation</code>，进行仿真。</p>
+</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">仿真的相关按钮</p>
+<p><img alt="" src="../pic/simulation_top.png" /></p>
+<p>首先认识一下界面，上栏图中按钮从左到右依次为：</p>
+<ul>
+<li><strong>Restart</strong>：清空当前波形，准备进行下次仿真（Windows 下某些版本极易造成闪退）。</li>
+<li><strong>Run All</strong>：进行一遍仿真，直到遇到停止信号（如 <code>$finish()</code> 或在 GUI 中设置的断点）或某一时间上限。</li>
+<li><strong>Run for xxx</strong>：与右侧两栏配合，表示从当前仿真位置开始，继续仿真一段时间（时间由按钮右方的数字和单位决定）。</li>
+<li><strong>Step</strong>：笔者并不清楚此功能，推测是多个断点间步进。</li>
+<li><strong>Relaunch Simulation</strong>：如果修改了仿真文件或用于综合的代码，需要重新加载。</li>
+</ul>
+<p><img alt="" src="../pic/simulation_mid.png" /></p>
+<p>在波形界面栏中也有几个较为实用的按钮：</p>
+<ul>
+<li><strong>Search</strong>：选中波形后，可以根据想要的值（完全匹配、高位匹配或低位匹配）搜索，找到该值所在的位置。</li>
+<li>
+<p><strong>Save Waveform Congfiguration</strong>：如果对波形设置有修改（如添加或删除了信号，修改了信号的数制，信号线颜色等）可以通过保存得到配置文件，方便之后仿真时直接使用修改后的配置文件。</p>
+<ul>
+<li>在仿真界面中，通过 <code>File &gt; Simulation Waveform &gt; Open Configuration</code> 可以打开之前保存的配置文件，打开后点击 <code>Relaunch Simulation</code> 即可生成对应波形。</li>
+</ul>
+</li>
+<li>
+<p><strong>Zoom Fit</strong>：可以将当前缩放自动调整为较合适的大小。</p>
+</li>
+<li>其他按钮的功能可以自行尝试，部分按钮需要先选中信号才能使用，没有特别需要注意的点。除此之外，在波形界面里，可以右键点击波形，选择 <code>Radix</code> 来修改数制，选择 <code>Color</code> 来修改波形颜色。</li>
+</ul>
+</div>
+<h3 id="bitstream">生成 bitstream 并烧录</h3>
+<p><strong>Bitstream</strong> 文件是一种由比特流组成的文件，用于存储和传输数据。在我们的实验中，它用来存储 FPGA 的配置信息，可以通过烧录对 FPGA 进行重新编程。</p>
+<p>生成 bitstream 的流程是 <code>Synthesis -&gt; Implementation -&gt; Generate Bitstream</code>，均可在左边的工作流窗口中找到。如果你直接点击 <code>Generate Bitstream</code>，Vivado 会自动帮你完成前两步。</p>
+<h4 id="_4">约束文件</h4>
+<p>在生成 bitstream 之前，我们需要检查并修改<a href="../attachment/nexys-a7-100t-master.xdc">约束文件</a>。</p>
+<p>引脚约束有两种方式：</p>
+<ul>
+<li>工具直接约束：先进行综合，综合后打开设计图。点击 <code>I/O Ports</code>，在脚本流程窗口找到 <code>Find Results</code> 中进行管脚配置。其中 <code>Package Pin</code> 对应 FPGA 中的管脚，<code>I/O Std</code> 对应电平标准。约束完成后，在左上角的菜单栏和快捷键窗口找到保存按钮并命名，点击 <code>OK</code>。</li>
+<li>脚本约束法：在综合前，点击 <code>Add Sources</code> 添加约束文件，之后点击 <code>Next</code>，<code>Finish</code>。<ul>
+<li>综合的方法：点击工作流窗口 <code>SYNTHISIS</code> 下 <code>Run Synthesis</code>，弹出综合对象路径及运行线程数设置窗口，采用默认设置，直接点击 <code>OK</code>，综合完成后弹出成功窗口，可以继续进行实现步骤，或者打开综合后的原理图设计以及查看综合报告。</li>
+</ul>
+</li>
+</ul>
+<p>一般来说，我们都使用脚本约束法进行引脚约束，下面给出脚本约束文件的例子。</p>
+<div class="admonition example">
+<p class="admonition-title">Example</p>
+<p>以 <code>I1</code> 的约束进行举例：
+<div class="language-verilog highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">set_property</span><span class="w"> </span><span class="n">PACKAGE_PIN</span><span class="w"> </span><span class="n">J15</span><span class="w"> </span><span class="p">[</span><span class="n">get_ports</span><span class="w"> </span><span class="p">{</span><span class="n">I0</span><span class="p">}]</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">set_property</span><span class="w"> </span><span class="n">IOSTANDARD</span><span class="w"> </span><span class="n">LVCMOS33</span><span class="w"> </span><span class="p">[</span><span class="n">get_ports</span><span class="w"> </span><span class="p">{</span><span class="n">I0</span><span class="p">}]</span>
+</span></code></pre></div>
+它为端口 <code>I0</code> 分配了引脚 <code>J15</code>，这是板上最右侧的开关，你可以在 A7 板对应开关上方看到 <code>J15</code> 的标记；同时，它规定了引脚的输入/输出标准为 <code>LVCMOS33</code>，此处不需要深究，感兴趣的同学可以自行搜索。</p>
+<p>在本次或者后续实验中，我们会给出部分引脚约束文件，你可能需要进行修改。我们规定你只需要修改以下划线 <code>_</code> 开头的内容（即 <code>_SOME_PIN</code> 以及 <code>_which_signal</code>），其他部分的内容请保持不变，之后的实验中也以下划线开头为“需要修改部分”的提示。</p>
+<p>这里给出一个修改的例子，你可以尝试修改下边这个约束，使端口 <code>I2</code> 分配到引脚 <code>M13</code> 上，输入/输出标准为 <code>LVCMOS33</code>。
+<div class="language-verilog highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">set_property</span><span class="w"> </span><span class="n">PACKAGE_PIN</span><span class="w"> </span><span class="n">_SOME_PIN</span><span class="w"> </span><span class="p">[</span><span class="n">get_ports</span><span class="w"> </span><span class="p">{</span><span class="n">_which_signal</span><span class="p">}]</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">set_property</span><span class="w"> </span><span class="n">IOSTANDARD</span><span class="w"> </span><span class="n">LVCMOS33</span><span class="w"> </span><span class="p">[</span><span class="n">get_ports</span><span class="w"> </span><span class="p">{</span><span class="n">_which_signal</span><span class="p">}]</span>
+</span></code></pre></div></p>
+</div>
+<h4 id="bitstream_1">生成 bitstream</h4>
+<ul>
+<li>修改约束文件后，你可以点击工作流窗口的 <code>PROGRAM AND DEBUG &gt; Generate Bitstream</code> 生成比特流。</li>
+<li>生成比特流的结果将通过弹窗方式提示，如果生成失败请查看日志文件确定失败的原因。</li>
+<li>得到 bitstream 后，我们需要将下载器连接到电脑上，点击<code>PROGRAM AND DEBUG &gt; Open Hardware Manager &gt; Open Target &gt; Auto Connect</code> 进行识别和连接，成功连接后，点击 <code>Program Device</code> 选择 <code>xc7a100t</code> 设备，在下载程序界面选择我们刚刚生成的比特流文件，将其下载到板上。这一步可能会出现驱动未安装的问题，请自行尝试解决，如果无法解决问题请及时联系助教。</li>
+</ul>
+<h3 id="ip">IP 核</h3>
+<p>Vivado 的强大之处在于 IP 模块的可重用性。以上是设计者自己设计包含源文件的流程，接下来介绍使用并创建 IP 核的流程。</p>
+<p>注意到在真正的工业流程中，我们需要在仿真通过，确认模块功能准确之后，才进行模块的封装。</p>
+<p>这里我们以生成一个 5 位的二选一的多路选择器 <code>MUX2T1_5</code> 的 IP 核为例。</p>
+<h4 id="ip_1">含源代码的 IP 核封装</h4>
+<ul>
+<li>在上方菜单栏和快捷键窗口单击 <code>Tools -&gt; Create and Package New IP -&gt; Next</code>。</li>
+<li>选择 <code>Package your current project</code>，点击 <code>Next</code>，选择 IP 的保存路径，点击 <code>Next</code>，点击 <code>Finish</code>。</li>
+<li>随后会出现 <code>Package IP - MUX2T1_5</code> 的界面，选择 <code>Review and Package</code>,点击 <code>Package IP</code>。</li>
+<li>这样，<code>MUX2T1_5</code> 的 IP 模块就封装完成。 </li>
+</ul>
+<h4 id="ip_2">不含源代码的 IP 核封装</h4>
+<ul>
+<li>
+<p>网表文件 <code>.edf</code> 的生成。</p>
+<ul>
+<li>工程的创建，源文件添加，步骤与上述相同。</li>
+<li>在工作流窗口中找到 <code>Settings</code> 打开设置后找到 <code>Synthesis</code> 选项并点击，在 <code>Options</code> 部分划到最下面，在 <code>More Options</code> 一栏输入 <code>-mode out_of_context</code> 属性，表示在该级不插入任何 I/O BUFFERs。设置后，点击 <code>OK</code>。</li>
+<li>随后在工作流窗口点击 <code>Run Synthesis</code> 开始综合。</li>
+<li>综合结束后弹出 <code>Synthesis Completed</code> 的对话框，在该对话框中，选择 <code>Open Synthesized Design</code> 前面的复选框并点击 <code>OK</code>。</li>
+<li>在 Vivado 当前设计界面底部的 <code>Tcl Console</code> 窗口中依次输入下面的命令：<ul>
+<li><code>write_verilog -mode synth_stub E:/FPGA/ip/MUX2T1_5.v</code>导出空端口文件。</li>
+<li><code>write_edif E:/FPGA/ip/MUX2T1_5.edf</code> 将 <code>MUX2T1_T.edf</code> 文件写到选择的目录下。（目录按实际需求即可）若当前源文件里 含有 Xilinx IP 则需通过如下命令生成 <code>.edf</code> 文件：<code>write_edif -security_mode all E:/FPGA/ip/MUX2T1_5.edf</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>根据 <code>.edf</code> 文件进行 IP 封装。</p>
+<ul>
+<li>工程的创建，步骤与上述相同。</li>
+<li>在添加源文件时，单击 <code>Add Files</code> 按钮，弹出 <code>Add Source Files</code> 对话框。在该对话框中，找到 <code>MUX2T1_5.edf</code>，<code>MUX2T1_5.v</code> 文件。并勾选 <code>Copy sources into project</code>，点击 <code>finish</code> 直接结束。</li>
+<li>接下来的封装步骤与之前类似，在 Vivado 当前工程主界面的主菜单下，执行菜单命令 <code>Tools -&gt; Createand IP Package...</code>，请参考带源文件的方法。封装完成，可在对应目录下查看结果文件。  </li>
+</ul>
+</li>
+</ul>
+<h3 id="romram">存储器 ROM、RAM</h3>
+<p>ROM、RAM 是 FPGA 中常见的存储器，我们可以通过 IP 核生成这两种存储器。</p>
+<h4 id="rom">ROM</h4>
+<p>下面我们以用 IP 核生成一个 1024<span class="arithmatex">\(\times\)</span>32bit 的 ROM 核为例。</p>
+<ul>
+<li>在工作流窗口选择 <code>IP Catalog</code>，将在工作区弹出 <code>IP Catalog</code> 的窗口。</li>
+<li>点击搜索栏，输入 <code>memory generator</code>，选择 <code>Distributed Memory Generator</code>（异步访问） 或 <code>Block Memory Generator</code>（同步访问）。</li>
+<li>
+<p>双击 <code>Distributed Memory Generator</code> 弹出窗口第 1 页，进行核参数设置：
+    <img alt="" src="../pic/ROM-IP.jpg" /></p>
+<p>我们填入存储单元数 1024 和字长 32，存储类型选择 ROM（不要点击 <code>OK</code>）。</p>
+</li>
+<li>
+<p>点击 <code>RST &amp; Initialization</code>，点击 <code>Browse...</code> 选择初始化关联文件（<code>ROM.coe</code>），其余选项不用修改，随后点击 <code>OK</code> 即可生成 IP 核。</p>
+</li>
+<li>生成后调用：核生成后在源文件窗口出现 <code>ROM_D.xci</code> 模块。我们可以直接在 verilog 代码里实例化这个模块，例子如下：
+    <div class="language-verilog highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">ROM_B</span><span class="w"> </span><span class="n">your_instance_name</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="p">.</span><span class="n">a</span><span class="p">(</span><span class="n">a</span><span class="p">),</span><span class="w">      </span><span class="c1">// input [9 : 0] a</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="p">.</span><span class="n">spo</span><span class="p">(</span><span class="n">spo</span><span class="p">)</span><span class="w">   </span><span class="c1">// output [31 : 0] spo</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">);</span>
+</span></code></pre></div></li>
+</ul>
+<h4 id="ram">RAM</h4>
+<p>RAM 的生成与 ROM 类似，区别如下：</p>
+<ul>
+<li><code>memory generator</code> 只能选择 <code>Block Memory Generator</code>（有时钟）。</li>
+<li>核参数设置时，在 <code>Basic</code> 栏下面的 <code>Memory Type</code> 里，下拉选择 <code>Single Port RAM</code>；在 <code>Port A Option</code> 设置 <code>Write Width</code> 和 <code>Read Width</code> 为 32，<code>Write Depth</code> 和 <code>Read Depth</code> 为 1024。<code>Enable Port Type</code> 选择 <code>Always Enabled</code>；<code>Port A Optional Output Registers</code> 处不要勾选 <code>Primitive Output Register</code>（若勾选，输出会慢一个周期）。</li>
+<li>生成成功后即可实例化这个模块，例子如下：
+    <div class="language-verilog highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">RAM</span><span class="w"> </span><span class="n">U3</span><span class="w"> </span><span class="p">(</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="p">.</span><span class="n">clka</span><span class="p">(</span><span class="n">clk_m</span><span class="p">),</span><span class="w">       </span><span class="c1">// input clka</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="p">.</span><span class="n">wea</span><span class="p">(</span><span class="n">data_ram_we</span><span class="p">),</span><span class="w">  </span><span class="c1">// input [0 : 0] wea</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">  </span><span class="p">.</span><span class="n">addra</span><span class="p">(</span><span class="n">ram_addr</span><span class="p">),</span><span class="w">      </span><span class="c1">// input [9 : 0] addra</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="p">.</span><span class="n">dina</span><span class="p">(</span><span class="n">ram_data_in</span><span class="p">),</span><span class="w">   </span><span class="c1">// input [31:0] dina</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">  </span><span class="p">.</span><span class="n">douta</span><span class="p">(</span><span class="n">ram_data_out</span><span class="p">)</span><span class="c1">// output [31:0] douta</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">   </span><span class="p">);</span>
+</span></code></pre></div></li>
+</ul>
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "navigation.tabs", "navigation.sections"], "search": "../../assets/javascripts/workers/search.74e28a9f.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.220ee61c.min.js"></script>
+      
+        
+          <script src="../../javascripts/mathjax.js"></script>
+        
+      
+        
+          <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+        
+      
+        
+          <script src="../../javascripts/tex-mml-chtml.js"></script>
+        
+      
+    
+  </body>
+</html>
