@@ -26,6 +26,18 @@
 
 这里我们将列出 Vivado 常见的用法，其中部分内容并不需要实际操作，也不用在报告中给出。写出来的目的是用作参考，以便你在实际操作时能够快速找到对应的步骤。**不要求在报告给出的部分可以跳过，之后实验用到时会用即可。**
 
+### 添加板卡文件
+
+从 2023-2024 春夏学期开始，《计算机组成与设计》实验在 [Digilent Nexys A7](https://digilent.com/reference/programmable-logic/nexys-a7/start) 开发板上进行，[参考文档](https://digilent.com/reference/_media/reference/programmable-logic/nexys-a7/nexys-a7_rm.pdf)。
+
+我们需要添加板卡文件，官方[安装板卡参考](https://digilent.com/reference/programmable-logic/guides/installing-vivado-and-vitis#install_digilent_s_board_files)。
+
+请将附件 [nexys-a7-100t.zip](./attachment/nexys-a7-100t.zip) 解压，将文件放置在 Vivado 安装路径 `your_path_to_vivado/<version>/data/boards/board_files` 下，如果 `data` 文件夹中没有 `borads` 请自行新建。
+
+举个例子，若将 2022.2 版本 Vivado 安装在 D 盘符中，应该能在 `D:\Xilinx\Vivado\2022.2\data\boards\board_files\nexys-a7-100t` 路径下，找到解压缩得到的 `D.0` 文件夹。
+
+![](./pic/board-file.png)
+
 ### Vivado 的基本操作
 
 #### 创建 Vivado 工程
@@ -33,8 +45,11 @@
 * 启动 Vivado 之后，选择顶部快捷栏中的 `File -> Project -> New`。
 * 在 Project Name 界面中修改工程名称及路径，请注意，**路径和名称中不要有中文**，以避免一些问题。
 * 在 Project Type 界面，选择 `RTL Project`，子选项保持默认即可（把 `Do not specify at this time` 勾上，表示在新建工程时不去指定源文件）。
-* 在 Default Part 界面，搜索并选择 `xc7k160tffg676-2L`。
+* 在 Default Part 界面，进入 `Boards` 并在其中找到并选择 `Nexys A7-100T`。
 * 点击 `Finish` 即可完成工程创建。
+    * 在创建结束前的总结页，请保证以下内容对应正确：
+        * Default Board: Nexys A7-100T（请注意不是 Arty A7-100）
+        * Default Part: xc7a100tcsg324-1
 
 ![figure](./pic/GUI-menu.jpg)
 
@@ -95,7 +110,7 @@
 
 #### 约束文件
 
-在生成 bitstream 之前，我们需要检查并修改约束文件。
+在生成 bitstream 之前，我们需要检查并修改[约束文件](./attachment/nexys-a7-100t-master.xdc)。
 
 引脚约束有两种方式：
 
@@ -109,24 +124,24 @@
 !!! Example 
     以 `I1` 的约束进行举例：
     ``` verilog
-    set_property PACKAGE_PIN AA10 [get_ports {I0}]
-    set_property IOSTANDARD LVCMOS15 [get_ports {I0}]
+    set_property PACKAGE_PIN J15 [get_ports {I0}]
+    set_property IOSTANDARD LVCMOS33 [get_ports {I0}]
     ```
-    它为端口 `I0` 分配了引脚 `AA10`，这是板上最右侧的开关，你可以在 SWORD 板对应开关下方看到 `AA10` 的标记；同时，它规定了引脚的输入/输出标准为 `LVCMOS15`，此处不需要深究，感兴趣的同学可以自行搜索。
+    它为端口 `I0` 分配了引脚 `J15`，这是板上最右侧的开关，你可以在 A7 板对应开关上方看到 `J15` 的标记；同时，它规定了引脚的输入/输出标准为 `LVCMOS33`，此处不需要深究，感兴趣的同学可以自行搜索。
 
     在本次或者后续实验中，我们会给出部分引脚约束文件，你可能需要进行修改。我们规定你只需要修改以下划线 `_` 开头的内容（即 `_SOME_PIN` 以及 `_which_signal`），其他部分的内容请保持不变，之后的实验中也以下划线开头为“需要修改部分”的提示。
 
-    这里给出一个修改的例子，你可以尝试修改下边这个约束，使端口 `I2` 分配到引脚 `AA13` 上，输入/输出标准为 `LVCMOS15`。
+    这里给出一个修改的例子，你可以尝试修改下边这个约束，使端口 `I2` 分配到引脚 `M13` 上，输入/输出标准为 `LVCMOS33`。
     ``` verilog
     set_property PACKAGE_PIN _SOME_PIN [get_ports {_which_signal}]
-    set_property IOSTANDARD LVCMOS15 [get_ports {_which_signal}]
+    set_property IOSTANDARD LVCMOS33 [get_ports {_which_signal}]
     ```
 
 #### 生成 bitstream
 
 * 修改约束文件后，你可以点击工作流窗口的 `PROGRAM AND DEBUG > Generate Bitstream` 生成比特流。
 * 生成比特流的结果将通过弹窗方式提示，如果生成失败请查看日志文件确定失败的原因。
-* 得到 bitstream 后，我们需要将下载器连接到电脑上，点击` PROGRAM AND DEBUG > Open Hardware Manager > Open Target > Auto Connect` 进行识别和连接，成功连接后，点击 `Program Device` 选择 `xc7k160t` 设备，在下载程序界面选择我们刚刚生成的比特流文件，将其下载到板上。这一步可能会出现驱动未安装的问题，请自行尝试解决，如果无法解决问题请及时联系助教。
+* 得到 bitstream 后，我们需要将下载器连接到电脑上，点击` PROGRAM AND DEBUG > Open Hardware Manager > Open Target > Auto Connect` 进行识别和连接，成功连接后，点击 `Program Device` 选择 `xc7a100t` 设备，在下载程序界面选择我们刚刚生成的比特流文件，将其下载到板上。这一步可能会出现驱动未安装的问题，请自行尝试解决，如果无法解决问题请及时联系助教。
 
 ### IP 核
 

@@ -23,53 +23,33 @@
 * `SW[15:14]=3` 时输出常数 `0`。
 * 输出直接绑到四个 LED 灯。
 
-这里给出约束代码供参考，你需要修改里面的 `_SOME_PIN` 以及 `_which_signal` 为正确的内容。当然你也可以完全自己写一份约束文件。
+这里给出约束代码供参考，你需要修改里面的 `_SOME_PIN` 以及 `_which_signal` 为正确的内容。当然你也可以完全自己写一份约束文件。这里提供 Digilent 给出的 [nexys-a7-100t-master.xdc](./attachment/nexys-a7-100t-master.xdc) 约束文件。
 
 ??? Note "约束代码"
     ``` verilog
     # LED
-    set_property IOSTANDARD LVCMOS33       [get_ports {_which_signal0}]
-    set_property PACKAGE_PIN _SOME_PIN     [get_ports {_which_signal0}]
-    set_property IOSTANDARD LVCMOS33       [get_ports {_which_signal1}]
-    set_property PACKAGE_PIN _SOME_PIN     [get_ports {_which_signal1}]
-    set_property IOSTANDARD LVCMOS33       [get_ports {_which_signal2}]
-    set_property PACKAGE_PIN _SOME_PIN     [get_ports {_which_signal2}]
-    set_property IOSTANDARD LVCMOS33       [get_ports {_which_signal3}]
-    set_property PACKAGE_PIN _SOME_PIN     [get_ports {_which_signal3}]
+    set_property -dict { PACKAGE_PIN H17   IOSTANDARD LVCMOS33 } [get_ports { LED[0] }];
+    set_property -dict { PACKAGE_PIN _SOME_PIN   IOSTANDARD LVCMOS33 } [get_ports { _some_signal1 }];
+    set_property -dict { PACKAGE_PIN _SOME_PIN   IOSTANDARD LVCMOS33 } [get_ports { _some_signal2 }];
+    set_property -dict { PACKAGE_PIN _SOME_PIN   IOSTANDARD LVCMOS33 } [get_ports { _some_signal3 }];
 
     # SW
-    set_property IOSTANDARD LVCMOS15 [get_ports {SW[0]}]				
-    set_property PACKAGE_PIN AA10    [get_ports {SW[0]}]                 
-    set_property IOSTANDARD LVCMOS15 [get_ports {SW[1]}]				
-    set_property PACKAGE_PIN AB10    [get_ports {SW[1]}]                 
-    set_property IOSTANDARD LVCMOS15 [get_ports {SW[2]}]				
-    set_property PACKAGE_PIN AA13    [get_ports {SW[2]}]                 
-    set_property IOSTANDARD LVCMOS15 [get_ports {SW[3]}]				
-    set_property PACKAGE_PIN AA12    [get_ports {SW[3]}]                 
-    set_property IOSTANDARD LVCMOS15 [get_ports {SW[4]}]				
-    set_property PACKAGE_PIN Y13     [get_ports {SW[4]}]                 
-    set_property IOSTANDARD LVCMOS15 [get_ports {SW[5]}]				
-    set_property PACKAGE_PIN Y12     [get_ports {SW[5]}]                 
-    set_property IOSTANDARD LVCMOS15 [get_ports {SW[6]}]				
-    set_property PACKAGE_PIN AD11    [get_ports {SW[6]}]                 
-    set_property IOSTANDARD LVCMOS15 [get_ports {SW[7]}]				
-    set_property PACKAGE_PIN AD10    [get_ports {SW[7]}]                 
-    set_property IOSTANDARD LVCMOS15 [get_ports {SW[8]}]				
-    set_property PACKAGE_PIN AE10    [get_ports {SW[8]}]                  
-    set_property IOSTANDARD LVCMOS15 [get_ports {SW[9]}]				
-    set_property PACKAGE_PIN AE12    [get_ports {SW[9]}]                 
-    set_property IOSTANDARD LVCMOS15 [get_ports {SW[10]}]			
-    set_property PACKAGE_PIN AF12    [get_ports {SW[10]}]                 
-    set_property IOSTANDARD LVCMOS15 [get_ports {SW[11]}]			
-    set_property PACKAGE_PIN AE8     [get_ports {SW[11]}]                 
-    set_property IOSTANDARD LVCMOS15 [get_ports {SW[12]}]			
-    set_property PACKAGE_PIN AF8     [get_ports {SW[12]}]                 
-    set_property IOSTANDARD LVCMOS15 [get_ports {SW[13]}]			
-    set_property PACKAGE_PIN AE13    [get_ports {SW[13]}]                 
-    set_property IOSTANDARD LVCMOS15 [get_ports {SW[14]}]			
-    set_property PACKAGE_PIN AF13    [get_ports {SW[14]}]                 
-    set_property IOSTANDARD LVCMOS15 [get_ports {SW[15]}]			
-    set_property PACKAGE_PIN AF10    [get_ports {SW[15]}]  
+    set_property -dict { PACKAGE_PIN J15   IOSTANDARD LVCMOS33 } [get_ports { SW[0] }];
+    set_property -dict { PACKAGE_PIN L16   IOSTANDARD LVCMOS33 } [get_ports { SW[1] }];
+    set_property -dict { PACKAGE_PIN M13   IOSTANDARD LVCMOS33 } [get_ports { SW[2] }];
+    set_property -dict { PACKAGE_PIN R15   IOSTANDARD LVCMOS33 } [get_ports { SW[3] }];
+    set_property -dict { PACKAGE_PIN R17   IOSTANDARD LVCMOS33 } [get_ports { SW[4] }];
+    set_property -dict { PACKAGE_PIN T18   IOSTANDARD LVCMOS33 } [get_ports { SW[5] }];
+    set_property -dict { PACKAGE_PIN U18   IOSTANDARD LVCMOS33 } [get_ports { SW[6] }];
+    set_property -dict { PACKAGE_PIN R13   IOSTANDARD LVCMOS33 } [get_ports { SW[7] }];
+    set_property -dict { PACKAGE_PIN T8    IOSTANDARD LVCMOS18 } [get_ports { SW[8] }];
+    set_property -dict { PACKAGE_PIN U8    IOSTANDARD LVCMOS18 } [get_ports { SW[9] }];
+    set_property -dict { PACKAGE_PIN R16   IOSTANDARD LVCMOS33 } [get_ports { SW[10] }];
+    set_property -dict { PACKAGE_PIN T13   IOSTANDARD LVCMOS33 } [get_ports { SW[11] }];
+    set_property -dict { PACKAGE_PIN H6    IOSTANDARD LVCMOS33 } [get_ports { SW[12] }];
+    set_property -dict { PACKAGE_PIN U12   IOSTANDARD LVCMOS33 } [get_ports { SW[13] }];
+    set_property -dict { PACKAGE_PIN U11   IOSTANDARD LVCMOS33 } [get_ports { SW[14] }];
+    set_property -dict { PACKAGE_PIN V10   IOSTANDARD LVCMOS33 } [get_ports { SW[15] }];
     ```
 
 ## 思考题
