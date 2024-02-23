@@ -20,6 +20,17 @@ brew install icarus-verilog # on MacOS with homebrew
 
 ## gtkwave
 
+!!! tip "对于 macOS Sonoma 14 版本"
+    官网 gtkwave 并不支持，可以参考 [issue](https://github.com/gtkwave/gtkwave/issues/250) 中的回复，使用 mac port 安装，或使用 brew 安装其他用户提供的修改版本：
+
+    ```bash
+    # 如果之前使用 brew 安装过 gtkwave 输入以下两行
+    brew uninstall gtkwave
+    brew untap randomplum/gtkwave
+    
+    brew install --HEAD randomplum/gtkwave/gtkwave
+    ```
+
 **gtkwave** 可用于查看 *VCD* 波形文件，你可以进入[官网](http://gtkwave.sourceforge.net/)了解更多并可在官网下载安装对应版本。
 
 ## How to use
