@@ -1,12 +1,12 @@
-# Lab4-1 & Lab4-2
+# DataPath & CtrlUnit
 
 <!-- !!! danger "本实验并未 release，内容随时都会变化。个人水平有限，如您发现文档中的疏漏欢迎 Issue！" -->
 
 !!! warning "你可以使用 git 来记录实验过程，创建新的分支完成本节，可以参考 [git 基础](../Other/about_git.md)小节。"
 
-本实验需要完成大部分指令，在两节实验中分别完成**数据通路**和**控制器**的设计，从而得到自己设计实现的 SCPU。
-
 ## 模块实现
+
+本实验需要完成大部分指令，自行完成**数据通路**和**控制器**的设计，从而得到自己设计实现的 SCPU。
 
 !!! tip "在本节实验中，你需要实现以下指令："
 
@@ -18,48 +18,28 @@
 
 其他指令将在 Lab4-3 指令拓展与 Lab4-4 中断处理两小节实现。如果不清楚以上指令的指令格式与含义，请查看 RISC-V 手册。
 
-!!! warning "在设计本次实验之前，请检查你是否完成了之前实验要求的修改"
-
-    * RegFile 有32个寄存器值读口，并在本次实验中接到 SCPU 的输出口。
-    * VGA 模块拓展了32个寄存器值的入口，并修改 VGA 内部使这些值可以显示在屏幕上。
-
-    这些修改将方便你在板上 debug 时查看寄存器值的变化。
-
-
 在分别完成 DataPath 和 CtrlUnit 两部分后，将 Lab4-0 中的 IP Core 替换，**得到自行实现的 SCPU**。
 
-### 立即数生成器
+* CtrlUnit 的作用是根据指令的 OPcode 与 Funct3 以及 Funct7 产生相应的控制信号，用于控制数据通路中的各个模块。
+* DataPath 可以自行设计，也可以参考附件 [DataPath.pdf](./attachment/DataPath.pdf)。注意这里的数据通路只支持部分指令，你需要在 Lab4-3 中拓展以支持所有指令。因此建议理解数据通路的数据流动后再进行实验，而不是单纯地参照附件连线。
+* DataPath 中可能需要用到如下模块：ALU、RegFile、ImmGen、VGA、RAM、ROM、SCPU_ctrl。
+    * ALU、RegFile 在之前的实验里已经实现，可以直接使用。
+    * ImmGen 用来生成立即数，对于不同的指令类型要使用不同的生成方式。SCPU_ctrl 即我们上面提到的 CtrlUnit，用来产生控制信号。
 
-请保证模块名与端口名和以下代码完全相同（虽然混用下划线和驼峰命名很让人抓狂，但 slides 上边给的如此且大部分同学与之相同，就按照这种命名吧💦）
-```verilog title="ImmGen.v"
-module ImmGen(
-  input [1:0]   ImmSel,
-  input [31:0]  inst_field,
-  output[31:0]  Imm_out
-);
-```
+* 我们鼓励你使用自己的方式完成设计。对于不知道如何设计的同学，我们在下面提供了 SCPU_ctrl、ImmGen 模块的接口定义，你可以参考这些定义来完成你的设计。
 
-请保证 `ImmSel` 的意义与下同（参考附件 `Lab4_header.vh`）
-
-```verilog
-/* ImmSel signals */
-// NOTE: You may add terms in Lab4-3 to implement more inst.
-`define IMM_SEL_WIDTH 2
-
-`define IMM_SEL_I   `IMM_SEL_WIDTH'd0
-`define IMM_SEL_S   `IMM_SEL_WIDTH'd1
-`define IMM_SEL_B   `IMM_SEL_WIDTH'd2
-`define IMM_SEL_J   `IMM_SEL_WIDTH'd3
-/*-----------------------------------*/
-```
+!!! tip 
+    * 在设计本次实验之前，请检查你是否完成了之前实验要求的修改，这些修改将方便你在板上 debug 时查看寄存器值的变化。
+        * RegFile 有 32 个寄存器值读口，并在本次实验中接到 SCPU 的输出口。
+        * VGA 模块拓展了 32 个寄存器值的入口，并修改 VGA 内部使这些值可以显示在屏幕上。
+    * 修改 IMem.coe 或 DMem.coe 内容后，需要重新生成对应的存储器 IP 核。
 
 ### SCPU_ctrl
 
-请保证模块名与端口名和以下代码完全相同
-
+参考模块接口如下：
 ```verilog title="SCPU_ctrl.v"
 module SCPU_ctrl(
-  input [4:0]       OPcode,
+  input [4:0]       OPcode, 
   input [2:0]       Fun3,
   input             Fun7,
   input             MIO_ready,
@@ -77,29 +57,54 @@ module SCPU_ctrl(
 endmodule
 ```
 
-请保证 `MemtoReg` 的意义与下同（参考附件 `Lab4_header.vh`）
-```verilog
-/* Mem2Reg signals */
-// NOTE: You may add terms in Lab4-3 to implement more inst.
-`define MEM2REG_WIDTH 2
+这里我们规定控制信号及其含义如下：（参考附件 `Lab4_header.vh`）
 
-`define MEM2REG_ALU         `MEM2REG_WIDTH'd0
-`define MEM2REG_MEM         `MEM2REG_WIDTH'd1
-`define MEM2REG_PC_PLUS     `MEM2REG_WIDTH'd2
-/*-----------------------------------*/
+* ImmSel 用于选择生成立即数的方式，0 为 I-Type，1 为 S-Type，2 为 B-Type，3 为 J-Type。
+* ALUSrc_B 用于选择 ALU 的 B 输入口，0 为寄存器值，1 为立即数。
+* MemtoReg 用于选择写回寄存器的数据来源，0 为 ALU 输出，1 为存储器读出的值，2 为 PC+4。
+* Jump 用于选择 PC 的下一个值，0 为 PC+4，1 为 J-Type 指令的目标地址。
+* Branch 用于选择是否进行分支跳转，0 为不跳转，1 为跳转。
+* RegWrite 用于选择是否写回寄存器，0 为不写回，1 为写回。
+* MemRW 用于选择存储器的读写方式，0 为读，1 为写。
+* ALU_Control 用于选择 ALU 的运算方式，接口定义与 Lab2 中 ALU 的实现相同。
+* CPU_MIO 用于选择是否进行存储器的读写，0 为不进行，1 为进行。（实际上这个控制信号可有可无）
+
+当然，你可以使用任何你认为合适的方式来实现这些控制信号，或者去掉某些你认为不重要的信号，增加你认为重要的信号，也可以改变控制信号的定义。（如果你的接口定义和上面不同，请在实验报告中说明）
+
+### 立即数生成器
+
+ImmGen 用来生成立即数，对于 I-Type、S-Type、B-Type、J-Type 指令，我们需要不同的生成方式。具体的指令格式可以查看 RISC-V 手册或[速查表](../Other/RISC_V.md)。
+
+参考模块接口如下：
+```verilog title="ImmGen.v"
+module ImmGen(
+  input [1:0]   ImmSel,
+  input [31:0]  inst_field,
+  output[31:0]  Imm_out
+);
 ```
+
+这里我们规定控制信号及其含义如下：（参考附件 `Lab4_header.vh`）
+
+* ImmSel 为 0 时，生成 I-Type 指令的立即数；为 1 时，生成 S-Type 指令的立即数；为 2 时，生成 B-Type 指令的立即数；为 3 时，生成 J-Type 指令的立即数。
+
+你可以使用其他方式实现，或者改变 ImmSel 与不同类型立即数生成方法的对应，这里仅作参考。
 
 ## 仿真测试
 
-!!! tip "关于立即数生成器的仿真测试"
+### ImmGen 的仿真测试
     
-    你的代码将在助教本地进行验证，使用的仿真激励文件为 [ImmGen_tb.v](./attachment/ImmGen_tb.v)，你可以自行进行验证，以免有错误产生扣分。正确的参考波形可以查看[标准波形文件](./attachment/ImmGen.vcd)。
+对于按照我们提供的接口定义实现的 ImmGen 模块，我们提供了一个仿真测试文件 [ImmGen_tb.v](./attachment/ImmGen_tb.v)。你可以自行进行验证，正确的参考波形可以查看[标准波形文件](./attachment/ImmGen.vcd)。
 
-    为了方便自行检查，你可以在 [test.s](./attachment/test.s) 编写更多的仿真代码，通过 [Venus](https://venus.cs61c.org/) 平台获得十六进制文件并更名为 `console.out`，使用 [ImmGen_tb_gen.py](./attachment/ImmGen_tb_gen.py) 获得要填写进仿真激励文件的代码。这一段 Python 代码非常简单，请自行查看文件命名与含义。当然，你也可以使用其他方式获得测试代码，这里仅作示例，以后不再提供类似文件。
+如果你的模块接口或者接口定义与我们提供的不同，请自行编写仿真测试文件。你可以在 [test.s](./attachment/test.s) 编写更多的仿真代码，通过 [Venus](https://venus.cs61c.org/) 平台获得十六进制文件并更名为 `console.out`，使用 [ImmGen_tb_gen.py](./attachment/ImmGen_tb_gen.py) 获得要填写进仿真激励文件的代码。这一段 Python 代码非常简单，请自行查看文件命名与含义。当然，你也可以使用其他方式获得测试代码，这里仅作示例，以后不再提供类似文件。
 
-`SCPU_ctrl` 模块也将采取类似的仿真测试，助教将使用 [SCPU_ctrl_tb.v](./attachment/SCPU_ctrl_tb.v) 对你的模块进行测试，可以使用该文件自行测试，以免有错误产生扣分。
+### SCPU_ctrl 的仿真测试
 
-### SCPU
+`SCPU_ctrl` 模块也将采取类似的仿真测试。对于按照我们提供的接口定义实现的 `SCPU_ctrl` 模块，我们提供了一个仿真测试文件 [SCPU_ctrl_tb.v](./attachment/SCPU_ctrl_tb.v)。
+
+如果你的模块接口或者接口定义与我们提供的不同，请自行编写仿真测试文件。方式与上面类似，这里不再重复。
+
+### SCPU 的仿真测试
 
 为了方便测试，我们需要搭建一个简单的仅包含 SCPU 以及 Mem(IMem & DMem) 的测试平台。
 
@@ -180,7 +185,7 @@ endmodule
 
 ## 下板验证
 
-验收时，你需要使用以下验收代码。（验收代码为上届助教 [@NonoHh](https://github.com/NonoHh) 所写）
+验收时，你需要使用以下验收代码。（验收代码为上上届助教 [@NonoHh](https://github.com/NonoHh) 所写）
 
 ??? tip "验收代码"
 
@@ -394,3 +399,13 @@ endmodule
 * 开机现象有，但是卡住不动。考虑 `slt` 指令是否正确。
 * 开机现象和自增有，学号和矩形动画没有。考虑 RAM 内容是否正确载入。
 * 仅矩形动画不正确。考虑 `jalr` 指令是否正确。
+
+## 实验要求
+
+* 实现 CtrlUnit 和 DataPath，得到自行实现的 SCPU。
+* 对实现的 CPU 进行仿真验证、下板验证、验收。
+* 实验报告里需要包含的内容：
+    * CtrlUnit 和 DataPath 代码（包括 ImmGen 等子模块）并简要分析。
+    * 仿真代码与波形截图（注意缩放比例、数制选择合适），并分析仿真波形。   
+        * 你需要完成 SCPU_ctrl、ImmGen 的仿真测试（使用我们给的仿真代码或者自行书写），以及 SCPU 的仿真测试（自行书写仿真代码）。
+    * 下板图片与现象描述。
