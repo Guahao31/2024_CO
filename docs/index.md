@@ -8,7 +8,7 @@
 
 !!! warning "如果你修读的是《计算机组成》，请注意：本文档的内容要多于你的课程要求。"
 
-💡***请在第一次实验课前安装 Vivado，可参考“热身”中“ [Vivado 安装](./warmup/Vivado_installation/)”一节。***
+💡***请在第一次实验课前安装 Vivado，可参考“热身”中“ [Vivado 安装](./Lab0/Vivado_installation/)”一节。***
 
 <!-- !!! tip "龙芯杯报名！！！！！" -->
 <!-- 鼓励同学们参加龙芯杯，相关信息查看[龙芯杯官网](http://www.nscscc.com/?p=248)。 Bonus 方案将于老师讨论后公布。-->

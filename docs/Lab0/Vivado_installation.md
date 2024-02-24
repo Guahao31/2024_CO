@@ -17,7 +17,7 @@
 
 * 打开下载安装程序，使用注册的 Xilinx 账号登陆，并选择 *Download and install now*
 * 选择安装的软件 (Vivado) 、版本 (Vivado HL WebPACK)
-* 选择需要的组件（以下为必须勾选）：Design Tools(Vivado Deign Suite, DocNav); Devices(Kintex-7); Installation Options(Install Cable Drivers)。选择完成后查看磁盘空间，使用上述选择需要 30-40GB 空间用来安装
+* 选择需要的组件（以下为必须勾选）：Design Tools(Vivado Deign Suite, DocNav); Devices(Artix-7); Installation Options(Install Cable Drivers)。选择完成后查看磁盘空间，使用上述选择需要 30-40GB 空间用来安装
     * 如果你之后需要使用其他型号的设备，可以通过 installer 补充下载，不必要一次全部安装(可以查看 [Xilinx-Support-60112](https://support.xilinx.com/s/article/60112))
 * 确保空间充足，开始下载，并等待安装结束
 
@@ -39,6 +39,6 @@
 
 选择 *Standard* 版本即可。 *Enterprise* 版本需要付费。
 
-### Device 看不到 Kintex-7 选项
+### Device 看不到 Artix-7 选项
 
-展开 *7 Series*，在里面可以找到 K7 板。
+展开 *7 Series*，在里面可以找到 A7 板。
