@@ -41,8 +41,58 @@ endmodule
 
 !!! note "报告中需要给出testbench代码，测试波形与解释（波形截图需要保证缩放与变量数制合适）。"
 
-附件 `Regs/Regs_tb.v` 给出了基本的测试代码，你需要补充完善测试更多情况。
+给出基本的测试代码如下，你需要补充完善测试更多情况。
 
-## 封装IP Core
+```verilog linenums="1" title="Regs_tb.v"
+`timescale 1ns / 1ns
 
-参考slides p22-27 解决封装过程中 `clk, rst` 两个信号的问题。
+module Regs_tb;
+    reg clk;
+    reg rst;
+    reg [4:0] Rs1_addr; 
+    reg [4:0] Rs2_addr; 
+    reg [4:0] Wt_addr; 
+    reg [31:0]Wt_data; 
+    reg RegWrite; 
+    wire [31:0] Rs1_data; 
+    wire [31:0] Rs2_data;
+    Regs Regs_U(
+        .clk(clk),
+        .rst(rst),
+        .Rs1_addr(Rs1_addr),
+        .Rs2_addr(Rs2_addr),
+        .Wt_addr(Wt_addr),
+        .Wt_data(Wt_data),
+        .RegWrite(RegWrite),
+        .Rs1_data(Rs1_data),
+        .Rs2_data(Rs2_data)
+    );
+
+    always #10 clk = ~clk;
+
+    initial begin
+        clk = 0;
+        rst = 1;
+        RegWrite = 0;
+        Wt_data = 0;
+        Wt_addr = 0;
+        Rs1_addr = 0;
+        Rs2_addr = 0;
+        #100
+        rst = 0;
+        RegWrite = 1;
+        Wt_addr = 5'b00101;
+        Wt_data = 32'ha5a5a5a5;
+        #50
+        Wt_addr = 5'b01010;
+        Wt_data = 32'h5a5a5a5a;
+        #50
+        RegWrite = 0;
+        Rs1_addr = 5'b00101;
+        Rs2_addr = 5'b01010;
+        
+        #100 $stop();
+    end
+
+endmodule
+```
