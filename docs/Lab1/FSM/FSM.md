@@ -2,12 +2,43 @@
 
 Finite State Machine（FSM，有限状态机）是在有限个状态之间按照一定规律转换状态（并给出输出）的时序电路。 FSM 是数逻重点部分，如果印象模糊请认真复习数逻对应部分，在此不赘述。
 
-本节实验设计一个 Moore 型 FSM（Output 为现态的函数）来检测特定序列 ***1110010***，更详细的说明请查看 slides p14。
+本节实验要求使用 Verilog 等 HDL 设计“测谎仪”的一部分。
 
-对于简单的 FSM，设计思路一般是先画出状态转移图，所以
+## 问题叙述
 
-???+ question "思考题"
-    请画出检测序列 *1110010* 的 Moore 型 FSM 的状态图（你可以使用纸笔清晰画出并拍照，或使用 [drawio](https://app.diagrams.net/)、[FSM Designer](https://madebyevan.com/fsm/) 等工具完成制图）。
+“测谎仪”接收一段叙述，给出结果“可信”或“不可信”。在设计“测谎仪”功能时，我们可以将它拆分为两个模块，真实分析器(TruthAnalyzer)和信任评估器(TruthEvaluator)。**真实分析器**获得一段输入，内部进行分析后，给出“可以信任”或“可能说谎”的判断；**信任评估器**根据应答者的回答诚信度历史以及本次真实分析器的判断，给出最终的判断。其模式图如下：
+
+<img src="../../pic/LieDetector.png">
+
+**本次实验要求**完成信任评估器的模块设计。模块名与端口名如下：
+
+```verilog
+module TruthEvaluator(
+    input  clk,
+    input  truth_detection,
+    output trust_decision
+);
+```
+
+我们规定其**输入** `truth_detection` 为 `1` 时表示真实分析器给出的结果是“可以信任”，否则是“可能说谎”；其**输出** `trust_decision` 在信任评估器认为“可信”时为 `1`，否则为 `0`。
+
+为了简化设计，我们规定信任评估器的行为如下所述：
+
+* **内部状态**有 4 个 `HIGHLY_TRUSTWORTHY, TRUSTWORTHY, SUSPICIOUS, UNTRUSTWORTHY`，分别表示“非常可信”、“可信”、“可疑”、“不可信”
+    * 初始内部状态为“非常可信” `HIGHLY_TRUSTWORTHY`
+* **状态转移**每次时钟上升沿，根据输入 `truth_detection` 的值
+    * 为 `1` 时，状态向“更加信任”的方向转移
+        * `HIGHLY_TRUSTWORTHY` 则保持状态为 `HIGHLY_TRUSTWORTHY`
+        * `TRUSTWORTHY` 则转移为 `HIGHLY_TRUSTWORTHY`
+        * `SUSPICIOUS` 则转移为 `TRUSTWORTHY`
+        * `UNTRUSTWORTHY` 则转移为 `SUSPICIOUS`
+    * 为 `0` 时，状态向“更加怀疑”的方向转移，与上述类似但方向相反，在此不再赘述
+* **输出判断**仅与当前状态有关
+    * 状态为 `HIGHLY_TRUSTWORTHY, TRUSTWORTHY` 时输出 `trust_decision` 为 `1`
+    * 状态为 `SUSPICIOUS, UNTRUSTWORTHY` 时输出 `trust_decision` 为 `0`
+
+!!! question "思考题"
+    请根据以上要求，完成信任评估器的**状态转移图**，你可以纸笔书写并拍照，或使用 drawio 等工具绘图。
 
 ## 模块实现
 
