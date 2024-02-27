@@ -6,7 +6,7 @@ ALU (Arithmetic Logic Unit) 是负责对二进制整数进行算术运算和位�
 
 !!! note "报告中需要给出你写出的完整代码。"
 
-参考[标准](https://ieeexplore.ieee.org/document/1620780)第5.1节 *Operators*，使用运算符完成。你可能需要参考标准第5.5节 *Signed expressions*，使用 `$signed(), $unsigned()` 完成实验。
+使用 Verilog 等 HDL 完成。如使用 Verilog 可参考[标准](https://ieeexplore.ieee.org/document/1620780)第5.1节 *Operators*，使用运算符完成。你可能需要参考标准第5.5节 *Signed expressions*，使用 `$signed(), $unsigned()` 完成实验。
 
 !!! tip "系统函数 $signed() 与 $unsigned()"
     请注意在**条件运算符(`condition?true:false`)**的两个结果中分别使用 `$signed()` 与 `$unsigned()` 可能会导致结果与你的预期不符。你可以对下面的模块进行仿真，并观察结果：
@@ -24,13 +24,13 @@ ALU (Arithmetic Logic Unit) 是负责对二进制整数进行算术运算和位�
     endmodule
     ```
 
-不论你采用何种方式，你的模块名与端口名应为：
+你的模块名与端口名应为：
 
 ```verilog linenums="1" title="ALU.v"
 module ALU (
   input [31:0]  A,
   input [31:0]  B,
-  input [2:0]   ALU_operation, // 也可以直接写为 wire [3:0]，请见下文 2023.3.5 更新
+  input [3:0]   ALU_operation,
   output[31:0]  res,
   output        zero
 );
@@ -39,43 +39,87 @@ module ALU (
 endmodule
 ```
 
-???+ tip "**2023.3.9**更新：对于移位指令（如 SRA ）的解释"
-    指令 `sra rd, rs1, rs2`：把寄存器 `x[rs1]` 右移 `x[rs2]` 位，空位用 `x[rs1]` 最高位填充，结果写入 `x[rd]`。 **`x[rs2]` 的低 5 位为移动位数，高位则被忽略**。与 SRA 类似，其他移位指令 SRL、SLL 的移动位数都取决于**低 5 位**而非整体数值。
+### 功能要求
 
-    相应的， ALU 中 SRA 的含义为，将输入 `A` 右移 `B[4:0]` 位，高位用 `A[31]` 填充。比如：`A = 32'hDEADBEEF, B = 32'hF00000E4` 的 SRA 结果为 `32'hFDEADBEE`，因为 `A` 的最高位为 `1` 且 `B` 的低 5 位为 `5'b0_0100`，将 `A` 右移 4 位高位补 `1` 即得到结果。
+输入端口中 `A, B` 为数据输入口，`ALU_operation` 用来选择 ALU 执行的运算类型。输出端口中 `res` 用来输出运算结果，`zero` 用来判断运算结果是否为 0。
 
-???+ tip "**2023.3.5**更新：对于 `ALU_operation` 的解释"
-    本次实验中，你只需要根据 slides 提供的原理图实现 ADD, SUB, XOR, SRL, OR, AND, SLT 指令；也可以一次到位，直接将 `ALU_operation` 拓展为4位并实现全部指令。这对你本实验的实验分数没有任何影响。
+`ALU_operation` 与运算类型的对应关系如下：
 
-    本次实验的 ALU 实现的功能并不足以在之后的实验中直接使用，在之后的实验中，你要实现的完整操作如下：
+| 操作 | ALU_operation 值 |
+| --- | :------------------------------------ |
+| ADD | 4'd0 |
+| SUB | 4'd1 |
+| SLL | 4'd2 |
+| SLT | 4'd3 |
+| SLTU | 4'd4 |
+| XOR | 4'd5 |
+| SRL | 4'd6 |
+| SRA | 4'd7 |
+| OR | 4'd8 |
+| AND | 4'd9 |
 
-    | 操作 | ALU_operation 值 |
-    | --- | :------------------------------------ |
-    | ADD | 4'd0 |
-    | SUB | 4'd1 |
-    | SLL | 4'd2 |
-    | SLT | 4'd3 |
-    | SLTU | 4'd4 |
-    | XOR | 4'd5 |
-    | SRL | 4'd6 |
-    | SRA | 4'd7 |
-    | OR | 4'd8 |
-    | AND | 4'd9 |
-    
-    需要注意的是，上表 `ALU_operation` 值与操作的对应和本实验并不完全相同，比如本实验中 `SLT` 对应 `3'b111` 而在之后的约定中对应 `4'b11`。
-    
+### 指令解释
 
+#### 算术运算操作
+
+ALU 处理的算术运算操作中 ADD SUB 将两个运算数当作**符号数**参与运算，分别给出结果 `A+B` 与 `A-B`。
+
+比较操作 SLT SLTU 用于比较两操作数，若 `A<B` 则结果为 `1`，否则为 `0`。它们的区别在于，SLT 将运算数视作**符号数**，SLTU 将运算数视作**无符号数**。
+
+#### 位运算操作
+
+XOR OR AND 均为按位操作，输出对应的 `A^B, A|B, A&B` 即可。
+
+移位操作 SLL SRL SRA。以 SLL 为例，本实验要求移位操作的结果是 `A << B[4:0]`，即移动位数由 `B` 的**低五位**决定，`B` 的高位应当忽略。它们的区别在于，逻辑左移 SLL 的结果右侧补 0；逻辑右移 SRL 的结果左侧补 0；算术右移 SRA 的结果左侧补符号位。**举个例子**，`A = 32'hDEADBEEF, B = 32'hF00000E4` 的 SRA 结果为 `32'hFDEADBEE`，因为 `A` 的最高位为 `1` 且 `B` 的低 5 位为 `5'b0_0100`，将 `A` 右移 4 位高位补 `1` 即得到结果。
 
 ## 仿真测试
 
 !!! note "报告中需要给出 testbench 代码，测试波形与解释（波形截图需要保证缩放与变量数制合适）。"
 
-基础的仿真波形已经在附件 `ALU/ALU_tb.v`，但它过于简单，你需要添加若干边界测试以完善。
+基础的仿真波形如下，但它过于简单，你需要添加若干边界测试以完善。
 
+```verilog linenums="1" title="ALU_tb.v"
+`timescale 1ns / 1ps
 
-!!! question "思考题"
-    现在对 ALU 进行拓展，要求修改 ALU 以**支持两个有符号数的大小比较**，你需要添加哪些端口以支持？（Hint：目前的ALU将两个输入都视作无符号数； `zero` 信号仅能用来判断是否相等）
+module ALU_tb;
+    reg [31:0]  A, B;
+    reg [3:0]   ALU_operation;
+    wire[31:0]  res;
+    wire        zero;
+    ALU ALU_u(
+        .A(A),
+        .B(B),
+        .ALU_operation(ALU_operation),
+        .res(res),
+        .zero(zero)
+    );
 
-## 封装IP Core
-
-将你实现的 ALU 封装为 IP core 以便之后调用。
+    initial begin
+        A=32'hA5A5A5A5;
+        B=32'h5A5A5A5A;
+        ALU_operation =4'b1000;
+        #100;
+        ALU_operation =4'b1001;
+        #100;
+        ALU_operation =4'b0111;
+        #100;
+        ALU_operation =4'b0110;
+        #100;
+        ALU_operation =4'b0101;
+        #100;
+        ALU_operation =4'b0100;
+        #100;
+        ALU_operation =4'b0011;
+        #100;
+        ALU_operation =4'b0010;
+        #100;
+        ALU_operation =4'b0001;
+        #100;
+        ALU_operation =4'b0000;
+        #100;
+        A=32'h01234567;
+        B=32'h76543210;
+        ALU_operation =4'b0111;
+    end
+endmodule
+```
