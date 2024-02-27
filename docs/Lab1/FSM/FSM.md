@@ -44,9 +44,9 @@ module TruthEvaluator(
 
 !!! note "报告中需要给出你写出的完整代码。"
 
-**三段式描述**：将*输出信号*与*状态跳转*分开描述，状态跳转用组合逻辑来控制。
+一个可以参考的有限状态机书写方式，**三段式描述**：将*输出信号*与*状态跳转*分开描述，状态跳转用组合逻辑来控制。
 
-根据你绘制的状态图，使用三段式描述完成序列检测的任务。
+根据你绘制的状态图，使用三段式描述完成“测谎仪”信任评估器的模块书写。
 
 你的代码主体将主要分为以下几个部分：
 
@@ -54,12 +54,11 @@ module TruthEvaluator(
 * 第二段使用组合逻辑，主要是根据现态和输入决定次态，为此你可能需要使用 `case` 关键词；
 * 第三段决定输出，根据你的状态转移图，将所有输出为1的状态取或即可，类似于 `assign out = (Q1 == curr_state) || (Q2 == curr_state);`。
 
-```verilog linenums="1" title="seq.v"
-module seq(
-	input clk,
-	input reset,
-	input in,
-	output out
+```verilog linenums="1"
+module SomeFSM(
+    input clk,
+    input in,
+    output out
 );
 // State definition
   localparam 
@@ -68,7 +67,7 @@ module seq(
     ...;
 
 // First segment: state transfer
-  always @(posedge clk or posedge rst) begin
+  always @(posedge clk) begin
         ...
   end
 
@@ -76,7 +75,7 @@ module seq(
   always @(*) begin // combination logic
     case(curr_state)
       Q1: begin
-        if(1'b0 == input) next_state = ...;
+        if(1'b0 == in) next_state = ...;
         else next_state = ...;
       end
       ...
@@ -94,8 +93,4 @@ endmodule
 
 !!! note "报告中需要给出 testbench 代码，测试波形与解释（波形截图需要保证缩放与变量数制合适）。"
 
-附件 `seq_moore/seq_moore_tb.v` 已经给出了基本的测试代码，但是它有点冗长了，
-
-???+ question "思考题"
-    请你修改测试代码，使得给定一个特定输入序列 `reg[31:0] input_seq = 32'hD72DBEEF` 从高位到低位依次输入到 `seq` 子模块中。你可以用任何能够使代码更简洁的写法，本题意在考察对 Verilog 语法的熟悉程度。（Hint：如果你没有思路，可以搜索 `for loop`；还可以用位运算的方式“一次”处理一位）
-    !!! note "你需要在报告中给出修改后的测试代码，并用 `32'hD72DBEEF` 作为输入序列进行测试，给出测试波形。"
+请自行书写本模块的仿真激励文件 `TruthEvaluator_tb.v`。
