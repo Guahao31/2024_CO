@@ -42,3 +42,9 @@
 ### Device 看不到 Artix-7 选项
 
 展开 *7 Series*，在里面可以找到 A7 板。
+
+### 追加设备
+
+数逻使用 Vivado 的同学需要通过 installer 追加下载 A7 设备，否则无法完成板卡添加。
+
+进入 Vivado，选择 `Help -> Add Design Tools or Devices`，在启动的 `xsetup` 中选择追加下载的型号，本课实验中需要下载 Artix-7。
