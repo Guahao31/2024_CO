@@ -2,13 +2,12 @@
 
 本实验也是热身的一部分，所涉及的内容仍然没有超过《数字逻辑设计》一课的实验内容🧐。
 
-第一节： ALU 与 Register Files，根据要求实现 ALU 模块以及寄存器堆平台。
+第一节： ALU 与 Register Files，根据要求实现 ALU 模块以及寄存器堆。
 
 第二节：简单的有限状态机设计，学习“序列检测任务”的代码设计后，完成一个小项目“测谎仪”。
 
 **开始实验之前，你需要回顾或简单思考：**（并不是思考题）
 
-* IP core 是什么，怎么调用？
 * 如何对设计的模块进行测试？
 * Verilog 中
     * 实现基本功能的 `module` 由哪些部分组成？
@@ -30,8 +29,8 @@ src_0_3_3220101145_王某某.zip/ # 用一个zip打包源代码
 │   ├── ALU_tb.v
 │   ├── Regs.v # RegFile 部分
 │   ├── Regs_tb.v
-│   ├── TruthAnalyzer.v # FSM 部分
-│   └── TruthAnalyzer_tb.v
+│   ├── TruthEvaluator.v # FSM 部分
+│   └── TruthEvaluator_tb.v
 ├── Lab2
 └── Lab3
 
