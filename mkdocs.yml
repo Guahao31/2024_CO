@@ -67,11 +67,11 @@ nav:
     - 实验环境配置: Lab0/Vivado_installation.md
     - 使用 Vivado: Lab0/vivado_guide.md
     - 实现多路选择器 MUX: Lab0/Mux.md
-  # - Lab1: 
-  #   - Lab1/Lab1.md
-  #   - ALU: Lab1/ALU_RegFile/ALU.md
-  #   - RegFile: Lab1/ALU_RegFile/RegFile.md
-  #   - FSM: Lab1/FSM/FSM.md
+  - Lab1: 
+    - Lab1/Lab1.md
+    - ALU: Lab1/ALU_RegFile/ALU.md
+    - RegFile: Lab1/ALU_RegFile/RegFile.md
+    - FSM: Lab1/FSM/FSM.md
   # - Lab2: 
   #   - Lab2/Lab2.md
   # - Lab3:
