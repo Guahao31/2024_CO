@@ -1,16 +1,28 @@
 # ALU
 
-ALU (Arithmetic Logic Unit) 是负责对二进制整数进行算术运算和位运算的组合电路部件，本实验要求你设计一个32位的能够对两个输入进行：按位与/或/异或、无符号数加法/减法/溢出、逻辑右移。
+ALU (Arithmetic Logic Unit) 是负责对二进制整数进行算术运算和位运算的组合电路部件，本实验要求你设计一个32位的能够对两个输入进行：无符号数加法/减法与溢出判断、无符号与有符号逻辑/算术移位、按位与/或/异或。
 
 ## 模块实现
 
 !!! note "报告中需要给出你写出的完整代码。"
 
-你可以在两种实现方式中选择：
+参考[标准](https://ieeexplore.ieee.org/document/1620780)第5.1节 *Operators*，使用运算符完成。你可能需要参考标准第5.5节 *Signed expressions*，使用 `$signed(), $unsigned()` 完成实验。
 
-* 仿照 slides p12，使用提供的 IP core 完成（你需要使用 Verilog 而非原理图实现）；或
-* （更推荐）参考[标准](https://ieeexplore.ieee.org/document/1620780)第5.1节 *Operators*，使用运算符完成。
-    * 你可能需要参考标准第5.5节 *Signed expressions*，使用 `$signed(), $unsigned()` 完成实验。
+!!! tip "系统函数 $signed() 与 $unsigned()"
+    请注意在**条件运算符(`condition?true:false`)**的两个结果中分别使用 `$signed()` 与 `$unsigned()` 可能会导致结果与你的预期不符。你可以对下面的模块进行仿真，并观察结果：
+
+    ```verilog
+    module extention(
+        input       is_signed,
+        input [15:0] in_data,
+        output[31:0] res
+    );
+
+        assign res = is_signed ? $signed(in_data) :
+                               : $unsigned(in_data);
+
+    endmodule
+    ```
 
 不论你采用何种方式，你的模块名与端口名应为：
 
