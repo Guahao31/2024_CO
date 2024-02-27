@@ -13,6 +13,10 @@
         <link rel="canonical" href="https://guahao31.github.io/2024_CO/Lab1/Lab1/">
       
       
+        <link rel="prev" href="../../Lab0/Mux/">
+      
+      
+        <link rel="next" href="../ALU_RegFile/ALU/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.0.14">
@@ -228,6 +232,24 @@
         
   
   
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
+        Lab1
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
 
 
   
@@ -397,6 +419,109 @@
 
   
   
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+      
+      
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+          Lab1
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          Lab1
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Lab1
+      </a>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ALU_RegFile/ALU/" class="md-nav__link">
+        ALU
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ALU_RegFile/RegFile/" class="md-nav__link">
+        RegFile
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../FSM/FSM/" class="md-nav__link">
+        FSM
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
   
     
     <li class="md-nav__item md-nav__item--nested">
@@ -404,17 +529,17 @@
       
       
       
-      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+      <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
       
       
       
-        <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+        <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
           Other
           <span class="md-nav__icon md-icon"></span>
         </label>
       
-      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-        <label class="md-nav__title" for="__nav_3">
+      <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <label class="md-nav__title" for="__nav_4">
           <span class="md-nav__icon md-icon"></span>
           Other
         </label>
@@ -519,15 +644,11 @@
 
 
 <h1 id="lab1">Lab1</h1>
-<div class="admonition tip">
-<p class="admonition-title"><strong>2023.3.2</strong>更新 <a href="https://pan.zju.edu.cn/share/711cc79b933f1912b1ca2da865">Lab1 附件</a></p>
-</div>
 <p>本实验也是热身的一部分，所涉及的内容仍然没有超过《数字逻辑设计》一课的实验内容🧐。</p>
-<p>第一节： ALU 与 Register Files，使用给定的 IP 核组装一个 ALU 模块，自己设计实现一个寄存器组。</p>
-<p>第二节：简单的有限状态机设计，完成序列检测任务。</p>
+<p>第一节： ALU 与 Register Files，根据要求实现 ALU 模块以及寄存器堆。</p>
+<p>第二节：简单的有限状态机设计，学习“序列检测任务”的代码设计后，完成一个小项目“测谎仪”。</p>
 <p><strong>开始实验之前，你需要回顾或简单思考：</strong>（并不是思考题）</p>
 <ul>
-<li>IP core 是什么，怎么调用？</li>
 <li>如何对设计的模块进行测试？</li>
 <li>Verilog 中<ul>
 <li>实现基本功能的 <code>module</code> 由哪些部分组成？</li>
@@ -542,21 +663,21 @@
 <p class="admonition-title">本实验需要提交实验报告（Lab0-3 合成一份提交）</p>
 </div>
 <div class="admonition warning">
-<p class="admonition-title">本实验不需要验收</p>
+<p class="admonition-title">本实验根据仿真验收</p>
 </div>
 <p>提交实验报告时，你需要附上部分源代码，请注意按照格式更改文件名：</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>src_0_3_3210101145_王某某.zip/<span class="w"> </span><span class="c1"># 用一个zip打包源代码</span>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>src_0_3_3220101145_王某某.zip/<span class="w"> </span><span class="c1"># 用一个zip打包源代码</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├──<span class="w"> </span>Lab1<span class="w"> </span><span class="c1"># 本实验要求提供的源代码文件</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>│<span class="w">   </span>├──<span class="w"> </span>ALU.v<span class="w"> </span><span class="c1"># ALU 部分</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>│<span class="w">   </span>├──<span class="w"> </span>ALU_tb.v
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>│<span class="w">   </span>├──<span class="w"> </span>Regs.v<span class="w"> </span><span class="c1"># RegFile 部分</span>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>│<span class="w">   </span>├──<span class="w"> </span>Regs_tb.v
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│<span class="w">   </span>├──<span class="w"> </span>seq.v<span class="w"> </span><span class="c1"># FSM 部分</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│<span class="w">   </span>└──<span class="w"> </span>seq_moore_tb.v
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>│<span class="w">   </span>├──<span class="w"> </span>TruthEvaluator.v<span class="w"> </span><span class="c1"># FSM 部分</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>│<span class="w">   </span>└──<span class="w"> </span>TruthEvaluator_tb.v
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>├──<span class="w"> </span>Lab2
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>└──<span class="w"> </span>Lab3
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>report_0_3_3210101145_王某某.pdf<span class="w"> </span><span class="c1"># 你的实验报告，Lab0-3合成一份，注意提交PDF格式</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>report_0_3_3220101145_王某某.pdf<span class="w"> </span><span class="c1"># 你的实验报告，Lab0-3合成一份，注意提交PDF格式</span>
 </span></code></pre></div>
 <p>按时提交到<strong>学在浙大</strong>平台。</p>
 
