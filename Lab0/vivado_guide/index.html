@@ -877,8 +877,32 @@
 <li>启动 Vivado 之后，选择顶部快捷栏中的 <code>File -&gt; Project -&gt; New</code>。</li>
 <li>在 Project Name 界面中修改工程名称及路径，请注意，<strong>路径和名称中不要有中文</strong>，以避免一些问题。</li>
 <li>在 Project Type 界面，选择 <code>RTL Project</code>，子选项保持默认即可（把 <code>Do not specify at this time</code> 勾上，表示在新建工程时不去指定源文件）。</li>
-<li>在 Default Part 界面，进入 <code>Boards</code> 并在其中找到并选择 <code>Nexys A7-100T</code>。</li>
-<li>点击 <code>Finish</code> 即可完成工程创建。<ul>
+<li>
+<p>在 Default Part 界面，进入 <code>Boards</code> 并在其中找到并选择 <code>Nexys A7-100T</code>。</p>
+<details class="bug">
+<summary>为什么我在 <code>Boards</code> 中找不到 <code>Nexys A7-100T</code>？</summary>
+<p>请按以下步骤进行确认：</p>
+<ul>
+<li>重启 Vivado 看看是否能找到。</li>
+<li>安装 Vivado 时勾选了 <code>Artix-7</code> Package。</li>
+<li>
+<p>手动指定板卡文件的位置（特别是高版本如 Vivado 2023.2）。下面这两种方法完全等价：</p>
+<ul>
+<li>
+<p>Vivado 工具栏：<code>Tools -&gt; Settings -&gt; Vivado Store -&gt; Board Repository</code>。在这里选择你的板卡文件夹。</p>
+<p><img alt="board-path" src="../pic/board-path.png" /></p>
+</li>
+<li>
+<p>在 TCL 控制台中执行 <code>set_param board.repoPaths "your_path_to_board_files"</code>。注意，路径分隔符应为 <code>/</code> 而不是 <code>\</code>。</p>
+</li>
+</ul>
+</li>
+</ul>
+</details>
+</li>
+<li>
+<p>点击 <code>Finish</code> 即可完成工程创建。</p>
+<ul>
 <li>在创建结束前的总结页，请保证以下内容对应正确：<ul>
 <li>Default Board: Nexys A7-100T（请注意不是 Arty A7-100）</li>
 <li>Default Part: xc7a100tcsg324-1</li>
