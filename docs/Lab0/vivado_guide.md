@@ -46,6 +46,21 @@
 * 在 Project Name 界面中修改工程名称及路径，请注意，**路径和名称中不要有中文**，以避免一些问题。
 * 在 Project Type 界面，选择 `RTL Project`，子选项保持默认即可（把 `Do not specify at this time` 勾上，表示在新建工程时不去指定源文件）。
 * 在 Default Part 界面，进入 `Boards` 并在其中找到并选择 `Nexys A7-100T`。
+
+    ??? bug "为什么我在 `Boards` 中找不到 `Nexys A7-100T`？"
+
+        请按以下步骤进行确认：
+
+        * 重启 Vivado 看看是否能找到。
+        * 安装 Vivado 时勾选了 `Artix-7` Package。
+        * 手动指定板卡文件的位置（特别是高版本如 Vivado 2023.2）。下面这两种方法完全等价：
+  
+            * Vivado 工具栏：`Tools -> Settings -> Vivado Store -> Board Repository`。在这里选择你的板卡文件夹。
+
+                ![board-path](pic/board-path.png)
+
+            * 在 TCL 控制台中执行 `set_param board.repoPaths "your_path_to_board_files"`。注意，路径分隔符应为 `/` 而不是 `\`。
+
 * 点击 `Finish` 即可完成工程创建。
     * 在创建结束前的总结页，请保证以下内容对应正确：
         * Default Board: Nexys A7-100T（请注意不是 Arty A7-100）
