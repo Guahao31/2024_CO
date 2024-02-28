@@ -198,3 +198,6 @@ RAM 的生成与 ROM 类似，区别如下：
       .douta(ram_data_out)// output [31:0] douta
        );
     ```
+
+## FAQ
+
