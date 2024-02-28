@@ -26,18 +26,6 @@
 
 这里我们将列出 Vivado 常见的用法，其中部分内容并不需要实际操作，也不用在报告中给出。写出来的目的是用作参考，以便你在实际操作时能够快速找到对应的步骤。**不要求在报告给出的部分可以跳过，之后实验用到时会用即可。**
 
-### 添加板卡文件
-
-从 2023-2024 春夏学期开始，《计算机组成与设计》实验在 [Digilent Nexys A7](https://digilent.com/reference/programmable-logic/nexys-a7/start) 开发板上进行，[参考文档](https://digilent.com/reference/_media/reference/programmable-logic/nexys-a7/nexys-a7_rm.pdf)。
-
-我们需要添加板卡文件，官方[安装板卡参考](https://digilent.com/reference/programmable-logic/guides/installing-vivado-and-vitis#install_digilent_s_board_files)。
-
-请将附件 [nexys-a7-100t.zip](./attachment/nexys-a7-100t.zip) 解压，将文件放置在 Vivado 安装路径 `your_path_to_vivado/<version>/data/boards/board_files` 下，如果 `data` 文件夹中没有 `borads` 请自行新建。
-
-举个例子，若将 2022.2 版本 Vivado 安装在 D 盘符中，应该能在 `D:\Xilinx\Vivado\2022.2\data\boards\board_files\nexys-a7-100t` 路径下，找到解压缩得到的 `D.0` 文件夹。
-
-![](./pic/board-file.png)
-
 ### Vivado 的基本操作
 
 #### 创建 Vivado 工程
@@ -45,26 +33,7 @@
 * 启动 Vivado 之后，选择顶部快捷栏中的 `File -> Project -> New`。
 * 在 Project Name 界面中修改工程名称及路径，请注意，**路径和名称中不要有中文**，以避免一些问题。
 * 在 Project Type 界面，选择 `RTL Project`，子选项保持默认即可（把 `Do not specify at this time` 勾上，表示在新建工程时不去指定源文件）。
-* 在 Default Part 界面，进入 `Boards` 并在其中找到并选择 `Nexys A7-100T`。
-
-    ??? bug "为什么我在 `Boards` 中找不到 `Nexys A7-100T`？"
-
-        请按以下步骤进行确认：
-
-        * 重启 Vivado 看看是否能找到。
-        * 安装 Vivado 时勾选了 `Artix-7` Package。
-        * 手动指定板卡文件的位置（特别是高版本如 Vivado 2023.2）。下面这两种方法完全等价：
-  
-            * Vivado 工具栏：`Tools -> Settings -> Vivado Store -> Board Repository`。在这里选择你的板卡文件夹。
-
-                ![board-path](pic/board-path.png)
-
-            * 在 TCL 控制台中执行 `set_param board.repoPaths "your_path_to_board_files"`。注意，路径分隔符应为 `/` 而不是 `\`。
-
-* 点击 `Finish` 即可完成工程创建。
-    * 在创建结束前的总结页，请保证以下内容对应正确：
-        * Default Board: Nexys A7-100T（请注意不是 Arty A7-100）
-        * Default Part: xc7a100tcsg324-1
+* 在 Default Part 界面，进入 `Parts` 并在其中找到并选择 `xc7a100tcsg324-1`。
 
 ![figure](./pic/GUI-menu.jpg)
 
