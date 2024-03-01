@@ -8,35 +8,6 @@ ALU (Arithmetic Logic Unit) 是负责对二进制整数进行算术运算和位�
 
 参考[标准](https://ieeexplore.ieee.org/document/1620780)第5.1节 *Operators*，使用运算符完成。你可能需要参考标准第5.5节 *Signed expressions*，使用 `$signed(), $unsigned()` 完成实验。
 
-!!! tip "系统函数 $signed() 与 $unsigned()"
-    请注意在**条件运算符(`condition?true:false`)**的两个结果中分别使用 `$signed()` 与 `$unsigned()` 可能会导致结果与你的预期不符。你可以对下面的模块进行仿真，并观察结果：
-
-    ```verilog
-    module extention(
-        input       is_signed,
-        input [15:0] in_data,
-        output[31:0] res
-    );
-
-        assign res = is_signed ? $signed(in_data) :
-                               : $unsigned(in_data);
-
-    endmodule
-    ```
-
-    ```verilog
-    module extention(
-        input       is_signed,
-        input [15:0] in_data,
-        output[31:0] res
-    );
-
-        assign res = is_signed ? $signed(in_data) :
-                               : $unsigned(in_data);
-
-    endmodule
-    ```
-
 你的模块名与端口名应为：
 
 ```verilog linenums="1" title="ALU.v"
