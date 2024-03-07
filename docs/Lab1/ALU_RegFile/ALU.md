@@ -26,9 +26,50 @@ endmodule
 ??? Question "思考题"
     小 Q 同学在 2023 年春夏学期做计算机组成与设计的 ALU 时，为了实现 SRA 指令使用了下面的代码：
     ``` Verilog
-    assign res = (...) ? ... : (ALU_operation == 4'd7) ? ($signed(A) >>> $sigend(B)) : ...;
+    assign res = (...) ? ... : (ALU_operation == 4'd7) ? ($signed(A) >>> $signed(B)) : ...;
     ```
-    但是这样在仿真 `ALU_opeation = 4′d7, A = 32'hffff _0000, B = 32′d4` 时，结果却是 `32'h0fff_f000`，并没有在高位填充 1（你可以自行进行仿真查看）。
+    但是这样在仿真 `ALU_opeation = 4′d7, A = 32'hffff_0000, B = 32′d4` 时，结果却是 `32'h0fff_f000`，并没有在高位填充 1（你可以自行进行仿真查看）。
+
+    为了确保大家能复现出这样的错误情况，我们提供了下面的模块代码和仿真代码，可以直接用于仿真。
+    
+    ??? tip "代码"    
+
+        === "ALU.v"
+
+            ``` Verilog linenums="1" 
+            module ALU(
+                input [31:0] A,
+                input [31:0] B,
+                input [3:0] ALU_operation,
+                output [31:0] res
+            );
+
+                assign res = (ALU_operation == 4'd6) ? A >> B :                            // SRL Logic
+                            (ALU_operation == 4'd7) ? ($signed(A) >>> $signed(B)) :        // SRA Arithmetic
+                            32'd0;
+            endmodule
+            ``` 
+        === "ALU_tb.v"
+
+            ``` Verilog linenums="1" 
+            module ALU_tb();
+                reg[31:0] A; 
+                reg[31:0] B;
+                reg[3:0] ALU_operation;
+                wire[31:0] res;
+
+                ALU alu(.A(A), .B(B), .ALU_operation(ALU_operation), .res(res));
+
+                initial begin
+                    ALU_operation = 4'd7;
+                    A = 32'hffff_0000;
+                    B = 32'd4;
+                    #40;
+                    A = 32'hffff_ffff;
+                    B = 32'd8;
+                end
+            endmodule
+            ```
 
     请你帮助可怜的小 Q 解决这个问题😭，完成实验！
 
