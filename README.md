@@ -1,6 +1,6 @@
 # ZJU-Computer Orgnization Lab 2024
 
-本仓库用来发布《计算机组成与设计》课程实验文档，你可以直接查看[在线文档](https://guahao31.github.io/2024_CO)，或将本仓库拉至本地部署。
+本仓库用来发布《计算机组成与设计》课程实验文档，你可以直接查看[在线文档](https://guahao31.github.io/2024_CO)，或将本仓库拉至本地部署。在校园网环境下，你也可以访问 ZJU Git Pages 上部署的[实验文档](http://3200105455.pages.zjusct.io/2024_co)以及 ZJU Git 中的[仓库](https://git.zju.edu.cn/3200105455/2024_co)。
 
 本文档面向对象为 2023-2024 春夏《计算机组成与设计》**刘海风老师**班。
 
