@@ -72,8 +72,8 @@ nav:
     - ALU: Lab1/ALU_RegFile/ALU.md
     - RegFile: Lab1/ALU_RegFile/RegFile.md
     - FSM: Lab1/FSM/FSM.md
-  # - Lab2: 
-  #   - Lab2/Lab2.md
+  - Lab2: 
+    - Lab2/Lab2.md
   # - Lab3:
   #   - Lab3/Lab3.md
   #   - Multiplier: Lab3/multiplier.md
