@@ -950,7 +950,12 @@
 <h2 id="_1">实验平台搭建</h2>
 <p>本实验内容为使用提供的 IP core 搭建测试框架。</p>
 <ul>
-<li>新建工程 <code>OExp02-IP2SOC</code>，导入附件 <code>OExp02-IP2SOC/IP/</code> 目录下的所有 IP 模块。（如果你对 IP 的导入有疑问，请回顾 <a href="../../Lab0/vivado_guide/">Lab0</a>。</li>
+<li>新建工程 <code>OExp02-IP2SOC</code>，导入附件 <code>OExp02-IP2SOC/IP/</code> 目录下的所有 IP 模块。如果你对 IP 的导入有疑问，请回顾 <a href="../../Lab0/vivado_guide/">Lab0</a>。<ul>
+<li>以 IP 工程提供的模块采用 IP Catalog 添加调用。</li>
+<li>以 EDF（.v）文件提供的模块采用直接添加源文件的方式调用。</li>
+<li>VGA 这个 IP 核比较特殊，附件里同时给出了 IP 工程和 EDF 文件。因为我们后续会对 VGA 进行修改，所以我们推荐你直接在工程目录下找到 VGA 的所有 <code>.v</code> 代码，并<strong>作为源文件导入工程</strong>。</li>
+</ul>
+</li>
 <li>
 <p>新建顶层文件 <code>CSSTE.v</code>，要求输入输出端口与下面保持一致：</p>
 <details class="tip">
@@ -1025,7 +1030,7 @@
 <p class="admonition-title">Tips</p>
 <ul>
 <li>如果你使用的是 Windows 系统且下板后 VGA 是“亮起来的黑”，那么最坏情况下你要尝试：<code>/, //, \, \\</code> 四种路径分隔符。</li>
-<li>修改 VGA.v 和 VGADisplay.v 后，我们需要重新进行 IP 封装，并在工程目录下进行 IP 状态更新。</li>
+<li>如果你的工程里 VGA 是通过 IP 核的方式导入，那么在修改 VGA.v 和 VGADisplay.v 后，我们需要重新进行 IP 封装，并在工程目录下进行 IP 状态更新。</li>
 </ul>
 </div>
 <p><a name="2"></a> </p>
