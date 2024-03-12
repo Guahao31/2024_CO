@@ -16,28 +16,24 @@
     ??? tip "`CSSTE.v`"
         ``` Verilog linenums="1" 
         module CSSTE(
-            input clk_100mhz,
-            input RSTN,
-            input [3:0] BTN_y,
-            input [15:0] SW,
-            output [3:0] Blue,
-            output [3:0] Green,
-            output [3:0] Red,
-            output HSYNC,
-            output VSYNC,
-            output LED_PEN,
-            output SEG_PEN,
-            output led_clk,
-            output led_clrn,
-            output led_sout,
-            output seg_clk,
-            output seg_clrn,
-            output seg_sout,
+            input         clk_100mhz,
+            input         RSTN,
+            input  [3:0]  BTN_y,
+            input  [15:0] SW,
+            output [3:0]  Blue,
+            output [3:0]  Green,
+            output [3:0]  Red,
+            output        HSYNC,
+            output        VSYNC,
+            output [15:0] LED_out,
+            output [7:0] AN,
+            output [7:0] segment
         );
         ```
 
 * 参考附件中的电路图 `CSSTE.pdf`，在 `CSSTE.v` 文件里使用 Verilog 连线。
     * 在连线前你需要生成 ROM 核，并关联附件中的 `I_mem.coe` 文件；生成 RAM 核，关联附件中的 `D_mem.coe` 文件。如果你对 ROM 与 RAM 的生成有疑问，请回顾 [Lab0](../Lab0/vivado_guide.md)。其中 ROM 核对应电路图中的 U2 Distributed Memory Generato，RAM 核对应电路图中的 U3 RAM_B。
+    * 实际上在我们的附件中已经给出了 RAM 这个 IP 核，你可以尝试使用，并关联对应文件。但是可能会有版本兼容问题，我们更推荐你自己生成一遍 RAM 核，以免出现问题。
 * 处理 VGA，具体处理方法可见下文[#处理 VGA](#1)。
 * 导入约束文件 `A7.xdc`。
 * 生成比特文件，下板验证，具体要求可见下文[#下板验证](#2)。
