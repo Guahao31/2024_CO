@@ -37,7 +37,7 @@
         ```
 
 * 参考附件中的电路图 `CSSTE.pdf`，在 `CSSTE.v` 文件里使用 Verilog 连线。
-* 生成 ROM 核，并关联附件中的 `I_mem.coe` 文件；生成 RAM 核，关联附件中的 `D_mem.coe` 文件。如果你对 ROM 与 RAM 的生成有疑问，请回顾 [Lab0](../Lab0/vivado_guide.md)。
+    * 在连线前你需要生成 ROM 核，并关联附件中的 `I_mem.coe` 文件；生成 RAM 核，关联附件中的 `D_mem.coe` 文件。如果你对 ROM 与 RAM 的生成有疑问，请回顾 [Lab0](../Lab0/vivado_guide.md)。其中 ROM 核对应电路图中的 U2 Distributed Memory Generato，RAM 核对应电路图中的 U3 RAM_B。
 * 处理 VGA，具体处理方法可见下文[#处理 VGA](#1)。
 * 导入约束文件 `A7.xdc`。
 * 生成比特文件，下板验证，具体要求可见下文[#下板验证](#2)。
