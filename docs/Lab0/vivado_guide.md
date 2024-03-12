@@ -157,7 +157,21 @@ Vivado 的强大之处在于 IP 模块的可重用性。以上是设计者自己
     * 工程的创建，步骤与上述相同。
     * 在添加源文件时，单击 `Add Files` 按钮，弹出 `Add Source Files` 对话框。在该对话框中，找到 `MUX2T1_5.edf`，`MUX2T1_5.v` 文件。并勾选 `Copy sources into project`，点击 `finish` 直接结束。
     * 接下来的封装步骤与之前类似，在 Vivado 当前工程主界面的主菜单下，执行菜单命令 `Tools -> Createand IP Package...`，请参考带源文件的方法。封装完成，可在对应目录下查看结果文件。  
-    
+
+#### IP 核的调用
+
+* 含源文件版的 IP 核的调用
+    * 拷贝模块的 IP 核文件夹到当前工程根目录，可以看到每个模块的 IP 核文件夹都包含 `xgui` 核 `componet` 以及其对应的**源文件**。
+    * 打开 IP 添加窗口：`PROJECT MANAGER -> Settings -> Project Settings -> IP -> Repository`。
+    * 添加自定义 IP：点击 `+`，添加自定义 IP 路径，点击 OK 添加完成会弹出成功添加信息提示框，点击 OK。
+        * 若依照步骤先将所有的模块拷贝到当前根目录下，则此处直接将根目录添加进来，可以一次性添加所有模块。
+    * 单击 `IP Catalog`，出现 IP 模块搜索栏。
+    * 搜索刚才加入的 IP 核的名称，双击添加 IP，下一步点击 OK，综合输出选项选择 `Global`，点击 Finish，即可看到添加成功。
+    * 点击 Sources 栏下方的 IP Sources，在对应 IP 名称下双击 `Instantiation Template`下方的 `.veo` 文件，出现调用 IP 的模板文件，可用作参考。
+* 不含源文件版的 IP 核的调用
+    * 拷贝模块的 IP 核文件夹到当前工程根目录，可以看到每个模块的 IP 核文件夹都包含 `xgui` 核 `componet` 以及其对应的 **`.edf` 文件和 `.v` 端口文件**。
+    * 后续流程同上。
+
 ### 存储器 ROM、RAM
 
 ROM、RAM 是 FPGA 中常见的存储器，我们可以通过 IP 核生成这两种存储器。
