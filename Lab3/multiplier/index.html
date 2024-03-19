@@ -13,6 +13,10 @@
         <link rel="canonical" href="https://guahao31.github.io/2024_CO/Lab3/multiplier/">
       
       
+        <link rel="prev" href="../Lab3/">
+      
+      
+        <link rel="next" href="../divider/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -276,6 +280,26 @@
           
   
   Lab2
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../Lab3/" class="md-tabs__link">
+          
+  
+  Lab3
 
         </a>
       </li>
@@ -672,6 +696,190 @@
       
   
   
+    
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Lab3
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            Lab3
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lab3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lab3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    乘法器
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    乘法器
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    前置知识
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    模块实现
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    仿真测试
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../divider/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    除法器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../floating_point_adder/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    浮点加法器
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
   
     
     
@@ -682,9 +890,9 @@
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
         
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -695,8 +903,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             Other
           </label>
@@ -856,12 +1064,14 @@
 
 <h1 id="_1">乘法器</h1>
 <h2 id="_2">前置知识</h2>
-<p>你需要复习理论课中提到的<code>multiplier V3</code>，即</p>
-<p><img alt="Multiplier V3" src="../pic/multiplier_v3.png" /></p>
+<p>你需要复习理论课中提到的 <code>multiplier V3</code>，即
+    <center>  <br />
+<img alt="" src="../pic/multiplier_v3.png" width="450" />
+    </center></p>
 <p>其基本含义以及具体流程在理论课中已经进行过详细讲解，本文档不再重复这部分内容，而只对实验需要注意的部分进行提醒。如果你对这个过程还有疑惑，可以自行搜索 <strong><em>Russian Peasant Multiplication</em></strong>，这可能有助于你理解乘法器的实现。</p>
-<p>在这一实现中，我们需要32次“循环”来完成一次32位乘法，并得到一个64位的结果。</p>
+<p>在这一实现中，我们需要 32 次“循环”来完成一次 32 位乘法，并得到一个 64 位的结果。</p>
 <p><strong>开始时将“乘数”放在 Product 的低32位</strong>：关注到每一次循环我们都需要对“乘数”进行一次右移操作，同时每一次循环我们都对 Product 进行一次右移且低32位不参与加法计算。</p>
-<p>我们需要一个控制逻辑来判断参与加法的是<strong>0</strong>还是<strong>被乘数</strong>，同时需要判断何时停止运算。运算结束的条件很简单，即完成了32次循环，只需要一个计数器即可实现。在我们的算法中，如果乘数的<strong><em>最低位</em></strong>是1则给 Product 的高32位加一个被乘数；否则，不需要改变 Product 的值。</p>
+<p>我们需要一个控制逻辑来判断参与加法的是 <strong>0</strong> 还是<strong>被乘数</strong>，同时需要判断何时停止运算。运算结束的条件很简单，即完成了 32 次循环，只需要一个计数器即可实现。在我们的算法中，如果乘数的<strong><em>最低位</em></strong>是 1 则给 Product 的高 32 位加一个被乘数；否则，不需要改变 Product 的值。</p>
 <h2 id="_3">模块实现</h2>
 <div class="admonition note">
 <p class="admonition-title">报告中需要给出你写出的完整代码。</p>
@@ -874,7 +1084,7 @@
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">  </span><span class="k">input</span><span class="w">           </span><span class="n">start</span><span class="w">     </span><span class="c1">// 开始运算</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">  </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">A</span><span class="p">,</span><span class="w">        </span><span class="c1">// 两个 32-bit 输入值</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">  </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">B</span><span class="p">,</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="k">output</span><span class="w">          </span><span class="n">finish</span><span class="p">,</span><span class="w">   </span><span class="c1">// 当结束计算时置1，你可能需要将它改为 `output reg`</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">  </span><span class="k">output</span><span class="w">          </span><span class="n">finish</span><span class="p">,</span><span class="w">   </span><span class="c1">// 当结束计算时置 1，你可能需要将它改为 `output reg`</span>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">  </span><span class="k">output</span><span class="p">[</span><span class="mh">63</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">res</span><span class="w">       </span><span class="c1">// 64-bit 输出，你可能需要将它修改为 `output reg[63:0]`</span>
 </span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="p">);</span>
 </span></code></pre></div>
@@ -883,6 +1093,22 @@
 </div>
 <p>实验对与乘法器的基本要求是<strong>有符号，无溢出判断</strong>；如果实现的是<em>无符号，无溢出判断</em>的乘法器，将无法获得本实验的全部分数。</p>
 <p>对于实现<em>有符号</em>版本的同学，可以通过判断输入正负性先得到结果的正负性，后转化为无符号乘法，最后调整结果到合适的正负性；也可以查看 Booth's Algorithm 并实现。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<ul>
+<li><code>=</code> 是阻塞赋值，<code>&lt;=</code> 是非阻塞赋值。你需要留意这两种赋值操作 <code>=</code> 与 <code>&lt;=</code> 的区别。</li>
+<li>有的同学可能会带着写 C 语言的逻辑，利用 <code>for</code> 语句写出下面的代码：
+  <div class="language-Verilog highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mh">16</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">1</span><span class="p">){</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">mul2</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">mul1</span><span class="p">;</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="w">        </span><span class="n">result</span><span class="w"> </span><span class="o">&lt;&lt;=</span><span class="w"> </span><span class="mh">1</span><span class="p">;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="k">end</span>
+</span></code></pre></div>
+  这样综合后的电路开销非常大，同时逻辑会很复杂。1 个周期就计算出了我们 16 个周期的结果，延时是相当高。请尽量避免设计这样的乘法器，而是按照上课所讲的多周期乘法器的思路进行。</li>
+</ul>
+</div>
 <h2 id="_4">仿真测试</h2>
 <div class="admonition note">
 <p class="admonition-title">报告中需要给出 testbench 代码，测试波形与解释（波形截图需要保证缩放与变量数制合适）。</p>
