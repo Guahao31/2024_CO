@@ -41,9 +41,8 @@
 * Lab2: 使用提供的 IP 核搭建测试框架
 * Lab3: 实现乘法器 / 除法器
 * Lab4: 实现单周期 CPU
-    * 4-0: 使用提供的 IP 核集成 CPU
-    * 4-1: 设计实现 Datapath
-    * 4-2: 设计实现 Control-Unit
+    * 4-1: 使用提供的 DataPath 和 CtrlUnit 的 IP 核组成 SCPU
+    * 4-2: 设计实现 DataPath 和 CtrlUnit
     * 4-3: 拓展指令
     * 4-4: 实现中断
 * Lab5: 实现流水线 CPU

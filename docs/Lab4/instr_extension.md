@@ -3,7 +3,6 @@
 <!-- !!! danger "本实验并未 release，内容随时都会变化。个人水平有限，如您发现文档中的疏漏欢迎 Issue！" -->
 
 !!! warning "在开始本实验之前，请备份 Lab4-1 与 Lab4-2 的所有工程，包括你使用的 IP Core。"
-    你可以使用 git 保存之前的所有进度，并开新的分支来完成 Lab4-3。
 
 ## 模块实现
 
@@ -45,9 +44,10 @@
     add zero, zero, zero
     ```
 
-验收时，你需要提供自己绘制的 CPU datapath 图。（笔者建议在开始本次实验之前就开始绘制，以便更好地理解流水线 CPU 的数据流）你可以参考理论课 PPT 的 datapath 或者其他人的图，但每个人的实现不尽相同，请务必动手绘制属于自己的 datapath。这里以理论课 PPT 的 datapath 为例：
-
-![](./pic/datapath.png)
+**验收时，你需要提供自己绘制的 CPU datapath 图**。（笔者建议在开始本次实验之前就开始绘制，以便更好地理解流水线 CPU 的数据流）你可以参考理论课 PPT 的 datapath 或者其他人的图，但每个人的实现不尽相同，**请务必动手绘制属于自己的 datapath**。这里以理论课 PPT 的 datapath 为例：
+<center>    
+![](./pic/datapath.png){ width="500"}
+</center>
 
 你可以使用纸笔绘制（不推荐）但请保证验收时提供一张线条清晰较少涂改的原理图，也可以使用 Microsoft 的 Visio 或 PowerPoint、在线平台如 ProcessOn、 drawio 或平板软件如 Goodnotes、Notability 绘制。
 

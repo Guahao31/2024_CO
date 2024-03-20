@@ -1,10 +1,12 @@
-# Basic SCPU
+# 基本 SCPU
+
+!!! tip "[Lab4-0 附件](https://pan.zju.edu.cn/share/1ed0ad5ca95f2913fd79637454)"
 
 ## 模块实现
 
 本实验需要使用提供的 IP 核组成 SCPU，参考附件的电路图 [IP2CPU.pdf](./attachment/IP2CPU.pdf) 完成连线即可。
 
-* 请下载附件里的 IP 核：[SCPU_Ctrl]()，[DataPath]()。
+* 请下载附件里的 IP 核：SCPU_Ctrl，DataPath。
 * 你需要将之前的 SCPU IP 核替换为你自己设计的 SCPU 模块。
 
 ## 仿真验证
@@ -15,7 +17,7 @@
 
 验证方式同 Lab2，即使用之前实验的 Fibonacci 列进行简单测试。
 
-本节实验不需要验收，但需要实验报告。
+!!! warning "本实验不需要验收。"
 
 ## 实验要求
 

@@ -81,6 +81,7 @@ nav:
     - 浮点加法器: Lab3/floating_point_adder.md
   - Lab4:
     - Lab4/Lab4.md
+    - 基本 SCPU: Lab4/basic_scpu.md
     - 基本的控制单元和数据通路: Lab4/DataPath_CtrlUnit.md
     - 指令拓展: Lab4/instr_extension.md
   #   - Exception & Interruption: Lab4/exception_interruption.md
