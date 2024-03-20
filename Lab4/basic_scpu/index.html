@@ -10,13 +10,9 @@
         <meta name="author" content="GNG not Gua & QJJ">
       
       
-        <link rel="canonical" href="https://guahao31.github.io/2024_CO/Lab3/Lab3/">
+        <link rel="canonical" href="https://guahao31.github.io/2024_CO/Lab4/basic_scpu/">
       
       
-        <link rel="prev" href="../../Lab2/Lab2/">
-      
-      
-        <link rel="next" href="../multiplier/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -24,7 +20,7 @@
     
     
       
-        <title>Lab3 - 2024_CO</title>
+        <title>Basic SCPU - 2024_CO</title>
       
     
     
@@ -83,7 +79,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#lab3" class="md-skip">
+        <a href="#basic-scpu" class="md-skip">
           跳转至
         </a>
       
@@ -117,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Lab3
+              Basic SCPU
             
           </span>
         </div>
@@ -290,13 +286,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="./" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../Lab3/Lab3/" class="md-tabs__link">
           
   
   Lab3
@@ -314,7 +308,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../Lab4/Lab4/" class="md-tabs__link">
+        <a href="../Lab4/" class="md-tabs__link">
           
   
   Lab4
@@ -714,19 +708,17 @@
       
   
   
-    
-  
   
     
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" >
         
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
             
@@ -739,7 +731,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Lab3
@@ -750,29 +742,9 @@
                 
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Lab3
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../Lab3/Lab3/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -781,33 +753,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    实验要求
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -819,7 +764,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../multiplier/" class="md-nav__link">
+      <a href="../../Lab3/multiplier/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -839,7 +784,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../divider/" class="md-nav__link">
+      <a href="../../Lab3/divider/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -859,7 +804,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../floating_point_adder/" class="md-nav__link">
+      <a href="../../Lab3/floating_point_adder/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -920,7 +865,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Lab4/Lab4/" class="md-nav__link">
+      <a href="../Lab4/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -940,7 +885,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Lab4/DataPath_CtrlUnit/" class="md-nav__link">
+      <a href="../DataPath_CtrlUnit/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -960,7 +905,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../Lab4/instr_extension/" class="md-nav__link">
+      <a href="../instr_extension/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1130,6 +1075,27 @@
       
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
+    模块实现
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    仿真验证
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    下板验证
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
     实验要求
   </a>
   
@@ -1153,36 +1119,27 @@
   
 
 
-<h1 id="lab3">Lab3</h1>
-<!-- !!! danger "本实验并未 release，内容随时都会变化。个人水平有限，如您发现文档中的疏漏欢迎 Issue！" -->
-
-<!-- !!! tip "[Lab3 附件](https://pan.zju.edu.cn/share/fcf9e3f17e35887d2d20394fd4)" -->
-
-<p>本次实验内容为乘除法器、浮点加法器（可选）。</p>
-<p>在 Lab1 中我们实现了一个包含简单算术以及逻辑运算的 ALU，它们在一个周期内就可以得到运算结果（一个组合电路部件）。本实验中我们将实现多周期才能完成的运算乘法与除法（尤其是除法）对应的运算部件。</p>
-<p>需要注意的是，我们对乘法器的基本要求是实现<strong>有符号、无溢出判断</strong>；对除法器的基本要求是<strong>无符号、无溢出判断、有除零异常判断</strong>。</p>
-<div class="admonition warning">
-<p class="admonition-title">实验报告</p>
+<h1 id="basic-scpu">Basic SCPU</h1>
+<h2 id="_1">模块实现</h2>
+<p>本实验需要使用提供的 IP 核组成 SCPU，参考附件的电路图 <a href="../attachment/IP2CPU.pdf">IP2CPU.pdf</a> 完成连线即可。</p>
 <ul>
-<li>本实验需要提交实验报告（Lab0-3 合成一份提交）。</li>
-<li>提交实验报告时，请注意按照格式更改文件名：
-    <div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>report_0_3_3210101145_王某某.pdf<span class="w"> </span><span class="c1"># 你的实验报告，Lab0-3 合成一份，注意提交 PDF 格式</span>
-</span></code></pre></div></li>
-<li>图片请<strong>压缩</strong>到合适大小再放入报告。<strong>请勿提交数百兆大小的报告！</strong></li>
+<li>请下载附件里的 IP 核：<a href="">SCPU_Ctrl</a>，<a href="">DataPath</a>。</li>
+<li>你需要将之前的 SCPU IP 核替换为你自己设计的 SCPU 模块。</li>
 </ul>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">本实验根据仿真验收</p>
-</div>
-<h2 id="_1">实验要求</h2>
+<h2 id="_2">仿真验证</h2>
+<p>仿真验证方式同 Lab2。</p>
+<h2 id="_3">下板验证</h2>
+<p>验证方式同 Lab2，即使用之前实验的 Fibonacci 列进行简单测试。</p>
+<p>本节实验不需要验收，但需要实验报告。</p>
+<h2 id="_4">实验要求</h2>
 <p>本次实验你需要完成的内容有：</p>
 <ul>
-<li>完成乘法器（必做）、除法器的设计（必做）、浮点加法器（可选）。</li>
-<li>仿真验证，本实验无需上板。</li>
+<li>使用提供的 DataPath 和 CtrlUnit 的 IP 核组成 SCPU。</li>
+<li>对实现的 CPU 进行仿真验证、下板验证。</li>
 <li>实验报告里需要包含的内容：<ul>
-<li>乘法器、除法器、浮点加法器的代码。</li>
-<li>仿真代码与波形截图（注意缩放比例、数制选择合适）。</li>
-<li>实验思考题（可见<a href="../floating_point_adder/">浮点加法器部分</a>，必做）。</li>
+<li>SCPU 模块代码。</li>
+<li>仿真代码与波形截图（注意缩放比例、数制选择合适），并分析仿真波形。</li>
+<li>下板图片与现象描述。</li>
 </ul>
 </li>
 </ul>

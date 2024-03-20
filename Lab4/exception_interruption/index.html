@@ -20,7 +20,7 @@
     
     
       
-        <title>Lab4-4 - 2024_CO</title>
+        <title>Exception & Interruption - 2024_CO</title>
       
     
     
@@ -79,7 +79,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#lab4-4" class="md-skip">
+        <a href="#exception-interruption" class="md-skip">
           跳转至
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Lab4-4
+              Exception & Interruption
             
           </span>
         </div>
@@ -294,6 +294,24 @@
           
   
   Lab3
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../Lab4/" class="md-tabs__link">
+          
+  
+  Lab4
 
         </a>
       </li>
@@ -827,7 +845,7 @@
             
   
   <span class="md-ellipsis">
-    Other
+    Lab4
   </span>
   
 
@@ -836,6 +854,107 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            Lab4
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../Lab4/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Lab4
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../DataPath_CtrlUnit/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基本的控制单元和数据通路
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../instr_extension/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    指令拓展
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
+        
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    Other
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             Other
           </label>
@@ -990,49 +1109,28 @@
       
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
-    实验要求
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
     模块实现
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    软件实现
-  </a>
-  
-    <nav class="md-nav" aria-label="软件实现">
+    <nav class="md-nav" aria-label="模块实现">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#trap_1" class="md-nav__link">
-    trap 处理程序
+  <a href="#csr" class="md-nav__link">
+    CSR 寄存器及其指令
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    图形模式下的打印
+  <a href="#_3" class="md-nav__link">
+    异常中断处理
   </a>
   
 </li>
         
       </ul>
     </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    必要的检查
-  </a>
   
 </li>
       
@@ -1061,9 +1159,13 @@
   
 
 
-<h1 id="lab4-4">Lab4-4</h1>
-<!-- !!! danger "本实验并未 release，内容随时都会变化。个人水平有限，如您发现文档中的疏漏欢迎 Issue！" -->
-
+<h1 id="exception-interruption">Exception &amp; Interruption</h1>
+<div class="admonition danger">
+<p class="admonition-title">本实验并未 release，内容随时都会变化。个人水平有限，如您发现文档中的疏漏欢迎 Issue！</p>
+</div>
+<div class="admonition danger">
+<p class="admonition-title">请先保存 Lab4-3 的工程文件</p>
+</div>
 <h2 id="_1">前置知识</h2>
 <h3 id="exception-and-interruption">Exception and Interruption</h3>
 <p>在 <a href="../attachment/riscv-spec-20191213.pdf">Volume I: RISC-V Unprivileged ISA V20191213</a> 第 1.6 节，有对 exception 和 interruption 的解释：</p>
@@ -1104,7 +1206,7 @@ exception or an interrupt.</p>
 <li><strong>mepc</strong>： Machine Exception Program Counter，存储 trap 触发时将要执行的指令地址，在 <code>mret</code> 时作为返回地址。<ul>
 <li><img alt="" src="../pic/mepc.png" /></li>
 <li>本次实验不涉及 PC 非对齐异常，因此不需要考虑将跳转指令的目标地址送入 <code>mepc</code> 的情况。</li>
-<li>需要注意的是，在一般的实现中，你需要在 trap 处理程序中检查 <code>mcause</code> 寄存器，如果是异常则更新 <code>mepc &lt;- mepc + 4</code>，这部分不是你的硬件实现，而是由软件（你的 trap 处理程序）进行管理的。<strong>但是</strong>，本次实验并不要求实现 <code>csrw</code> 等指令，因此我们要在 <code>RV_INT</code> 模块中直接管理 <code>mepc</code>，即触发 trap 时直接根据触发信号（是不是 <code>INT</code>）来决定 <code>mepc &lt;- pc</code> 还是 <code>mepc &lt;- pc+4</code>。</li>
+<li>需要注意的是，在一般的实现中，你需要在 trap 处理程序中检查 <code>mcause</code> 寄存器，如果是异常则更新 <code>mepc &lt;- mepc + 4</code>，这部分不是你的硬件实现，而是由软件（你的 trap 处理程序）进行管理的。</li>
 </ul>
 </li>
 </ul>
@@ -1114,30 +1216,52 @@ exception or an interrupt.</p>
 <li>更新 <code>mcause</code>，记录当前是不是中断，并记录 exception-code。</li>
 <li>更新 <code>mstatus</code>，防止在 trap 处理时又触发中断。</li>
 <li>更新 <code>mepc</code>，记录当前指令的地址。再次提醒，本实验中硬件 <code>RV_INT</code> 模块将直接管理 <code>mepc</code> 是否自增，如果触发的原因是中断，则 <code>mepc &lt;- pc</code>，否则 <code>mepc &lt;- pc+4</code>。</li>
+<li>更新 <code>mtval</code>，记录错误信息。（非法指令的内容或者未对齐的地址）</li>
 </ul>
 <p>为了简化实验，在进入 trap 后，你不需要保存当前现场（寄存器值等），只需要使用验收代码中没有用到的寄存器即可。</p>
-<h2 id="_2">实验要求</h2>
-<p>本实验需要修改硬件（添加 <code>RV_INT</code> 模块，修改 Datapath）以及软件（修改验收代码，实现 trap 处理）。</p>
-<p>修改 <code>SCPU_ctrl</code> 模块用来检查 <code>ecall</code> 指令和非法指令，并给出相应信号接入 <code>Datapath</code> 中。</p>
-<p>添加 <code>VGA</code> 模块的 debug 信号，至少需要 <code>mstatus, mcause, mepc, mtvec</code> 的值。</p>
-<p>你需要设计实现三种 trap：外部中断、 <code>ecall</code> 指令和非法指令。</p>
+<h2 id="_2">模块实现</h2>
+<h3 id="csr">CSR 寄存器及其指令</h3>
+<p>本实验需要修改 Lab4-3 中的 CPU，使其支持操作 CSR 寄存器。</p>
+<p>TODO</p>
+<h3 id="_3">异常中断处理</h3>
+<p>本实验需要修改 Lab4-3 中的 CPU，使其支持下面的 5 钟中断异常：</p>
 <ul>
-<li>外部中断，升起 <code>INT</code> 信号，你可以设置某个开关来引起外部中断。引起外部中断时，你需要在七段管上打印出以下图形：<ul>
-<li><img alt="" src="../pic/int_seg.png" /></li>
+<li>IO 外设产生的硬件中断（检测某个开关打开）</li>
+<li>数据访存不对齐（lw、sw 的地址不是 4 字节对齐）</li>
+<li>跳转地址不对齐（跳转的目标地址不是 4 字节对齐）</li>
+<li>非法指令（未定义指令，要求检查 0xffffffff）</li>
+<li><code>ecall</code> 指令（软件中断）</li>
+</ul>
+<p>具体来说，可以分为下面几步：</p>
+<ul>
+<li>首先要检测中断或者异常的发生。<ul>
+<li>在 SCPU_ctrl 中可以检查 <code>ecall</code> 指令和非法指令，并传出相应信号。</li>
+<li>在 DataPath 中可以检查访存的地址或者跳转的地址是否正确。</li>
+<li>外设信号通过顶层模块的输入传入。</li>
 </ul>
 </li>
-<li><code>ecall</code> 指令，因为我们并没有实现特权架构，这里 <code>ecall</code> 指令仅用来作为触发相应中断的信号。当进行 <code>ecall</code> 时，你需要在七段管上打印出以下图形：<ul>
-<li><img alt="" src="../pic/ecall_seg.png" /></li>
+<li>检测到中断异常后，要阻止当前指令的执行。具体来说，就是要将当前的寄存器堆、内存等器件的写使能关闭。</li>
+<li>保存中断异常的相关信息，包括 <code>mepc</code>, <code>mscause</code>, <code>mtval</code>，并修改 <code>mstatus</code>。</li>
+<li>修改下一条要执行的 PC，使其指向 trap 处理程序的首条指令（即 <code>mtvec</code>）。</li>
+<li>trap 处理程序的部分由软件实现，我们要求在软件中实现：<ul>
+<li>读出 <code>mepc</code>, <code>mscause</code>, <code>mtval</code>, <code>mstatus</code>, <code>mtvec</code> 的值，放在某个寄存器当中。</li>
+<li>将 <code>mepc</code> 读出并 +4 写回到 <code>mepc</code> 中。</li>
+<li>调用 <code>mret</code> 返回到原来的程序。（此时要恢复进入处理程序所保存的信息）</li>
 </ul>
 </li>
-<li>非法指令，如果将要执行的指令是非法的，则触发非法指令异常。你需要在七段管上打印出以下图形：<ul>
-<li><img alt="" src="../pic/ill_seg.png" /></li>
 </ul>
-</li>
-</ul>
-<p>如何在图形模式下打印将在<em>软件实现</em>一节说明。</p>
-<h2 id="_3">模块实现</h2>
-<p>中断处理主要是改变了<strong>指令流</strong>，由正常的指令运行切换到 trap 处理程序的执行，最终回到正常的指令流中继续执行。为此，我们需要设计一个模块，用来接收控制信号或外部信号，判断下一条要执行的指令是正常指令流运行还是 trap 处理的指令；同时，还需要修改 Datapath 以支持 PC 来源的改变。</p>
+<!-- ## 实验要求
+
+本实验需要修改硬件（添加 `RV_INT` 模块，修改 Datapath）以及软件（修改验收代码，实现 trap 处理）。
+
+修改 `SCPU_ctrl` 模块用来检查 `ecall` 指令和非法指令，并给出相应信号接入 `Datapath` 中。
+
+如何在图形模式下打印将在*软件实现*一节说明。
+
+## 模块实现
+
+中断处理主要是改变了**指令流**，由正常的指令运行切换到 trap 处理程序的执行，最终回到正常的指令流中继续执行。为此，我们需要设计一个模块，用来接收控制信号或外部信号，判断下一条要执行的指令是正常指令流运行还是 trap 处理的指令；同时，还需要修改 Datapath 以支持 PC 来源的改变。
+
 <div class="language-verilog highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">RV_INT.v</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
 <span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
@@ -1158,91 +1282,53 @@ exception or an interrupt.</p>
 </span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">  </span><span class="k">output</span><span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">pc</span><span class="w">           </span><span class="c1">// 将执行的指令 PC 值</span>
 </span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="p">);</span>
 </span></code></pre></div></td></tr></table></div>
-<p>这一模块中，你需要保存并管理 <code>mstatus, mtvec, mcause, mtval, mepc</code> 等 CSRs。实现模块时，需要时刻注意：</p>
-<ul>
-<li><code>mtvec</code> 的值要与你所写代码中 trap 处理程序首条指令位置相同，如果你改变了代码，需要检查是不是需要修改 <code>mtvec</code> 的值。</li>
-<li>如果正在进行 trap 处理程序（还未执行 <code>mret</code>），不接受其他 trap。</li>
-<li>根据不同的中断信号，对 CSRs 进行修改，再次提醒，我们的简单实现中，需要硬件对 <code>mepc</code> 的具体取值进行管理。</li>
-<li>请注意设置 CSRs 的初始值，并注意 <code>rst</code> 时恢复初始值。</li>
-</ul>
-<h2 id="_4">软件实现</h2>
-<p>你需要修改 Lab4-3 提供的验收代码，实现 trap 处理程序以及三种对应的处理程序。</p>
-<h3 id="trap_1">trap 处理程序</h3>
-<p>一个简单的方式是放置若跳转指令，在 trap 处理程序中跳至相应中断/异常的处理程序中。如果你使用 Vectored 模式，并将三种 trap 的 exception code 分别设置为 <code>1, 2, 3</code>，你的代码应该类似于：</p>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a># mtvec.BASE = 0x0
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a># mtvec.MODE = 1(Vecotored mode)
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>jal x0, main          # PC = 0x0, 正常程序的入口
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>jal x0, ill_trap      # PC = 0x4, 进入非法指令处理程序
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>jal x0, ecall_trap    # PC = 0x8, 进入 ecall 处理程序
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>jal x0, int_trap      # PC = 0xC, 进入外部中断处理程序
-</span></code></pre></div>
-<h3 id="_5">图形模式下的打印</h3>
-<p>目前提供的七段数码管 IP 核仅能支持打印一半的图形（4个），另一半是拷贝。</p>
-<p>输入的 <code>Disp_num</code> 到打印图形的映射如下：</p>
-<div class="language-verilog highlight"><span class="filename">SSeg_map</span><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">module</span><span class="w"> </span><span class="n">SSeg_map</span><span class="p">(</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">  </span><span class="k">input</span><span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="n">Disp_num</span><span class="p">,</span><span class="w"> </span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="w">  </span><span class="k">output</span><span class="p">[</span><span class="mh">63</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="n">Seg_map</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p">);</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="w">   </span><span class="k">assign</span><span class="w"> </span><span class="n">Seg_map</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="w">      </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span><span class="w">  </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">4</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">16</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">25</span><span class="p">],</span><span class="w"> </span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="w">      </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">17</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">5</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">12</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">24</span><span class="p">],</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="w">      </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">1</span><span class="p">],</span><span class="w">  </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">6</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">18</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">27</span><span class="p">],</span><span class="w"> </span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="w">      </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">19</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">7</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">13</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">26</span><span class="p">],</span><span class="w"> </span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="w">      </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">2</span><span class="p">],</span><span class="w">  </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">8</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">20</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">29</span><span class="p">],</span><span class="w"> </span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a><span class="w">      </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">21</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">9</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">14</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">28</span><span class="p">],</span><span class="w"> </span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a><span class="w">      </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">3</span><span class="p">],</span><span class="w">  </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">10</span><span class="p">],</span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">22</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">31</span><span class="p">],</span><span class="w"> </span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="w">      </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">23</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">11</span><span class="p">],</span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">15</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">30</span><span class="p">],</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="w">      </span><span class="c1">// Copied right part</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="w">      </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">0</span><span class="p">],</span><span class="w">  </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">4</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">16</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">25</span><span class="p">],</span><span class="w"> </span>
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="w">      </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">17</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">5</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">12</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">24</span><span class="p">],</span><span class="w"> </span>
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a><span class="w">      </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">1</span><span class="p">],</span><span class="w">  </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">6</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">18</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">27</span><span class="p">],</span><span class="w"> </span>
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a><span class="w">      </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">19</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">7</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">13</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">26</span><span class="p">],</span><span class="w"> </span>
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a><span class="w">      </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">2</span><span class="p">],</span><span class="w">  </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">8</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">20</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">29</span><span class="p">],</span><span class="w"> </span>
-</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a><span class="w">      </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">21</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">9</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">14</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">28</span><span class="p">],</span><span class="w"> </span>
-</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a><span class="w">      </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">3</span><span class="p">],</span><span class="w">  </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">10</span><span class="p">],</span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">22</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">31</span><span class="p">],</span><span class="w"> </span>
-</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a><span class="w">      </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">23</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">11</span><span class="p">],</span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">15</span><span class="p">],</span><span class="w"> </span><span class="n">Disp_num</span><span class="p">[</span><span class="mh">30</span><span class="p">],</span><span class="w">        </span>
-</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a><span class="w">      </span><span class="p">};</span>
-</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>
-</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>
-</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a><span class="k">endmodule</span>
-</span></code></pre></div>
-<p>其中 <code>Disp_num</code> 为我们需要提供的 32-bit 值，<code>Seg_map</code> 是最终打印出来的图形，<code>0</code> 为亮。现在我们可以设计出来希望打印的图形，因此需要通过这个图形的逆映射得到输入给 <code>Sseg7</code> 的 <code>Disp_num</code> 值。</p>
-<p>举个例子，我们希望在从左往右数第三个数码管上绘制一个矩形，可以很容易得到 <code>Seg_map</code> 的值应该为 <code>0xFFFF39FF</code>，它只会点亮第三个数码管的 <code>a, b, f, g</code>，即一个小矩形。通过逆映射，我们得到 <code>Disp_num</code> 值为 <code>0xFFFFBCFB</code>。另一个例子，打印第二位上的小矩形 <code>Seg_map: 0xFF39FFFF ---&gt; Disp_num: 0xFFFFDF3D</code>。</p>
-<p>这一步中，你需要得到希望打印三种 trap 的图形的 <code>Disp_num</code> 值。你需要查看验收代码，学习如何将这个值送入七段数码管最终显示一个图形。</p>
-<p>请注意，在每个处理程序的末尾，你需要一个 <code>mret</code> 指令告知 <code>RV_INT</code> 模块中断处理已经结束，需要恢复正常的指令流并对必要的 CSR 进行修改。</p>
-<h2 id="_6">必要的检查</h2>
-<p>在完成以上所有步骤后，请检查：</p>
-<ul>
-<li><code>RV_INT</code> 模块中的 <code>mtvec.BASE</code> 是否指向了 trap 处理程序的首个指令。</li>
-<li>我们需要实现 Vectored 模式，<code>RV_INT</code> 模块中 <code>mtvec.BASE + 4*cause</code> 是否能跳到正确的处理程序。</li>
-<li>请确保你在某个模式的处理下放置了 <code>ecall</code> 指令；在某个模式的处理下放置了一条非法指令。</li>
-<li>Venus 平台无法为你解析 <code>mret</code>，请自行书写，并注意 trap 中断处理程序的结尾一定要有 <code>mret</code>。<ul>
-<li>为了不修改 trap 处理程序的跳转指令，你可以在原本 <code>mret</code> 的地方写一条 NOP 语句 <code>add x0, x0, x0</code> 来占一条指令的位置，在之后将它替换为 <code>mret</code>。</li>
-</ul>
-</li>
-<li>查看原验收代码的 <code>148, 149</code> 行，确保这里的 <code>jalr</code> 能够跳转到 <code>loop2</code>。<ul>
-<li>请修改 <code>0x150, 0x24</code> 到合适的值，而不要修改其他部分。</li>
-</ul>
-</li>
-<li>查看原验收代码的 <code>auipc</code> 指令，可能需要改动避免进入 dummy。</li>
-</ul>
+
+这一模块中，你需要保存并管理 `mstatus, mtvec, mcause, mtval, mepc` 等 CSRs。实现模块时，需要时刻注意：
+
+* `mtvec` 的值要与你所写代码中 trap 处理程序首条指令位置相同，如果你改变了代码，需要检查是不是需要修改 `mtvec` 的值。
+* 如果正在进行 trap 处理程序（还未执行 `mret`），不接受其他 trap。
+* 根据不同的中断信号，对 CSRs 进行修改，再次提醒，我们的简单实现中，需要硬件对 `mepc` 的具体取值进行管理。
+* 请注意设置 CSRs 的初始值，并注意 `rst` 时恢复初始值。
+
+## 软件实现
+
+你需要修改 Lab4-3 提供的验收代码，实现 trap 处理程序以及三种对应的处理程序。
+
+### trap 处理程序
+
+一个简单的方式是放置若跳转指令，在 trap 处理程序中跳至相应中断/异常的处理程序中。如果你使用 Vectored 模式，并将三种 trap 的 exception code 分别设置为 `1, 2, 3`，你的代码应该类似于：
+
+
+请注意，在每个处理程序的末尾，你需要一个 `mret` 指令告知 `RV_INT` 模块中断处理已经结束，需要恢复正常的指令流并对必要的 CSR 进行修改。
+
+## 必要的检查
+
+在完成以上所有步骤后，请检查：
+
+* `RV_INT` 模块中的 `mtvec.BASE` 是否指向了 trap 处理程序的首个指令。
+* 我们需要实现 Vectored 模式，`RV_INT` 模块中 `mtvec.BASE + 4*cause` 是否能跳到正确的处理程序。
+* 请确保你在某个模式的处理下放置了 `ecall` 指令；在某个模式的处理下放置了一条非法指令。
+* Venus 平台无法为你解析 `mret`，请自行书写，并注意 trap 中断处理程序的结尾一定要有 `mret`。
+    * 为了不修改 trap 处理程序的跳转指令，你可以在原本 `mret` 的地方写一条 NOP 语句 `add x0, x0, x0` 来占一条指令的位置，在之后将它替换为 `mret`。
+* 查看原验收代码的 `148, 149` 行，确保这里的 `jalr` 能够跳转到 `loop2`。
+    * 请修改 `0x150, 0x24` 到合适的值，而不要修改其他部分。
+*  查看原验收代码的 `auipc` 指令，可能需要改动避免进入 dummy。 -->
+
 <h2 id="lab4">Lab4 思考题</h2>
 <p>这么重要的实验怎么能没有</p>
 <div class="admonition question">
 <p class="admonition-title">思考题(呢？)</p>
 <ul>
 <li>在涉及到一个大立即数的读入时，我们经常能想到使用 <code>lui &amp; addi</code> 来实现，比如下面这段代码就将 <code>0x22223333</code> 赋给了 <code>t0</code>:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>lui t0, 0x22223
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>addi t0, t0, 0x333
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>lui t0, 0x22223
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>addi t0, t0, 0x333
 </span></code></pre></div>
 你是否能通过以下代码得到 <code>0xDEADBEEF</code>？如果你觉得不能的话，先解释为什么不能，再修改代码中的<strong>一个字符</strong>，使得以下代码有效地得到 <code>0xDEADBEEF</code>。（如果你觉得可以的话，请重新学习 <a href="../attachment/riscv-spec-20191213.pdf">RISC-V ISA</a>）
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>lui t1, 0xDEADB
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>addi t1, t1, 0xEEF
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>lui t1, 0xDEADB
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>addi t1, t1, 0xEEF
 </span></code></pre></div>
-btw, 如果你把上边代码放到 Venus 上，会发现它给了你一个报错，不要理会它，它理解错了。</li>
-<li>之前我们一直在说，如果 trap 的诱因是 <code>Exception</code> 则需要 <code>mepc &lt;- PC+4</code>，如果是 <code>Interruption</code> 则需要 <code>mepc &lt;- PC</code>。这是为什么呢？或者说，如果 <code>Exception</code> 时进行 <code>mepc &lt;- PC</code>，<code>Interruption</code> 时 <code>mepc &lt;- PC+4</code> 会有什么不幸的后果？</li>
+btw, 如果你把上边代码放到 Venus 上，会发现它给了你一个报错，不要理会它，它理解错了。
+<!-- * 之前我们一直在说，如果 trap 的诱因是 <code>Exception</code> 则需要 <code>mepc &lt;- PC+4</code>，如果是 <code>Interruption</code> 则需要 <code>mepc &lt;- PC</code>。这是为什么呢？或者说，如果 <code>Exception</code> 时进行 <code>mepc &lt;- PC</code>，<code>Interruption</code> 时 <code>mepc &lt;- PC+4</code> 会有什么不幸的后果？ --></li>
 </ul>
 </div>
 
