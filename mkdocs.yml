@@ -79,10 +79,10 @@ nav:
     - 乘法器: Lab3/multiplier.md
     - 除法器: Lab3/divider.md
     - 浮点加法器: Lab3/floating_point_adder.md
-  # - Lab4:
-  #   - Lab4/Lab4.md
-  #   - DataPath & CtrlUnit: Lab4/DataPath_CtrlUnit.md
-  #   - Instruction Extension: Lab4/instr_extension.md
+  - Lab4:
+    - Lab4/Lab4.md
+    - 基本的控制单元和数据通路: Lab4/DataPath_CtrlUnit.md
+    - 指令拓展: Lab4/instr_extension.md
   #   - Exception & Interruption: Lab4/exception_interruption.md
   # - Lab5:
   #   - Lab5/Lab5.md
