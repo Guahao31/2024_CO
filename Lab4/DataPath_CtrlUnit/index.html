@@ -13,7 +13,7 @@
         <link rel="canonical" href="https://guahao31.github.io/2024_CO/Lab4/DataPath_CtrlUnit/">
       
       
-        <link rel="prev" href="../Lab4/">
+        <link rel="prev" href="../basic_scpu/">
       
       
         <link rel="next" href="../instr_extension/">
@@ -891,6 +891,26 @@
                 
   
   
+  
+    <li class="md-nav__item">
+      <a href="../basic_scpu/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    基本 SCPU
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -1292,9 +1312,6 @@
 <h1 id="_1">基本的控制单元和数据通路</h1>
 <!-- !!! danger "本实验并未 release，内容随时都会变化。个人水平有限，如您发现文档中的疏漏欢迎 Issue！" -->
 
-<div class="admonition warning">
-<p class="admonition-title">你可以使用 git 来记录实验过程，创建新的分支完成本节，可以参考 <a href="../../Other/about_git/">git 基础</a>小节。</p>
-</div>
 <h2 id="_2">模块实现</h2>
 <p>本实验需要完成大部分指令，自行完成<strong>数据通路</strong>和<strong>控制器</strong>的设计，从而得到自己设计实现的 SCPU。</p>
 <div class="admonition tip">
@@ -1320,7 +1337,7 @@
 </ul>
 </li>
 <li>
-<p>我们鼓励你使用自己的方式完成设计。对于不知道如何设计的同学，我们在下面提供了 SCPU_ctrl、ImmGen 模块的接口定义，你可以参考这些定义来完成你的设计。</p>
+<p><strong>我们鼓励你使用自己的方式完成设计</strong>。对于不知道如何设计的同学，我们在下面提供了 SCPU_ctrl、ImmGen 模块的接口定义，你可以参考这些定义来完成你的设计。</p>
 </li>
 </ul>
 <div class="admonition tip">
@@ -1355,18 +1372,21 @@
 </span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="k">endmodule</span>
 </span></code></pre></div></p>
 <p>这里我们规定控制信号及其含义如下：（参考附件 <code>Lab4_header.vh</code>）</p>
+<details class="note">
+<summary>控制信号介绍</summary>
 <ul>
-<li>ImmSel 用于选择生成立即数的方式，0 为 I-Type，1 为 S-Type，2 为 B-Type，3 为 J-Type。</li>
-<li>ALUSrc_B 用于选择 ALU 的 B 输入口，0 为寄存器值，1 为立即数。</li>
-<li>MemtoReg 用于选择写回寄存器的数据来源，0 为 ALU 输出，1 为存储器读出的值，2 为 PC+4。</li>
-<li>Jump 用于选择 PC 的下一个值，0 为 PC+4，1 为 J-Type 指令的目标地址。</li>
-<li>Branch 用于选择是否进行分支跳转，0 为不跳转，1 为跳转。</li>
-<li>RegWrite 用于选择是否写回寄存器，0 为不写回，1 为写回。</li>
-<li>MemRW 用于选择存储器的读写方式，0 为读，1 为写。</li>
-<li>ALU_Control 用于选择 ALU 的运算方式，接口定义与 Lab2 中 ALU 的实现相同。</li>
-<li>CPU_MIO 用于选择是否进行存储器的读写，0 为不进行，1 为进行。（实际上这个控制信号可有可无）</li>
+<li><code>ImmSel</code> 用于选择生成立即数的方式，0 为 I-Type，1 为 S-Type，2 为 B-Type，3 为 J-Type。</li>
+<li><code>ALUSrc_B</code> 用于选择 ALU 的 B 输入口，0 为寄存器值，1 为立即数。</li>
+<li><code>MemtoReg</code> 用于选择写回寄存器的数据来源，0 为 ALU 输出，1 为存储器读出的值，2 为 PC+4。</li>
+<li><code>Jump</code> 用于选择 PC 的下一个值，0 为 PC+4，1 为 J-Type 指令的目标地址。</li>
+<li><code>Branch</code> 用于选择是否进行分支跳转，0 为不跳转，1 为跳转。</li>
+<li><code>RegWrite</code> 用于选择是否写回寄存器，0 为不写回，1 为写回。</li>
+<li><code>MemRW</code> 用于选择存储器的读写方式，0 为读，1 为写。</li>
+<li><code>ALU_Control</code> 用于选择 ALU 的运算方式，接口定义与 Lab2 中 ALU 的实现相同。</li>
+<li><code>CPU_MIO</code> 用于选择是否进行存储器的读写，0 为不进行，1 为进行。（实际上这个控制信号可有可无）</li>
 </ul>
-<p>当然，你可以使用任何你认为合适的方式来实现这些控制信号，或者去掉某些你认为不重要的信号，增加你认为重要的信号，也可以改变控制信号的定义。（如果你的接口定义和上面不同，请在实验报告中说明）</p>
+</details>
+<p>当然，<strong>你可以使用任何你认为合适的方式来实现这些控制信号</strong>，或者去掉某些你认为不重要的信号，增加你认为重要的信号，也可以改变控制信号的定义。（如果你的接口定义和上面不同，请在实验报告中说明）</p>
 <h3 id="_3">立即数生成器</h3>
 <p>ImmGen 用来生成立即数，对于 I-Type、S-Type、B-Type、J-Type 指令，我们需要不同的生成方式。具体的指令格式可以查看 RISC-V 手册或<a href="../../Other/RISC_V/">速查表</a>。</p>
 <p>参考模块接口如下：
@@ -1461,10 +1481,9 @@
 </div>
 </div>
 </div>
-<div class="admonition danger">
-<p class="admonition-title">以上代码并未验证，如有问题请联系助教。</p>
-</div>
-<p>请自行书写测试代码，生成 ROM 核，并进行仿真。</p>
+<!-- !!! danger "以上代码并未验证，如有问题请联系助教。" -->
+
+<p><strong>请自行书写测试代码</strong>，生成 ROM 核，并进行仿真。</p>
 <h2 id="_5">下板验证</h2>
 <p>验收时，你需要使用以下验收代码。（验收代码为上上届助教 <a href="https://github.com/NonoHh">@NonoHh</a> 所写）</p>
 <details class="tip">
@@ -1813,7 +1832,8 @@
 </li>
 </ul>
 <p>如果在某模式下你的表现与预期不符，请查看该模式对应代码，缩小检查范围。</p>
-<p><strong>如果你的下板现象并不符合预期</strong>：</p>
+<div class="admonition tip">
+<p class="admonition-title"><strong>如果你的下板现象并不符合预期</strong>😭</p>
 <ul>
 <li>四种现象完全没有，全部乱码，数码管显示 55AA。CPU 实现有严重错误，使用 testbench 与自己的测试代码进行仿真测试，调整到指令测试无误再下板。</li>
 <li>LED 灯和开关不同步。考虑 <code>lw, sw, shift</code> 等指令是否正确。</li>
@@ -1821,6 +1841,7 @@
 <li>开机现象和自增有，学号和矩形动画没有。考虑 RAM 内容是否正确载入。</li>
 <li>仅矩形动画不正确。考虑 <code>jalr</code> 指令是否正确。</li>
 </ul>
+</div>
 <h2 id="_6">实验要求</h2>
 <ul>
 <li>实现 CtrlUnit 和 DataPath，得到自行实现的 SCPU。</li>

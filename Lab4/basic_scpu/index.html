@@ -13,6 +13,10 @@
         <link rel="canonical" href="https://guahao31.github.io/2024_CO/Lab4/basic_scpu/">
       
       
+        <link rel="prev" href="../Lab4/">
+      
+      
+        <link rel="next" href="../DataPath_CtrlUnit/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -20,7 +24,7 @@
     
     
       
-        <title>Basic SCPU - 2024_CO</title>
+        <title>基本 SCPU - 2024_CO</title>
       
     
     
@@ -79,7 +83,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#basic-scpu" class="md-skip">
+        <a href="#scpu" class="md-skip">
           跳转至
         </a>
       
@@ -113,7 +117,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Basic SCPU
+              基本 SCPU
             
           </span>
         </div>
@@ -304,10 +308,12 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../Lab4/" class="md-tabs__link">
           
   
@@ -829,17 +835,19 @@
       
   
   
+    
+  
   
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_6" checked>
         
           <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
             
@@ -852,7 +860,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             Lab4
@@ -874,6 +882,94 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    基本 SCPU
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    基本 SCPU
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    模块实现
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    仿真验证
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    下板验证
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    实验要求
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1119,18 +1215,23 @@
   
 
 
-<h1 id="basic-scpu">Basic SCPU</h1>
+<h1 id="scpu">基本 SCPU</h1>
+<div class="admonition tip">
+<p class="admonition-title"><a href="https://pan.zju.edu.cn/share/1ed0ad5ca95f2913fd79637454">Lab4-0 附件</a></p>
+</div>
 <h2 id="_1">模块实现</h2>
 <p>本实验需要使用提供的 IP 核组成 SCPU，参考附件的电路图 <a href="../attachment/IP2CPU.pdf">IP2CPU.pdf</a> 完成连线即可。</p>
 <ul>
-<li>请下载附件里的 IP 核：<a href="">SCPU_Ctrl</a>，<a href="">DataPath</a>。</li>
+<li>请下载附件里的 IP 核：SCPU_Ctrl，DataPath。</li>
 <li>你需要将之前的 SCPU IP 核替换为你自己设计的 SCPU 模块。</li>
 </ul>
 <h2 id="_2">仿真验证</h2>
 <p>仿真验证方式同 Lab2。</p>
 <h2 id="_3">下板验证</h2>
 <p>验证方式同 Lab2，即使用之前实验的 Fibonacci 列进行简单测试。</p>
-<p>本节实验不需要验收，但需要实验报告。</p>
+<div class="admonition warning">
+<p class="admonition-title">本实验不需要验收。</p>
+</div>
 <h2 id="_4">实验要求</h2>
 <p>本次实验你需要完成的内容有：</p>
 <ul>
