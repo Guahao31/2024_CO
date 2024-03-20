@@ -1,6 +1,8 @@
 # Exception & Interruption
 
-<!-- !!! danger "本实验并未 release，内容随时都会变化。个人水平有限，如您发现文档中的疏漏欢迎 Issue！" -->
+!!! danger "本实验并未 release，内容随时都会变化。个人水平有限，如您发现文档中的疏漏欢迎 Issue！"
+
+!!! danger "请先保存 Lab4-3 的工程文件"
 
 ## 前置知识
 
@@ -22,7 +24,6 @@ exception or an interrupt.
 
 对于每个 CSR 的详细介绍，请查看 [Volume II: RISC-V Privileged Architectures V20211203](./attachment/riscv-privileged-20211203.pdf)，这里仅对我们本次实验需要用到的 CSRs 进行简介：
 
-
 * **mstatus**： Machine Status Register，存储当前控制状态。
     * ![](./pic/mstatus.png)
     * 本次实验中你可以做相对简化，只要可以保证在中断处理过程中不会触发新的中断即可。
@@ -40,7 +41,7 @@ exception or an interrupt.
 * **mepc**： Machine Exception Program Counter，存储 trap 触发时将要执行的指令地址，在 `mret` 时作为返回地址。
     * ![](./pic/mepc.png)
     * 本次实验不涉及 PC 非对齐异常，因此不需要考虑将跳转指令的目标地址送入 `mepc` 的情况。
-    * 需要注意的是，在一般的实现中，你需要在 trap 处理程序中检查 `mcause` 寄存器，如果是异常则更新 `mepc <- mepc + 4`，这部分不是你的硬件实现，而是由软件（你的 trap 处理程序）进行管理的。**但是**，本次实验并不要求实现 `csrw` 等指令，因此我们要在 `RV_INT` 模块中直接管理 `mepc`，即触发 trap 时直接根据触发信号（是不是 `INT`）来决定 `mepc <- pc` 还是 `mepc <- pc+4`。
+    * 需要注意的是，在一般的实现中，你需要在 trap 处理程序中检查 `mcause` 寄存器，如果是异常则更新 `mepc <- mepc + 4`，这部分不是你的硬件实现，而是由软件（你的 trap 处理程序）进行管理的。
 
 ### trap
 
@@ -49,25 +50,47 @@ exception or an interrupt.
 * 更新 `mcause`，记录当前是不是中断，并记录 exception-code。
 * 更新 `mstatus`，防止在 trap 处理时又触发中断。
 * 更新 `mepc`，记录当前指令的地址。再次提醒，本实验中硬件 `RV_INT` 模块将直接管理 `mepc` 是否自增，如果触发的原因是中断，则 `mepc <- pc`，否则 `mepc <- pc+4`。
+* 更新 `mtval`，记录错误信息。（非法指令的内容或者未对齐的地址）
 
 为了简化实验，在进入 trap 后，你不需要保存当前现场（寄存器值等），只需要使用验收代码中没有用到的寄存器即可。
 
-## 实验要求
+## 模块实现
+
+### CSR 寄存器及其指令
+
+本实验需要修改 Lab4-3 中的 CPU，使其支持操作 CSR 寄存器。
+
+
+
+### 异常中断处理
+
+本实验需要修改 Lab4-3 中的 CPU，使其支持下面的 5 钟中断异常：
+
+* IO 外设产生的硬件中断（检测某个开关打开）
+* 数据访存不对齐（lw、sw 的地址不是 4 字节对齐）
+* 跳转地址不对齐（跳转的目标地址不是 4 字节对齐）
+* 非法指令（未定义指令，要求检查 0xffffffff）
+* `ecall` 指令（软件中断）
+
+具体来说，可以分为下面几步：
+
+* 首先要检测中断或者异常的发生。
+    * 在 SCPU_ctrl 中可以检查 `ecall` 指令和非法指令，并传出相应信号。
+    * 在 DataPath 中可以检查访存的地址或者跳转的地址是否正确。
+    * 外设信号通过顶层模块的输入传入。
+* 检测到中断异常后，要阻止当前指令的执行。具体来说，就是要将当前的寄存器堆、内存等器件的写使能关闭。
+* 保存中断异常的相关信息，包括 `mepc`, `mscause`, `mtval`，并修改 `mstatus`。
+* 修改下一条要执行的 PC，使其指向 trap 处理程序的首条指令（即 `mtvec`）。
+* trap 处理程序的部分由软件实现，我们要求在软件中实现：
+    * 读出 `mepc`, `mscause`, `mtval`, `mstatus`, `mtvec` 的值，放在某个寄存器当中。
+    * 将 `mepc` 读出并 +4 写回到 `mepc` 中。
+    * 调用 `mret` 返回到原来的程序。（此时要恢复进入处理程序所保存的信息）
+
+<!-- ## 实验要求
 
 本实验需要修改硬件（添加 `RV_INT` 模块，修改 Datapath）以及软件（修改验收代码，实现 trap 处理）。
 
 修改 `SCPU_ctrl` 模块用来检查 `ecall` 指令和非法指令，并给出相应信号接入 `Datapath` 中。
-
-添加 `VGA` 模块的 debug 信号，至少需要 `mstatus, mcause, mepc, mtvec` 的值。
-
-你需要设计实现三种 trap：外部中断、 `ecall` 指令和非法指令。
-
-* 外部中断，升起 `INT` 信号，你可以设置某个开关来引起外部中断。引起外部中断时，你需要在七段管上打印出以下图形：
-    * ![](./pic/int_seg.png)
-* `ecall` 指令，因为我们并没有实现特权架构，这里 `ecall` 指令仅用来作为触发相应中断的信号。当进行 `ecall` 时，你需要在七段管上打印出以下图形：
-    * ![](./pic/ecall_seg.png)
-* 非法指令，如果将要执行的指令是非法的，则触发非法指令异常。你需要在七段管上打印出以下图形：
-    * ![](./pic/ill_seg.png)
 
 如何在图形模式下打印将在*软件实现*一节说明。
 
@@ -103,57 +126,6 @@ module RV_INT(
 
 一个简单的方式是放置若跳转指令，在 trap 处理程序中跳至相应中断/异常的处理程序中。如果你使用 Vectored 模式，并将三种 trap 的 exception code 分别设置为 `1, 2, 3`，你的代码应该类似于：
 
-```
-# mtvec.BASE = 0x0
-# mtvec.MODE = 1(Vecotored mode)
-jal x0, main          # PC = 0x0, 正常程序的入口
-jal x0, ill_trap      # PC = 0x4, 进入非法指令处理程序
-jal x0, ecall_trap    # PC = 0x8, 进入 ecall 处理程序
-jal x0, int_trap      # PC = 0xC, 进入外部中断处理程序
-```
-
-### 图形模式下的打印
-
-目前提供的七段数码管 IP 核仅能支持打印一半的图形（4个），另一半是拷贝。
-
-输入的 `Disp_num` 到打印图形的映射如下：
-
-```verilog title="SSeg_map"
-module SSeg_map(
-  input[31:0]Disp_num, 
-  output[63:0]Seg_map
-);
-
-   assign Seg_map = {
-      Disp_num[0],  Disp_num[4], Disp_num[16], Disp_num[25], 
-      Disp_num[17], Disp_num[5], Disp_num[12], Disp_num[24],
-      Disp_num[1],  Disp_num[6], Disp_num[18], Disp_num[27], 
-      Disp_num[19], Disp_num[7], Disp_num[13], Disp_num[26], 
-      Disp_num[2],  Disp_num[8], Disp_num[20], Disp_num[29], 
-      Disp_num[21], Disp_num[9], Disp_num[14], Disp_num[28], 
-      Disp_num[3],  Disp_num[10],Disp_num[22], Disp_num[31], 
-      Disp_num[23], Disp_num[11],Disp_num[15], Disp_num[30],
-      
-      // Copied right part
-      Disp_num[0],  Disp_num[4], Disp_num[16], Disp_num[25], 
-      Disp_num[17], Disp_num[5], Disp_num[12], Disp_num[24], 
-      Disp_num[1],  Disp_num[6], Disp_num[18], Disp_num[27], 
-      Disp_num[19], Disp_num[7], Disp_num[13], Disp_num[26], 
-      Disp_num[2],  Disp_num[8], Disp_num[20], Disp_num[29], 
-      Disp_num[21], Disp_num[9], Disp_num[14], Disp_num[28], 
-      Disp_num[3],  Disp_num[10],Disp_num[22], Disp_num[31], 
-      Disp_num[23], Disp_num[11],Disp_num[15], Disp_num[30],        
-      };
-	
-   
-endmodule
-```
-
-其中 `Disp_num` 为我们需要提供的 32-bit 值，`Seg_map` 是最终打印出来的图形，`0` 为亮。现在我们可以设计出来希望打印的图形，因此需要通过这个图形的逆映射得到输入给 `Sseg7` 的 `Disp_num` 值。
-
-举个例子，我们希望在从左往右数第三个数码管上绘制一个矩形，可以很容易得到 `Seg_map` 的值应该为 `0xFFFF39FF`，它只会点亮第三个数码管的 `a, b, f, g`，即一个小矩形。通过逆映射，我们得到 `Disp_num` 值为 `0xFFFFBCFB`。另一个例子，打印第二位上的小矩形 `Seg_map: 0xFF39FFFF ---> Disp_num: 0xFFFFDF3D`。
-
-这一步中，你需要得到希望打印三种 trap 的图形的 `Disp_num` 值。你需要查看验收代码，学习如何将这个值送入七段数码管最终显示一个图形。
 
 请注意，在每个处理程序的末尾，你需要一个 `mret` 指令告知 `RV_INT` 模块中断处理已经结束，需要恢复正常的指令流并对必要的 CSR 进行修改。
 
@@ -168,7 +140,7 @@ endmodule
     * 为了不修改 trap 处理程序的跳转指令，你可以在原本 `mret` 的地方写一条 NOP 语句 `add x0, x0, x0` 来占一条指令的位置，在之后将它替换为 `mret`。
 * 查看原验收代码的 `148, 149` 行，确保这里的 `jalr` 能够跳转到 `loop2`。
     * 请修改 `0x150, 0x24` 到合适的值，而不要修改其他部分。
-*  查看原验收代码的 `auipc` 指令，可能需要改动避免进入 dummy。
+*  查看原验收代码的 `auipc` 指令，可能需要改动避免进入 dummy。 -->
 
 
 ## Lab4 思考题
@@ -187,4 +159,4 @@ endmodule
     addi t1, t1, 0xEEF
     ```
     btw, 如果你把上边代码放到 Venus 上，会发现它给了你一个报错，不要理会它，它理解错了。
-    * 之前我们一直在说，如果 trap 的诱因是 `Exception` 则需要 `mepc <- PC+4`，如果是 `Interruption` 则需要 `mepc <- PC`。这是为什么呢？或者说，如果 `Exception` 时进行 `mepc <- PC`，`Interruption` 时 `mepc <- PC+4` 会有什么不幸的后果？
+    <!-- * 之前我们一直在说，如果 trap 的诱因是 `Exception` 则需要 `mepc <- PC+4`，如果是 `Interruption` 则需要 `mepc <- PC`。这是为什么呢？或者说，如果 `Exception` 时进行 `mepc <- PC`，`Interruption` 时 `mepc <- PC+4` 会有什么不幸的后果？ -->

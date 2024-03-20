@@ -52,7 +52,7 @@
 你可以使用纸笔绘制（不推荐）但请保证验收时提供一张线条清晰较少涂改的原理图，也可以使用 Microsoft 的 Visio 或 PowerPoint、在线平台如 ProcessOn、 drawio 或平板软件如 Goodnotes、Notability 绘制。
 
 !!! tip
-    * 如果你是基于 Lab4-2 的基础进行实验，你可能需要将 SCPU_ctrl 中输出的控制信号进行修改（如增加位宽），以支持更多的指令，同理 ImmGen 生成立即数的方式可能也需要增加。
+    * 如果你是基于 Lab4-2 的基础进行实验，你可能需要将 SCPU_ctrl 中输出的控制信号进行修改（如增加位宽、指示当前指令是否为无符号，当前指令是否按字节、半字、字访问），以支持更多的指令，同理 ImmGen 生成立即数的方式可能也需要增加。
     * 为了支持 sb、sh 等按字节寻址的指令，你可能需要修改你的存储器 IP 核。对于 RAM 核，需要勾选 Byte Write Enable。同时将 Write Width 改为 32，这样 RAM 的 wea 就会变为 4 位，每一位代表一个字节的写使能。
     * 在生成 RAM 核时，我们需要取消勾选 Primitives Output Register, 否则每次读取数据需要两个周期的时间，而取消勾选后每次读取数据则只需要一周期的时间。
     * 修改 IMem.coe 或 DMem.coe 内容后，需要重新生成对应的存储器 IP 核。
