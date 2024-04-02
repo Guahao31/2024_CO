@@ -11,7 +11,7 @@
 !!! tip "在本节实验中，你需要实现以下指令："
 
     * R-Type: add, sub, and, or, xor, slt, srl, **sll**, **sra**, **sltu**
-    * I-Type: addi, andi, ori, xori, slti, srli, **slli**, **srai**, **slti**, **sltiu**, **lb**, **lh**, lw, **lbu**, **lhu**, **jalr**
+    * I-Type: addi, andi, ori, xori, srli, slti, **slli**, **srai**, **sltiu**, **lb**, **lh**, lw, **lbu**, **lhu**, **jalr**
     * S-Type: **sb**, **sh**, sw
     * B-Type: beq, **bne**, **blt**, **bge**, **bltu**, **bgeu**
     * J-Type: jal
