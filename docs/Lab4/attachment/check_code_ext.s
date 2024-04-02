@@ -123,18 +123,76 @@ pass_4:
     li x31, 5
     li x18, 0x20 # base addr=00000020
     ### uncomment instr. below when simulating on venus
-    # lui x18, 0x10000 # base addr=10000000
+    lui x18, 0x10000 # base addr=10000000
     sw   x5, 0(x18)       # mem[0x20]=F8000000
-    sw   x4, 4(x18)       # mem[0x24]=C0000000
-    lw   x29, 0(x18)      # x29=mem[0x20]=F8000000
-    xor  x29, x29, x5     # x29=00000000
-    sw   x6, 0(x18)       # mem[0x20]=E0000000
-    lw   x30, 0(x18)      # x30=mem[0x20]=E0000000
-    xor  x29, x29, x30    # x29=E0000000
-    beq  x6, x29, pass_5
+    sw   x4, 4(x18)       # mem[0x24]=E0000000
+    lw   x27, 0(x18)      # x27=mem[0x20]=F8000000
+    xor  x27, x27, x5     # x27=00000000
+    sw   x6, 0(x18)       # mem[0x20]=C0000000
+    lw   x28, 0(x18)      # x28=mem[0x20]=C0000000
+    xor  x27, x6, x28    # x27=C0000000
     auipc x30, 0
-    j    dummy
+    bnez x20, dummy
+    lui x20, 0xA0000 # x20=A0000000
+    sw x20, 8(x18) # mem[0x28]=A0000000
+    lui x27, 0xFEDCB    # x27=FEDCB000
+    srai x27, x27, 12   # x27=FFFFEDCB
+    li x28, 8
+    sll x27, x27, x28 # x27=FFEDCB00
+    ori x27, x27, 0xff # x27=FFEDCBFF
+    lb x29, 11(x18) # x29=FFFFFFA0, little-endian, signed-ext
+    and x27, x27, x29 # x27=FFEDCBA0
+    sw x27, 8(x18) # mem[0x28]=FFEDCBA0
+    lhu x27, 8(x18) # x27=0000CBA0
+    lui x20, 0xFFFF0 # x20=FFFF0000
+    and x20, x20, x27 # x20=00000000
+    auipc x30, 0
+    bnez x20, dummy # check unsigned-ext
+    li x31, 6
+    lbu x28, 10(x18) # x28=000000ED
+    lbu x29, 11(x18) # x29=000000FF
+    slli x29, x29, 8 # x29=0000FF00
+    or x29, x29, x28 # x29=0000FFED
+    slli x29, x29, 16
+    or x29, x27, x29 # x29=FFEDCBA0
+    lw x28, 8(x18) # x28=FFEDCBA0
+    auipc x30, 0
+    bne x28, x29, dummy
+    sw x0, 0(x18) # mem[0x20]=00000000
+    sh x27, 0(x18) # mem[0x20]=0000CBA0
+    li x28, 0xD0
+    sb x28, 2(x18) # mem[0x20]=00D0CBA0
+    lw x28, 0(x18) # x28=00D0CBA0
+    li x29, 0x00D0CBA0
+    auipc x30, 0
+    bne x28, x29, dummy
+    lh x27, 2(x18) # x27=000000D0
+    li x28, 0xD0
+    auipc x30, 0
+    bne x27, x28, dummy
 
 pass_5:
+    li x31, 7
+    auipc x30, 0
+    bge x1, x0, dummy # -1 >= 0 ?
+    bge x8, x1, pass_6 # 1 >= -1 ?
+    auipc x30, 0
+    j dummy
+
+pass_6:
+    auipc x30, 0
+    bgeu x0, x1, dummy # 0 >= FFFFFFFF ?
+    auipc x30, 0
+    bgeu x8, x1, dummy
+    auipc x20, 0
+    jalr x21, x0, pass_7 # just for test :(
+    auipc x30, 0
+    j dummy
+
+pass_7:
+# jalr ->
+    addi x20, x20, 8
+    auipc x30, 0
+    bne x20, x21, dummy
     li   x31, 0x666
     j    dummy
