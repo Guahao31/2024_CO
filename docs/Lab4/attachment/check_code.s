@@ -90,7 +90,9 @@ pass_3:
 
 pass_4:
     nop
-    srli x18, x7, 3       # base addr=10000000
+    li   x18, 0x20        # base addr=0x20
+### uncomment instr. below when simulating on venus
+    # srli x18, x7, 3     # base addr=10000000
     sw   x5, 0(x18)       # mem[0x20]=F8000000
     sw   x4, 4(x18)       # mem[0x24]=C0000000
     lw   x29, 0(x18)      # x29=mem[0x20]=F8000000

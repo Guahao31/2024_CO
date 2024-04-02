@@ -123,7 +123,7 @@ pass_4:
     li    x31, 5
     li    x18, 0x20        # base addr=00000020
 ### uncomment instr. below when simulating on venus
-    lui   x18, 0x10000     # base addr=10000000
+    # lui   x18, 0x10000     # base addr=10000000
     sw    x5, 0(x18)       # mem[0x20]=F8000000
     sw    x4, 4(x18)       # mem[0x24]=E0000000
     lw    x27, 0(x18)      # x27=mem[0x20]=F8000000
