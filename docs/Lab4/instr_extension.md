@@ -71,181 +71,204 @@ SCPU 的仿真与上一节类似，请修改上一节提供的 testbench，使�
     === "test_4_3.s" 
 
         ``` linenums="1" 
-        auipc x26, 0x40
-        auipc x27, 0x80
-        srli x27, x27, 3
-        slli x27, x27, 3
-        srai x27, x27, 1
-        bne x27, x26, dummy
-        lui x26, 0x40000
-        lui x27, 0x80000
-        srai x27, x27, 1
-        beq x27, x26, dummy
-
-        # change your first digit in Studen ID to 3320'2233
-        addi x24, zero, 0x22
-        sb x24, 0x21(zero)
-        addi x24, zero, 0x20
-        sb x24, 0x22(zero)
-
-        # change your second digit in Studen ID to 2204'2122
-        addi x24, zero, 0x421
-        sh x24, 0x25(zero)
+            auipc x1, 0
+            j     start            # 00
+        dummy:
+            nop                    # 04
+            nop                    # 08
+            nop                    # 0C
+            nop                    # 10
+            nop                    # 14
+            nop                    # 18
+            nop                    # 1C
+            j     dummy
 
         start:
-        addi x1, zero, -1 # x1=FFFFFFFF
-        lb x24, 0x18(zero) # x24=FFFFFFFF
-        bne x1, x24, dummy
-        lbu x24, 0x18(zero)# x24=000000FF
-        bge x1, x24, dummy
-        lh x24, 0x60(zero) # x24=FFFFF7E0
-        blt zero, x24, dummy
-        lhu x24, 0x60(zero) # x24=0000F7E0
-        blt x24, zero, dummy
-        xori x3, x1, 1 # x3=FFFFFFFE
-        add x3, x3, x3 # x3=FFFFFFFC
-        add x3, x3, x3 # x3=FFFFFFF8
-        add x3, x3, x3 # x3=FFFFFFF0
-        add x3, x3, x3 # x3=FFFFFFE0
-        add x3, x3, x3 # x3=FFFFFFC0
-        xor x20, x3, x1 # x20=0000003F
-        add x3, x3, x3 # x3=FFFFFF80
-        add x3, x3, x3 # x3=FFFFFF00
-        add x3, x3, x3 # x3=FFFFFE00
-        add x3, x3, x3 # x3=FFFFFC00
-        add x3, x3, x3 # x3=FFFFF800
-        add x3, x3, x3 # x3=FFFFF000
-        add x3, x3, x3 # x3=FFFFE000
-        add x3, x3, x3 # x3=FFFFC000
-        add x3, x3, x3 # x3=FFFF8000
-        add x3, x3, x3 # x3=FFFF0000
-        add x3, x3, x3 # x3=FFFE0000
-        add x3, x3, x3 # x3=FFFC0000
-        add x3, x3, x3 # x3=FFF80000
-        add x3, x3, x3 # x3=FFF00000
-        add x3, x3, x3 # x3=FFE00000
-        add x3, x3, x3 # x3=FFC00000
-        add x3, x3, x3 # x3=FF800000
-        add x3, x3, x3 # x3=FF000000
-        add x3, x3, x3 # x3=FE000000
-        add x3, x3, x3 # x3=FC000000
-        add x6, x3, x3 # x6=F8000000
-        add x3, x6, x6 # x3=F0000000
-        add x4, x3, x3 # x4=E0000000
-        add x13, x4, x4 # x13=C0000000
-        lui x8, 0x80000 # x8=80000000
-        ori x26, zero, 1 # x26=00000001
-        andi x26, x26, 0xff # x26=00000001
-        sra x30, x8, x26
-        srl x27, x8, x26
+            bnez  x1, dummy
+            beq   x0, x0, pass_0
+            li    x31, 0
+            auipc x30, 0
+            j     dummy
+        pass_0:
+            li    x31, 1
+            bne   x0, x0, dummy
+            bltu  x0, x0, dummy
+            li    x1, -1           # x1=FFFFFFFF
+            xori  x3, x1, 1        # x3=FFFFFFFE
+            add   x3, x3, x3       # x3=FFFFFFFC
+            add   x3, x3, x3       # x3=FFFFFFF8
+            add   x3, x3, x3       # x3=FFFFFFF0
+            add   x3, x3, x3       # x3=FFFFFFE0
+            add   x3, x3, x3       # x3=FFFFFFC0
+            add   x3, x3, x3       # x3=FFFFFF80
+            add   x3, x3, x3       # x3=FFFFFF00
+            add   x3, x3, x3       # x3=FFFFFE00
+            add   x3, x3, x3       # x3=FFFFFC00
+            add   x3, x3, x3       # x3=FFFFF800
+            add   x3, x3, x3       # x3=FFFFF000
+            add   x3, x3, x3       # x3=FFFFE000
+            add   x3, x3, x3       # x3=FFFFC000
+            add   x3, x3, x3       # x3=FFFF8000
+            add   x3, x3, x3       # x3=FFFF0000
+            add   x3, x3, x3       # x3=FFFE0000
+            add   x3, x3, x3       # x3=FFFC0000
+            add   x3, x3, x3       # x3=FFF80000
+            add   x3, x3, x3       # x3=FFF00000
+            add   x3, x3, x3       # x3=FFE00000
+            add   x3, x3, x3       # x3=FFC00000
+            add   x3, x3, x3       # x3=FF800000
+            add   x3, x3, x3       # x3=FF000000
+            add   x3, x3, x3       # x3=FE000000
+            add   x3, x3, x3       # x3=FC000000
+            add   x5, x3, x3       # x5=F8000000
+            add   x3, x5, x5       # x3=F0000000
+            add   x4, x3, x3       # x4=E0000000
+            add   x6, x4, x4       # x6=C0000000
+            add   x7, x6, x6       # x7=80000000
+            ori   x8, zero, 1      # x8=00000001
+            ori   x28, zero, 31
+            srl   x29, x7, x28     # x29=00000001
+            auipc x30, 0
+            bne   x8, x29, dummy
+            auipc x30, 0
+            blt   x8, x7, dummy
+            sra   x29, x7, x28     # x29=FFFFFFFF
+            and   x29, x29, x3     # x29=x3=F0000000
+            auipc x30, 0
+            bne   x3, x29, dummy
+            mv    x29, x8          # x29=x8=00000001
+            bltu  x29, x7, pass_1  # unsigned 00000001 < 80000000
+            auipc x30, 0
+            j     dummy
 
-        blt zero, zero, dummy
-        blt x26, zero, dummy
-        blt zero, x8, dummy
+        pass_1:
+            nop
+            li    x31, 2
+            sub   x3, x6, x7       # x3=40000000
+            sub   x4, x7, x3       # x4=40000000
+            slti  x9, x0, 1        # x9=00000001
+            slt   x10, x3, x4
+            slt   x10, x4, x3      # x10=00000000
+            auipc x30, 0
+            beq   x9, x10, dummy   # branch when x3 != x4
+            srli  x29, x3, 30      # x29=00000001
+            beq   x29, x9, pass_2
+            auipc x30, 0
+            j     dummy
 
-        bge zero, x26, dummy
-        bge x8, zero, dummy
+        pass_2:
+            nop
+        # Test set-less-than
+            li    x31, 3
+            slti  x10, x1, 3       # x10=00000001
+            slt   x11, x5, x1      # signed(0xF8000000) < -1
+                                # x11=00000001
+            slt   x12, x1, x3      # x12=00000001
+            andi  x10, x10, 0xff
+            and   x10, x10, x11
+            and   x10, x10, x12    # x10=00000001
+            auipc x30, 0
+            beqz  x10, dummy
+            sltu  x10, x1, x8      # unsigned FFFFFFFF < 00000001 ?
+            auipc x30, 0
+            bnez  x10, dummy
+            sltu  x10, x8, x3      # unsigned 00000001 < F0000000 ?
+            auipc x30, 0
+            beqz  x10, dummy
+            sltiu x10, x1, 3
+            auipc x30, 0
+            bnez  x10, dummy
+            li    x11, 1
+            bne   x10, x11, pass_3
+            auipc x30, 0
+            j     dummy
 
-        bne x27, x30, loop
+        pass_3:
+            nop
+            li    x31, 4
+            or    x11, x7, x3      # x11=C0000000
+            beq   x11, x6, pass_4
+            auipc x30, 0
+            j     dummy
 
-        dummy:
-        add zero, zero, zero # 4
-        add zero, zero, zero # 8
-        add zero, zero, zero # C
-        add zero, zero, zero # 10
-        add zero, zero, zero # 14
-        add zero, zero, zero # 18
-        add zero, zero, zero # 1C
-        jal zero, dummy
+        pass_4:
+            nop
+            li    x31, 5
+            li    x18, 0x20        # base addr=00000020
+        ### uncomment instr. below when simulating on venus
+            # lui   x18, 0x10000     # base addr=10000000
+            sw    x5, 0(x18)       # mem[0x20]=F8000000
+            sw    x4, 4(x18)       # mem[0x24]=E0000000
+            lw    x27, 0(x18)      # x27=mem[0x20]=F8000000
+            xor   x27, x27, x5     # x27=00000000
+            sw    x6, 0(x18)       # mem[0x20]=C0000000
+            lw    x28, 0(x18)      # x28=mem[0x20]=C0000000
+            xor   x27, x6, x28     # x27=C0000000
+            auipc x30, 0
+            bnez  x20, dummy
+            lui   x20, 0xA0000     # x20=A0000000
+            sw    x20, 8(x18)      # mem[0x28]=A0000000
+            lui   x27, 0xFEDCB     # x27=FEDCB000
+            srai  x27, x27, 12     # x27=FFFFEDCB
+            li    x28, 8
+            sll   x27, x27, x28    # x27=FFEDCB00
+            ori   x27, x27, 0xff   # x27=FFEDCBFF
+            lb    x29, 11(x18)     # x29=FFFFFFA0, little-endian, signed-ext
+            and   x27, x27, x29    # x27=FFEDCBA0
+            sw    x27, 8(x18)      # mem[0x28]=FFEDCBA0
+            lhu   x27, 8(x18)      # x27=0000CBA0
+            lui   x20, 0xFFFF0     # x20=FFFF0000
+            and   x20, x20, x27    # x20=00000000
+            auipc x30, 0
+            bnez  x20, dummy       # check unsigned-ext
+            li    x31, 6
+            lbu   x28, 10(x18)     # x28=000000ED
+            lbu   x29, 11(x18)     # x29=000000FF
+            slli  x29, x29, 8      # x29=0000FF00
+            or    x29, x29, x28    # x29=0000FFED
+            slli  x29, x29, 16
+            or    x29, x27, x29    # x29=FFEDCBA0
+            lw    x28, 8(x18)      # x28=FFEDCBA0
+            auipc x30, 0
+            bne   x28, x29, dummy
+            sw    x0, 0(x18)       # mem[0x20]=00000000
+            sh    x27, 0(x18)      # mem[0x20]=0000CBA0
+            li    x28, 0xD0
+            sb    x28, 2(x18)      # mem[0x20]=00D0CBA0
+            lw    x28, 0(x18)      # x28=00D0CBA0
+            li    x29, 0x00D0CBA0
+            auipc x30, 0
+            bne   x28, x29, dummy
+            lh    x27, 2(x18)      # x27=000000D0
+            li    x28, 0xD0
+            auipc x30, 0
+            bne   x27, x28, dummy
 
-        loop:
-        slt x2, x1, zero # x2=00000001 针对ALU32位有符号数减
-        sltu x25, x1, zero # x25=00000000
-        sltiu x29, x1, 0 # x29=00000000
-        slti x2, x1, 0 # x2=00000001 针对ALU32位有符号数减
-        add x14, x2, x2
-        add x14, x14, x14 # x14=4
-        sub x19, x14, x14 # x19=0
-        srli x19, x19, 1
-        addi x10, x19, -1
-        or x10, x10, zero
-        add x10, x10, x10 # x10=FFFFFFFE
+        pass_5:
+            li    x31, 7
+            auipc x30, 0
+            bge   x1, x0, dummy    # -1 >= 0 ?
+            bge   x8, x1, pass_6   # 1 >= -1 ?
+            auipc x30, 0
+            j     dummy
 
-        loop1:
-        sw x6, 0x4(x3) # 计数器端口: F0000004, 送计数常数x6=F8000000
-        lw x5, 0x0(x3) # 读GPIO端口F0000000状态: {counter0_out,counter1_out,counter2_out,led_out[12:0], SW}
-        slli x5, x5, 2 # 左移2位将SW与LED对齐, 同时D1D0置00, 选择计数器通道0
-        sw x5, 0x0(x3) # x5输出到GPIO端口F0000000, 设置计数器通道counter_set=00端口
-        add x9, x9, x2 # x9=x9+1
-        sw x9, 0x0(x4) # x9送x4=E0000000七段码端口
-        lw x13, 0x14(zero) # 取存储器20单元预存数据至x13, 程序计数延时常数
+        pass_6:
+            auipc x30, 0
+            bgeu  x0, x1, dummy    # 0 >= FFFFFFFF ?
+            auipc x30, 0
+            bgeu  x8, x1, dummy
+            auipc x20, 0
+            jalr  x21, x0, pass_7  # just for test : (
+            auipc x30, 0
+            j     dummy
 
-        loop2:
-        lw x5, 0x0(x3) # 读GPIO端口F0000000状态: {out0, out1, out2, D28-D20, LED7
-        add x5, x5, x5
-        add x5, x5, x5 # 左移2位将SW与LED对齐, 同时D1D0置00, 选择计数器通道0
-        sw x5, 0x0(x3) # x5输出到GPIO端口F0000000, 计数器通道counter_set=00端口不变
-        lw x5, 0x0(x3) # 再读GPIO端口F0000000状态
-        and x11, x5, x8 # 取最高位=out0, 屏蔽其余位送x11
-        add x13, x13, x2 # 程序计数延时
-        beq x13, zero, C_init # 程序计数x13=0, 转计数器初始化, 修改7段码显示: C_init
-
-        l_next: # 判断7段码显示模式：SW[4: 3]控制
-        lw x5, 0x0(x3) # 再读GPIO端口F0000000开关SW状态
-        add x18, x14, x14 # x14=4, x18=00000008
-        add x22, x18, x18 # x22=00000010
-        add x18, x18, x22 # x18=00000018(00011000)
-        and x11, x5, x18 # 取SW[4: 3]
-        beq x11, zero, L20 # SW[4: 3]=00, 7段显示"点"循环移位：L20, SW0=0
-        beq x11, x18, L21 # SW[4: 3]=11, 显示七段图形, L21, SW0=0
-        add x18, x14, x14 # x18=8
-        beq x11, x18, L22 # SW[4: 3]=01, 七段显示预置数字, L22, SW0=1
-        sw x9, 0x0(x4) # SW[4: 3]=10, 显示x9, SW0=1
-        bltu zero, x4, loop2
-
-        L20:
-        beq x10, x1, L4 # x10=ffffffff, 转移L4\\
-        bgeu x4, zero, L3
-
-        L4:
-        addi x10, zero, -1 # x10=ffffffff
-        add x10, x10, x10 # x10=fffffffe
-
-        L3:
-        sw x10, 0x0(x4) # SW[4: 3]=00, 7段显示点移位后显示
-        jal zero, loop2
-
-        L21:
-        lw x9, 0x60(x17) # SW[4: 3]=11, 从内存取预存七段图形
-        sw x9, 0x0(x4) # SW[4: 3]=11, 显示七段图形
-        addi x31, zero, 0x150
-        jalr zero, x31, 0x24 #jump to pc 0x174
-
-        L22:
-        lw x9, 0x20(x17) # SW[4: 3]=01, 从内存取预存数字
-        sw x9, 0x0(x4) # SW[4: 3]=01, 七段显示预置数字
-        blt x4, zero, loop2
-
-        C_init:
-        lw x13, 0x14(zero) # 取程序计数延时初始化常数
-        add x10, x10, x10 # x10=fffffffc, 7段图形点左移121 or x10, x10, x2 # x10末位置1, 对应右上角不显示
-        add x17, x17, x14 # x17=00000004, LED图形访存地址+4
-        and x17, x17, x20 # x17=000000XX, 屏蔽地址高位, 只取6位
-        add x9, x9, x2 # x9+1
-        beq x9, x1, L6 # 若x9=ffffffff, 重置x9=5
-        bge zero, zero, L7
-
-        L6:
-        add x9, zero, x14 # x9=4
-        add x9, x9, x2 # 重置x9=5
-
-        L7:
-        lw x5, 0x0(x3) # 读GPIO端口F0000000状态
-        add x11, x5, x5
-        slli x11, x11, 1 # 左移2位将SW与LED对齐, 同时D1D0置00, 选择计数器通道0
-        sw x11, 0x0(x3) # x5输出到GPIO端口F0000000, 计数器通道counter_set=00端口不变
-        sw x6, 0x4(x3) # 计数器端口: F0000004, 送计数常数x6=F8000000
-        bge zero, x4, l_next
+        pass_7:
+        # jalr ->
+            addi  x20, x20, 8
+            auipc x30, 0
+            bne   x20, x21, dummy
+            li    x31, 0x666
+            j     dummy
         ```
 
     === "IMem_4_3.coe"
@@ -253,45 +276,185 @@ SCPU 的仿真与上一节类似，请修改上一节提供的 testbench，使�
         ```
         memory_initialization_radix=16;
         memory_initialization_vector=
-        00040D17, 00080D97, 003DDD93, 003D9D93, 401DDD93, 0FAD9C63, 
-        40000D37, 80000DB7, 401DDD93, 0FAD8463, 02200C13, 038000A3, 
-        02000C13, 03800123, 42100C13, 038012A3, FFF00093, 01800C03, 
-        0D809263, 01804C03, 0B80DE63, 06001C03, 0B804A63, 06005C03, 
-        0A0C4663, 0010C193, 003181B3, 003181B3, 003181B3, 003181B3, 
-        003181B3, 0011CA33, 003181B3, 003181B3, 003181B3, 003181B3, 
-        003181B3, 003181B3, 003181B3, 003181B3, 003181B3, 003181B3, 
-        003181B3, 003181B3, 003181B3, 003181B3, 003181B3, 003181B3, 
-        003181B3, 003181B3, 003181B3, 003181B3, 00318333, 006301B3, 
-        00318233, 004206B3, 80000437, 00106D13, 0FFD7D13, 41A45F33, 
-        01A45DB3, 00004C63, 000D4A63, 00804863, 01A05663, 00045463, 
-        03ED9263, 00000033, 00000033, 00000033, 00000033, 00000033, 
-        00000033, 00000033, FE5FF06F, 0000A133, 0000BCB3, 0000BE93, 
-        0000A113, 00210733, 00E70733, 40E709B3, 0019D993, FFF98513, 
-        00056533, 00A50533, 0061A223, 0001A283, 00229293, 0051A023, 
-        002484B3, 00922023, 01402683, 0001A283, 005282B3, 005282B3, 
-        0051A023, 0001A283, 0082F5B3, 002686B3, 06068263, 0001A283, 
-        00E70933, 01290B33, 01690933, 0122F5B3, 00058C63, 03258663, 
-        00E70933, 03258A63, 00922023, FA406CE3, 00150463, 00027663, 
-        FFF00513, 00A50533, 00A22023, FA1FF06F, 0608A483, 00922023, 
-        15000F93, 024F8067, 0208A483, 00922023, F80242E3, 01402683, 
-        00A50533, 00E888B3, 0148F8B3, 002484B3, 00148463, 00005663, 
-        00E004B3, 002484B3, 0001A283, 005285B3, 00159593, 00B1A023, 
-        0061A223, F64054E3;
+        00000097,
+        0240006F,
+        00000013,
+        00000013,
+        00000013,
+        00000013,
+        00000013,
+        00000013,
+        00000013,
+        FE5FF06F,
+        FE0090E3,
+        00000863,
+        00000F93,
+        00000F17,
+        FD1FF06F,
+        00100F93,
+        FC0014E3,
+        FC0062E3,
+        FFF00093,
+        0010C193,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003181B3,
+        003182B3,
+        005281B3,
+        00318233,
+        00420333,
+        006303B3,
+        00106413,
+        01F06E13,
+        01C3DEB3,
+        00000F17,
+        F3D418E3,
+        00000F17,
+        F27444E3,
+        41C3DEB3,
+        003EFEB3,
+        00000F17,
+        F1D19CE3,
+        00040E93,
+        007EE663,
+        00000F17,
+        F09FF06F,
+        00000013,
+        00200F93,
+        407301B3,
+        40338233,
+        00102493,
+        0041A533,
+        00322533,
+        00000F17,
+        EEA482E3,
+        01E1DE93,
+        009E8663,
+        00000F17,
+        ED5FF06F,
+        00000013,
+        00300F93,
+        0030A513,
+        0012A5B3,
+        0030A633,
+        0FF57513,
+        00B57533,
+        00C57533,
+        00000F17,
+        EA0506E3,
+        0080B533,
+        00000F17,
+        EA0510E3,
+        00343533,
+        00000F17,
+        E8050AE3,
+        0030B513,
+        00000F17,
+        E80514E3,
+        00100593,
+        00B51663,
+        00000F17,
+        E79FF06F,
+        00000013,
+        00400F93,
+        0033E5B3,
+        00658663,
+        00000F17,
+        E61FF06F,
+        00000013,
+        00500F93,
+        02000913,
+        00592023,
+        00492223,
+        00092D83,
+        005DCDB3,
+        00692023,
+        00092E03,
+        01C34DB3,
+        00000F17,
+        E20A18E3,
+        A0000A37,
+        01492423,
+        FEDCBDB7,
+        40CDDD93,
+        00800E13,
+        01CD9DB3,
+        0FFDED93,
+        00B90E83,
+        01DDFDB3,
+        01B92423,
+        00895D83,
+        FFFF0A37,
+        01BA7A33,
+        00000F17,
+        DE0A1AE3,
+        00600F93,
+        00A94E03,
+        00B94E83,
+        008E9E93,
+        01CEEEB3,
+        010E9E93,
+        01DDEEB3,
+        00892E03,
+        00000F17,
+        DDDE16E3,
+        00092023,
+        01B91023,
+        0D000E13,
+        01C90123,
+        00092E03,
+        00D0DEB7,
+        BA0E8E93,
+        00000F17,
+        DBDE14E3,
+        00291D83,
+        0D000E13,
+        00000F17,
+        D9CD9CE3,
+        00700F93,
+        00000F17,
+        D800D6E3,
+        00145663,
+        00000F17,
+        D81FF06F,
+        00000F17,
+        D6107CE3,
+        00000F17,
+        D61478E3,
+        00000A17,
+        2AC00AE7,
+        00000F17,
+        D61FF06F,
+        008A0A13,
+        00000F17,
+        D55A1AE3,
+        66600F93,
+        D4DFF06F;
         ```
 
-    === "DMem.coe"
-
-        ```
-        memory_initialization_radix=16;
-        memory_initialization_vector=
-        f0000000, 000002AB, 80000000, 0000003F, 00000001, FFF70000, 0000FFFF, 80000000, 00000000, 11111111, 
-        22222222, 33333333, 44444444, 55555555, 66666666, 77777777, 88888888, 99999999, aaaaaaaa, bbbbbbbb, 
-        cccccccc, dddddddd, eeeeeeee, ffffffff, 557EF7E0, D7BDFBD9, D7DBFDB9, DFCFFCFB, DFCFBFFF, F7F3DFFF,
-        FFFFDF3D, FFFF9DB9, FFFFBCFB, DFCFFCFB, DFCFBFFF, D7DB9FFF, D7DBFDB9, D7BDFBD9, FFFF07E0, 007E0FFF,
-        03bdf020, 03def820, 08002300;
-        ```
-
-使用验收代码的预期表现与上一节基本相同，唯一变化是显示学号时，前两位(32)的显示将被改变。
+代码运行与[上节](./DataPath_CtrlUnit.md)验收代码描述基本一致。一切顺利的话，代码将进入 `dummy` 死循环，同时 `x31` 寄存器的值为 `0x666`；如果出现问题，你可以用 `x31` 确定指令发生在什么位置之后，同时 `0x30` 存储了跳转进 `dummy` 的跳转指令前一个指令的 PC 值，你可以利用这些信息进行错误筛查。
 
 ## 实验要求
 
@@ -302,4 +465,3 @@ SCPU 的仿真与上一节类似，请修改上一节提供的 testbench，使�
     * datapath 图。
     * CPU 代码并简要分析（重点部分结合 datapath 和 Verilog 代码解释）。
     * 仿真代码与波形截图（注意缩放比例、数制选择合适），并分析仿真波形。 
-    * 下板图片与现象描述。
