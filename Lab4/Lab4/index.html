@@ -1122,9 +1122,8 @@
 
 
 <h1 id="lab4">Lab4</h1>
-<div class="admonition danger">
-<p class="admonition-title">实验并未 release，内容随时都会变化。个人水平有限，如您发现文档中的疏漏欢迎 Issue！</p>
-</div>
+<!-- !!! danger "实验并未 release，内容随时都会变化。个人水平有限，如您发现文档中的疏漏欢迎 Issue！" -->
+
 <!-- !!! tip "**2023.4.5** 更新：。注意本附件并未经过验证，如果你发现错误，请与我联系修改，谢谢！" -->
 
 <p>本次实验需要完成单周期 CPU，实现 RISC-V 32I 指令集的所有指令，如果你对指令不熟悉，可以查看 RISC-V 手册或<a href="../../Other/RISC_V/">速查表</a>。</p>
@@ -1142,22 +1141,14 @@
 <p class="admonition-title">Tip</p>
 <ul>
 <li>你可能需要头文件来方便代码的书写或提高可读性，你可以参考附件 <a href="../attachment/Lab4_header.vh">Lab4_header.vh</a>.</li>
-<li>完成小实验后（如 Lab4-1），请做好工程备份（可以拷贝一份工程目录，或者使用 git 记录）。</li>
+<li>完成小实验后（如 Lab4-1），<strong>请做好工程备份</strong>（可以拷贝一份工程目录，或者使用 git 记录）。</li>
 <li>这里我们不推荐将 DataPath/CtrlUnit/SCPU 等你可能会频繁修改的模块封装为 IP 核使用，直接添加并引用源文件即可。</li>
+<li>如果你对实验的内容一头雾水，请先回顾理论课中控制单元和数据通路的相关部分。良好的理论基础是实验顺利的前提。</li>
 </ul>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">本实验需要提交实验报告（Lab4 的四个小实验合成一份提交）</p>
 </div>
-<p>提交实验报告时，你需要附上源代码。（如果跳过了某些实验，不用提交对应实验的代码和文件夹）</p>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>src_4_3210101145_王某某.zip/<span class="w"> </span><span class="c1"># 用一个zip打包源代码</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>├──<span class="w"> </span>Lab4_1
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>├──<span class="w"> </span>Lab4_2
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>├──<span class="w"> </span>Lab4_3
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>└──<span class="w"> </span>Lab4_4<span class="w">    </span><span class="c1"># 以上文件夹为每个实验的工程文件，包括你所使用的 IP 仓库，请不要遗漏</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>report_4_3210101145_王某某.pdf<span class="w"> </span><span class="c1"># 你的实验报告，Lab4 所有实验合成一份，注意提交PDF格式</span>
-</span></code></pre></div>
 
 
 
