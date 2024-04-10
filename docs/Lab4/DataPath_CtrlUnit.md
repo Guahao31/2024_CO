@@ -282,12 +282,12 @@ module ImmGen(
         ### uncomment instr. below when simulating on venus
             # srli x18, x7, 3     # base addr=10000000
             sw   x5, 0(x18)       # mem[0x20]=F8000000
-            sw   x4, 4(x18)       # mem[0x24]=C0000000
+            sw   x4, 4(x18)       # mem[0x24]=40000000
             lw   x29, 0(x18)      # x29=mem[0x20]=F8000000
             xor  x29, x29, x5     # x29=00000000
-            sw   x6, 0(x18)       # mem[0x20]=E0000000
-            lw   x30, 0(x18)      # x30=mem[0x20]=E0000000
-            xor  x29, x29, x30    # x29=E0000000
+            sw   x6, 0(x18)       # mem[0x20]=C0000000
+            lw   x30, 0(x18)      # x30=mem[0x20]=C0000000
+            xor  x29, x29, x30    # x29=C0000000
             beq  x6, x29, pass_5
             li   x31, 5
             j    dummy
