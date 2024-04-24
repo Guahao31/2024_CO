@@ -1,6 +1,6 @@
 # Exception & Interruption
 
-!!! danger "本实验并未 release，内容随时都会变化。个人水平有限，如您发现文档中的疏漏欢迎 Issue！"
+<!-- !!! danger "本实验并未 release，内容随时都会变化。个人水平有限，如您发现文档中的疏漏欢迎 Issue！" -->
 
 !!! danger "请先保存 Lab4-3 的工程文件"
 
@@ -72,9 +72,21 @@ CSR 指令相关含义请查看 [Volume II: RISC-V Privileged Architectures V202
 
 * 修改 CtrlUnit，增加 CSR 相关控制信号（如 CSR 寄存器的读写使能、CSR 寄存器的地址、写入 CSR 寄存器的模式等）。
 * 修改 Datapath，增加 CSR 寄存器的读写逻辑。
+* 在处理异常中断时，我们需要批量修改 CSR 寄存器。这可能需要修改 `CSRRegs` 的输入端口，你可以增加相关 CSR 的旁路输入，以及异常中断信号。当异常中断信号有效时，我们将旁路输入写到对应寄存器里。
+    ``` Verilog linenums="1"
+        ...
+        input expt_int;                 // 是否有异常中断
+        // 旁路输入
+        input [31:0]mepc_bypasss_in,
+        input [31:0]mscause_bypass_in,
+        input [31:0]mtval_bypass_in,
+        ... // mstatus 可以由外部输入，也可以在 CSR 模块内进行修改。
+    ```
+
 
 !!! Tips
     * 请注意设置 CSRs 的初始值（与寄存器不同，初始值不一定是全 0），并注意 `rst` 时恢复初始值。
+    * 为了方便 debug，你可以修改异常中断处理模块的输出端口，将 `mstatus, mtvec, mcause, mtval, mepc` 或者其他 CSR 接出，并输入到 VGA 显示模块中，以便观察异常中断处理过程中 CSR 的变化。
 
 ### 异常中断处理
 
@@ -124,13 +136,13 @@ module RV_INT(
 !!! Tip
     * `mtvec` 的值要与你所写代码中 trap 处理程序首条指令位置相同，如果你改变了代码，需要检查是不是需要修改 `mtvec` 的值。
     * 对于外部中断，你需要在顶层模块中增加一个外部中断信号，并与某个不使用的开关绑定（修改引脚约束文件），通过 `CSSTE-SCPU-RV_INT` 传入异常中断处理模块。
-    * 为了方便 debug，你可以修改异常中断处理模块的输出端口，将 `mstatus, mtvec, mcause, mtval, mepc` 或者其他 CSR 接出，并输入到 VGA 显示模块中，以便观察异常中断处理过程中 CSR 的变化。
+    * 你可以在 `RV_INT` 模块里实例化 `CSRRegs` 模块，也可以选择分别实例化。
 
 ### 软件实现
 
 你需要自行实现 trap 处理程序。我们要求**在软件中实现**：
 
-* 读出 `mepc`, `mscause`, `mtval`, `mstatus`, `mtvec` 的值，放在某个寄存器当中。
+* 读出 `mepc`, `mscause`, `mtval`, `mstatus`, `mtvec` 的值，放在某个寄存器当中。为了防止通用寄存器中的有效值丢失，最好选择在之前代码里未被使用的寄存器。
 * 将 `mepc` 读出，处理 `mepc`：
     * 对于异常（非法指令），`mepc <- mepc + 4`。
     * 对于中断，如果是软件中断 `ecall`，`mepc <- mepc + 4`。如果是硬件中断，`mepc <- mepc`。（请使用 `mcause` 进行区分）
