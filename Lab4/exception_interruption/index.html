@@ -1640,6 +1640,7 @@ exception or an interrupt.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <ul>
+<li>因为我们没有实现用户态、特权态等功能，因此我们认为我们的代码都是跑在 Machine（M）模式下。</li>
 <li><code>mtvec</code> 的值要与你所写代码中 trap 处理程序首条指令位置相同，如果你改变了代码，需要检查是不是需要修改 <code>mtvec</code> 的值。</li>
 <li>对于外部中断，你需要在顶层模块中增加一个外部中断信号，并与某个不使用的开关绑定（修改引脚约束文件），通过 <code>CSSTE-SCPU-RV_INT</code> 传入异常中断处理模块。</li>
 <li>你可以在 <code>RV_INT</code> 模块里实例化 <code>CSRRegs</code> 模块，也可以选择分别实例化。修改 CSR 时你可以采用旁路输入的方法统一修改，也可以自己设计一个状态机，模拟 CSR 指令，每个周期执行一条 CSR 指令来修改对应的寄存器。</li>
@@ -1665,6 +1666,7 @@ exception or an interrupt.</p>
 <li>为了不修改 trap 处理程序的跳转指令，你可以在原本 <code>mret</code> 的地方写一条 NOP 语句 <code>add x0, x0, x0</code> 来占一条指令的位置，在之后将它替换为 <code>mret</code>。</li>
 </ul>
 </li>
+<li>在实际操作系统的 trap 处理中，我们会在进入 trap 处理程序之前，通过汇编代码将所有的通用寄存器保存在栈上，在退出 trap 处理程序时将所有的通用寄存器值恢复，这样我们在处理程序里可以使用任意的通用寄存器。本节实验你也可以这样做。更简单的做法是你直接选择在处理程序外没有被使用过的寄存器即可。</li>
 </ul>
 </div>
 <h2 id="_5">波形仿真</h2>
