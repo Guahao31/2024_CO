@@ -84,11 +84,11 @@ nav:
     - 基本 SCPU: Lab4/basic_scpu.md
     - 基本的控制单元和数据通路: Lab4/DataPath_CtrlUnit.md
     - 指令拓展: Lab4/instr_extension.md
-  #   - Exception & Interruption: Lab4/exception_interruption.md
-  # - Lab5:
-  #   - Lab5/Lab5.md
-  #   - 基础流水线: Lab5/pipeline_basic.md
-  #   - 解决冲突: Lab5/pipeline_hazard.md
+    - Exception & Interruption: Lab4/exception_interruption.md
+  - Lab5:
+    - Lab5/Lab5.md
+    - 基础流水线: Lab5/pipeline_basic.md
+    - 解决冲突: Lab5/pipeline_hazard.md
 
   - Other:
     - Git 基础: Other/about_git.md
