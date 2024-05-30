@@ -6,7 +6,7 @@
 
 * 你需要基于 Lab4-3 或者 Lab5-1 的代码进行修改。
 * 对于**数据冒险**，你可以通过 stall 或者 forwarding（前递）的方式解决冲突。
-* 对于**结构冒险**，你可以通过 stall 或者 branch prediction（分支预测）的方式解决冲突。
+* 对于**控制冒险**，你可以通过 stall 或者 branch prediction（分支预测）的方式解决冲突。
     * 常见的 branch prediction 算法有：predict-taken（预测分支总是发生）、predict-not-taken（预测分支总是不发生）、2-bit predict（两位预测器）等。
 * 如果你使用了 forwarding 解决数据冒险或者使用了 branch prediction 解决结构冒险，我们可以给予你一定的 **bonus** 作为奖励（分数仅记入本次实验，无法溢出到平时分），你需要在你的报告中说明你的实现。如果你对 forwarding、branch prediction 的实现有疑惑，请回顾理论课所讲内容。
 * 无论你是先完成 Lab5-1 再完成 Lab5-2，还是直接进行 Lab5-2。验收时，你都需要提供自己绘制的 CPU datapath 图。原理图不必包括冒险的处理。
