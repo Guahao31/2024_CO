@@ -11,6 +11,8 @@
 
 请修改 VGA 模块或串口模块，将阶段寄存器存储的信号打印出来，[VGA 附件](./attachment/VGA.zip)。
 
+使用 VGA 可能出现各种问题，这里提供基于 UART 的调试模块 [Lab5_UART](./attachment/Lab5_UART.zip) 替代 VGA。感谢 22 级图灵班[薛辰立](https://github.com/wxxcl0825)同学的大力协助！
+
 !!! warning "本实验需要提交实验报告（Lab5 的两个小实验合成一份提交）"
 
 !!! warning "本实验需要验收"
