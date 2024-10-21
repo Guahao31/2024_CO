@@ -1,6 +1,6 @@
 # 基本 SCPU
 
-!!! tip "[Lab4-0 附件](https://pan.zju.edu.cn/share/f8e25fa70962b721082cc31492)"
+!!! tip "[Lab4-0 附件](./attachment/Lab04-0.zip)"
 
 ## 模块实现
 
