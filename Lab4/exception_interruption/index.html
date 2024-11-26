@@ -1248,7 +1248,7 @@
 </div>
 <h2 id="_1">前置知识</h2>
 <h3 id="exception-and-interruption">Exception and Interruption</h3>
-<p>在 <a href="../attachment/riscv-spec-20191213.pdf">Volume I: RISC-V Unprivileged ISA V20191213</a> 第 1.6 节，有对 exception 和 interruption 的解释：</p>
+<p>在标准中有对 exception 和 interruption 的解释：</p>
 <blockquote>
 <p>We use the term <strong><em>exception</em></strong> to refer to an unusual condition occurring at run time <strong>associated with
 an instruction</strong> in the current RISC-V hart. We use the term <strong><em>interrupt</em></strong> to refer to an <strong>external
@@ -1259,7 +1259,7 @@ exception or an interrupt.</p>
 <p>为了方便文档描述，下文中我们用“中断”指代 <em>interruption</em>，用“异常”指代 <em>exception</em>，用 <em>trap</em> 表示中断与异常。</p>
 <h3 id="control-and-status-registerscsrs">Control and Status Registers(CSRs)</h3>
 <p>在 32 个通用寄存器之外（即 <code>x0 - x31</code>），还有若干<em>控制状态寄存器</em>(Control and Status Register, CSR)。在我们的实验中，CPU 始终运行在 Machine Mode 下，在本实验中我们只需要关注 Machine Mode 下的部分 CSR。</p>
-<p>对于每个 CSR 的详细介绍，请查看 <a href="../attachment/riscv-privileged-20211203.pdf">Volume II: RISC-V Privileged Architectures V20211203</a>，这里仅对我们本次实验需要用到的 CSRs 进行简介：</p>
+<p>对于每个 CSR 的详细介绍，请查看 <a href="https://github.com/riscv/riscv-isa-manual/releases/download/riscv-isa-release-382fd8b-2024-04-11/priv-isa-asciidoc.pdf">Volume II: RISC-V Privileged Architectures V20240411</a>，这里仅对我们本次实验需要用到的 CSRs 进行简介：</p>
 <ul>
 <li><strong>mstatus</strong>： Machine Status Register，存储当前控制状态。<ul>
 <li><img alt="" src="../pic/mstatus.png" /></li>
@@ -1294,7 +1294,7 @@ exception or an interrupt.</p>
 <p>本实验需要修改 Lab4-3 中的 CPU，使其支持操作 CSR 寄存器。</p>
 <p>需要支持的 CSR 寄存器有：<code>mstatus</code>, <code>mtvec</code>, <code>mcause</code>, <code>mtval</code>, <code>mepc</code>. </p>
 <p>需要实现的 CSR 相关指令有：<code>csrrw</code>, <code>csrrs</code>, <code>csrrc</code>, <code>csrrwi</code>, <code>csrrsi</code>, <code>csrrci</code>, <code>ecall</code>, <code>mret</code>.</p>
-<p>CSR 指令相关含义请查看 <a href="../attachment/riscv-privileged-20211203.pdf">Volume II: RISC-V Privileged Architectures V20211203</a>, 也可见 <a href="https://note.tonycrane.cc/cs/pl/riscv/privileged/#csr-zicsr">TonyCrane 的 RISC-V 特权级 ISA 笔记</a>.</p>
+<p>CSR 指令相关含义请查看 <a href="https://github.com/riscv/riscv-isa-manual/releases/download/riscv-isa-release-382fd8b-2024-04-11/priv-isa-asciidoc.pdf">Volume II: RISC-V Privileged Architectures V20240411</a>， 也可见 <a href="https://note.tonycrane.cc/cs/pl/riscv/privileged/#csr-zicsr">TonyCrane 的 RISC-V 特权级 ISA 笔记</a>。</p>
 <p>具体来说，可以分为下面几步：</p>
 <ul>
 <li>
@@ -1347,9 +1347,12 @@ exception or an interrupt.</p>
 <h3 id="_3">异常中断处理</h3>
 <p>本实验需要修改 Lab4-3 中的 CPU，使其支持下面的 3 种中断异常：</p>
 <ul>
-<li>IO 外设产生的硬件中断（检测某个开关打开）</li>
+<li>IO 外设产生的硬件<strong>中断</strong>（检测某个开关打开）</li>
+<li>异常<ul>
 <li>非法指令（未定义指令，即指令无法被正确译码）</li>
 <li><code>ecall</code> 指令（软件中断）</li>
+</ul>
+</li>
 </ul>
 <p>具体来说，可以分为下面几步：</p>
 <ul>
@@ -1415,12 +1418,12 @@ exception or an interrupt.</p>
 <ul>
 <li>读出 <code>mepc</code>, <code>mscause</code>, <code>mtval</code>, <code>mstatus</code>, <code>mtvec</code> 的值，放在某个寄存器当中。为了防止通用寄存器中的有效值丢失，最好选择在之前代码里未被使用的寄存器。</li>
 <li>将 <code>mepc</code> 读出，处理 <code>mepc</code>：<ul>
-<li>对于异常（非法指令），<code>mepc &lt;- mepc + 4</code>。</li>
-<li>对于中断，如果是软件中断 <code>ecall</code>，<code>mepc &lt;- mepc + 4</code>。如果是硬件中断，<code>mepc &lt;- mepc</code>。（请使用 <code>mcause</code> 进行区分）</li>
+<li>对于异常（非法指令与 <code>ecall</code>），<code>mepc &lt;- mepc + 4</code>。</li>
+<li>对于中断，<code>mepc &lt;- mepc</code>。（请使用 <code>mcause</code> 进行区分）</li>
 </ul>
 </li>
 <li>调用 <code>mret</code> 返回到原来的程序。（此时要恢复进入处理程序所保存的信息）</li>
-<li>对于非法指令，<code>ecall</code>，硬件中断，你<strong>不需要</strong>在 trap 处理程序中进行其他如修正非法指令这样的处理，执行完上述操作即可。</li>
+<li>对于非法指令、<code>ecall</code> 与外部中断，你<strong>不需要</strong>在 trap 处理程序中进行其他如修正非法指令这样的处理，执行完上述操作即可。</li>
 </ul>
 <p>除了 trap 处理程序，你还需要在程序开头通过 CSR 指令设置 <code>mtvec</code> 的值，使得发生异常中断时我们的程序能够跳转到 trap 处理程序。</p>
 <div class="admonition tip">
@@ -1475,7 +1478,7 @@ exception or an interrupt.</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>lui t0, 0x22223
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>addi t0, t0, 0x333
 </span></code></pre></div>
-你是否能通过以下代码得到 <code>0xDEADBEEF</code>？如果你觉得不能的话，先解释为什么不能，再修改代码中的<strong>一个字符</strong>，使得以下代码有效地得到 <code>0xDEADBEEF</code>。（如果你觉得可以的话，请重新学习 <a href="../attachment/riscv-spec-20191213.pdf">RISC-V ISA</a>）
+你是否能通过以下代码得到 <code>0xDEADBEEF</code>？如果你觉得不能的话，先解释为什么不能，再修改代码中的<strong>一个字符</strong>，使得以下代码有效地得到 <code>0xDEADBEEF</code>。（如果你觉得可以的话，请重新学习 <a href="https://github.com/riscv/riscv-isa-manual/releases/download/riscv-isa-release-382fd8b-2024-04-11/unpriv-isa-asciidoc.pdf">RISC-V ISA</a>）
 <div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>lui t1, 0xDEADB
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>addi t1, t1, -273 // 0xEEF
 </span></code></pre></div></li>
