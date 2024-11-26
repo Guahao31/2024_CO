@@ -8,7 +8,7 @@
 
 ### Exception and Interruption
 
-在 [Volume I: RISC-V Unprivileged ISA V20191213](./attachment/riscv-spec-20191213.pdf) 第 1.6 节，有对 exception 和 interruption 的解释：
+在标准中有对 exception 和 interruption 的解释：
 
 > We use the term ***exception*** to refer to an unusual condition occurring at run time **associated with
 an instruction** in the current RISC-V hart. We use the term ***interrupt*** to refer to an **external
@@ -22,7 +22,7 @@ exception or an interrupt.
 
 在 32 个通用寄存器之外（即 `x0 - x31`），还有若干*控制状态寄存器*(Control and Status Register, CSR)。在我们的实验中，CPU 始终运行在 Machine Mode 下，在本实验中我们只需要关注 Machine Mode 下的部分 CSR。
 
-对于每个 CSR 的详细介绍，请查看 [Volume II: RISC-V Privileged Architectures V20211203](./attachment/riscv-privileged-20211203.pdf)，这里仅对我们本次实验需要用到的 CSRs 进行简介：
+对于每个 CSR 的详细介绍，请查看 [Volume II: RISC-V Privileged Architectures V20240411](https://github.com/riscv/riscv-isa-manual/releases/download/riscv-isa-release-382fd8b-2024-04-11/priv-isa-asciidoc.pdf)，这里仅对我们本次实验需要用到的 CSRs 进行简介：
 
 * **mstatus**： Machine Status Register，存储当前控制状态。
     * ![](./pic/mstatus.png)
@@ -52,7 +52,7 @@ exception or an interrupt.
 
 需要实现的 CSR 相关指令有：`csrrw`, `csrrs`, `csrrc`, `csrrwi`, `csrrsi`, `csrrci`, `ecall`, `mret`.
 
-CSR 指令相关含义请查看 [Volume II: RISC-V Privileged Architectures V20211203](./attachment/riscv-privileged-20211203.pdf), 也可见 [TonyCrane 的 RISC-V 特权级 ISA 笔记](https://note.tonycrane.cc/cs/pl/riscv/privileged/#csr-zicsr).
+CSR 指令相关含义请查看 [Volume II: RISC-V Privileged Architectures V20240411](https://github.com/riscv/riscv-isa-manual/releases/download/riscv-isa-release-382fd8b-2024-04-11/priv-isa-asciidoc.pdf)， 也可见 [TonyCrane 的 RISC-V 特权级 ISA 笔记](https://note.tonycrane.cc/cs/pl/riscv/privileged/#csr-zicsr)。
 
 具体来说，可以分为下面几步：
 
@@ -92,9 +92,10 @@ CSR 指令相关含义请查看 [Volume II: RISC-V Privileged Architectures V202
 
 本实验需要修改 Lab4-3 中的 CPU，使其支持下面的 3 种中断异常：
 
-* IO 外设产生的硬件中断（检测某个开关打开）
-* 非法指令（未定义指令，即指令无法被正确译码）
-* `ecall` 指令（软件中断）
+* IO 外设产生的硬件**中断**（检测某个开关打开）
+* 异常
+    * 非法指令（未定义指令，即指令无法被正确译码）
+    * `ecall` 指令（软件中断）
 
 具体来说，可以分为下面几步：
 
@@ -145,10 +146,10 @@ module RV_INT(
 
 * 读出 `mepc`, `mscause`, `mtval`, `mstatus`, `mtvec` 的值，放在某个寄存器当中。为了防止通用寄存器中的有效值丢失，最好选择在之前代码里未被使用的寄存器。
 * 将 `mepc` 读出，处理 `mepc`：
-    * 对于异常（非法指令），`mepc <- mepc + 4`。
-    * 对于中断，如果是软件中断 `ecall`，`mepc <- mepc + 4`。如果是硬件中断，`mepc <- mepc`。（请使用 `mcause` 进行区分）
+    * 对于异常（非法指令与 `ecall`），`mepc <- mepc + 4`。
+    * 对于中断，`mepc <- mepc`。（请使用 `mcause` 进行区分）
 * 调用 `mret` 返回到原来的程序。（此时要恢复进入处理程序所保存的信息）
-* 对于非法指令，`ecall`，硬件中断，你**不需要**在 trap 处理程序中进行其他如修正非法指令这样的处理，执行完上述操作即可。
+* 对于非法指令、`ecall` 与外部中断，你**不需要**在 trap 处理程序中进行其他如修正非法指令这样的处理，执行完上述操作即可。
 
 除了 trap 处理程序，你还需要在程序开头通过 CSR 指令设置 `mtvec` 的值，使得发生异常中断时我们的程序能够跳转到 trap 处理程序。
 
@@ -198,7 +199,7 @@ module RV_INT(
     lui t0, 0x22223
     addi t0, t0, 0x333
     ```
-    你是否能通过以下代码得到 `0xDEADBEEF`？如果你觉得不能的话，先解释为什么不能，再修改代码中的**一个字符**，使得以下代码有效地得到 `0xDEADBEEF`。（如果你觉得可以的话，请重新学习 [RISC-V ISA](./attachment/riscv-spec-20191213.pdf)）
+    你是否能通过以下代码得到 `0xDEADBEEF`？如果你觉得不能的话，先解释为什么不能，再修改代码中的**一个字符**，使得以下代码有效地得到 `0xDEADBEEF`。（如果你觉得可以的话，请重新学习 [RISC-V ISA](https://github.com/riscv/riscv-isa-manual/releases/download/riscv-isa-release-382fd8b-2024-04-11/unpriv-isa-asciidoc.pdf)）
     ```
     lui t1, 0xDEADB
     addi t1, t1, -273 // 0xEEF
