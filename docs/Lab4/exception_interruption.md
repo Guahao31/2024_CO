@@ -121,8 +121,8 @@ module RV_INT(
     input       ecall,            // ECALL 指令
     input       mret,             // MRET 指令
     input       illegal_inst,     // 非法指令信号
-    input       l_access_fault,   // 数据访存不对齐
-    input       j_access_fault,   // 跳转地址不对齐
+//  input       l_access_fault,   // 数据访存不对齐
+//  input       j_access_fault,   // 跳转地址不对齐
     input [31:0] pc_current,      // 当前指令 PC 值
     output       en,              // 用于控制寄存器堆、内存等器件的写使能
     output[31:0] pc               // 将执行的指令 PC 值
